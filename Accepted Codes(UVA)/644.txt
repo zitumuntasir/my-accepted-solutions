@@ -1,0 +1,69 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+struct ss{
+	char st[15];
+}sr[100];
+bool cmp(ss aa,ss bb)
+{
+	return strlen(aa.st)<strlen(bb.st);
+}
+int main()
+{
+	long test=0,num,i,found,k,j,n,l,y;
+	num=0;
+	while(gets(sr[num].st))
+	{
+		test++;
+		num++;
+		while(scanf("%s",sr[num].st)&&strcmp(sr[num].st,"9")!=0)
+		{
+			num++;
+		}
+	sort(sr,sr+num,cmp);
+	for(i=0;i<num;i++)
+	{
+		
+		for(j=i+1;j<=num;j++)
+		{
+			l=n=0;
+	
+			while(sr[i].st[l]!=NULL)
+			{
+				if(sr[i].st[l]!=sr[j].st[l])
+				{
+					n=1;
+					 break;
+				}
+				l++;
+			}
+			if(n==0)
+			{
+			printf("Set %ld is not immediately decodable\n",test);
+			break;
+			}
+		}
+		if(n==0)
+			break;
+	}
+	if(n==1)
+		printf("Set %ld is immediately decodable\n",test);
+		num=0;
+		getchar();
+}
+	return 0;
+}

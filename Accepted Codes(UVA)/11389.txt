@@ -1,0 +1,59 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+struct ss{
+	long a;
+}T[1000],T1[1000];
+bool cmp(ss aa,ss bb)
+{
+	return aa.a<bb.a;
+}
+int main()
+{
+	long n,r,i,d,sum,j,sum1;
+	while(1)
+	{
+		scanf("%ld%ld%ld",&n,&d,&r);
+		if(n==0&&d==0&&r==0)
+			break;
+		else
+		{
+		sum=sum1=0;
+		for(i=0;i<n;i++)
+		{
+			scanf("%ld",&T[i].a);
+		}
+		for(i=0;i<n;i++)
+		{
+			scanf("%ld",&T1[i].a);
+		}
+		sort(T,T+n,cmp);
+		sort(T1,T1+n,cmp);
+		for(i=0,j=n-1;i<n;i++,j--)
+		{
+			sum=(T[i].a+T1[j].a-d);
+			if(sum>0)
+				sum1+=(sum*r);
+		}
+		if(sum1<=0)
+			printf("0\n");
+		else
+		printf("%ld\n",sum1);
+		}
+	}
+	return 0;
+}

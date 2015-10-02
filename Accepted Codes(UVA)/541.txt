@@ -1,0 +1,65 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+using namespace std;
+long ara[110][110];
+long sumr[110],sumc[110];
+int main()
+{
+	long i,j,test,s,t,q,r,k,p;
+	while(scanf("%ld",&test)&&test!=0)
+	{
+		i=j=s=t=q=r=k=p=0;
+		for(i=1;i<=test;i++)
+		{
+			for(j=1;j<=test;j++)
+			{
+				scanf("%ld",&ara[i][j]);
+
+				sumr[i]+=ara[i][j];
+				sumc[j]+=ara[i][j];
+			}
+		}
+		for(k=1;k<=test;k++)
+		{
+			if(sumr[k]%2!=0)
+			{
+				s=k;
+				q++;
+			}
+			if(sumc[k]%2!=0)
+			{
+				t=k;
+				r++;
+			}
+		}
+		if(q==1&&r==1)
+		{
+			printf("Change bit (%ld,%ld)\n",s,t);
+		}
+	   else	if(q>1||r>1)
+			printf("Corrupt\n");
+	    else
+			printf("OK\n");
+		for(i=1;i<=test;i++)
+		{
+			sumr[i]=sumc[i]=0;
+			for(j=1;j<=test;j++)
+			{
+				ara[i][j]=0;
+			}
+		}
+
+	}
+	return 0;
+}

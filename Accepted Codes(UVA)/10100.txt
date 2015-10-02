@@ -1,0 +1,105 @@
+#include<stdio.h>
+#include<iostream>
+#include<string.h>
+#include<string>
+#include<string.h>
+#include <ctype.h>
+using namespace std;
+long mat[10000][10000], m, n,p,q;
+char s1[10000], s2[10000],s3[10000];
+char str[10000][10000],str1[10000][10000];
+void init()
+{
+	long i;
+	m = strlen(s1);
+	n = strlen(s2);
+	for(i=0; i<10000; i++)
+		mat[i][0] = mat[0][i] = 0;
+}
+long LCS()
+{
+	long max=0,i,j;
+	for(i=1; i<=p; i++)
+		for(j=1; j<=q; j++)
+			if(strcmp(str[i-1],str1[j-1])==0)
+			{
+				mat[i][j] = mat[i-1][j-1] + 1;
+				if(max<=mat[i-1][j-1] + 1)
+				{
+					max=mat[i-1][j-1] + 1;
+				}
+			}
+			else if(mat[i-1][j]>mat[i][j-1])
+				mat[i][j] = mat[i-1][j];
+			else
+				mat[i][j] = mat[i][j-1];
+			return max;
+}
+int main()
+{
+	char *pch;
+	long i=0,len,j=0,num=0;
+	while(gets(s1))
+	{
+		num++;
+		gets(s3);
+		strcpy(s2,s3);
+			if(strlen(s1)==0||strlen(s3)==0)
+			printf("%2ld. Blank!\n",num);
+			else
+			{
+		
+		len=strlen(s1);
+		for(i=0;i<len;i++)
+		{
+			if(!isalnum(s1[i]))
+				s1[i]=' ';
+		}
+		if(s1[i-1]!=' ')
+		{
+			s1[i]=' ';
+			s1[i+1]=0;
+		}
+		else
+		{
+			s1[i]=0;
+		}
+		pch=strtok(s1," ");
+		j=0;
+		while(pch!=NULL)
+		{
+			p++;
+		    	strcpy(str[j],pch);
+			 pch = strtok (NULL," ");
+			 j++;
+		}
+		for(i=0;i<strlen(s2);i++)
+		{
+			if(!isalnum(s2[i]))
+				s2[i]=' ';
+		}
+		if(s2[i-1]!=' ')
+		{
+			s2[i]=' ';
+			s2[i+1]=0;
+		}
+		else
+		{
+			s2[i]=0;
+		}
+		pch=strtok(s2," ");
+		j=0;
+		while(pch!=NULL)
+		{
+			q++;
+		    	strcpy(str1[j],pch);
+			 pch = strtok (NULL," ");
+			 j++;
+		}
+		init();
+		printf("%2ld. Length of longest match: %ld\n",num,LCS());
+		p=0,q=0;
+			}
+}
+	return 0;
+}

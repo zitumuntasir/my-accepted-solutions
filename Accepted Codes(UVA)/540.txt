@@ -1,0 +1,111 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+const double eps = 1e-9;
+map<long,long>mp;
+char ch[30];
+vector<long>vc[10000];
+queue<long>qu;
+long ara[10000];
+int main()
+{
+	long test,num,i,cse=0,j,k,id,d,r,res,n;
+	while(scanf("%ld",&test)&&test)
+	{
+		cse++;
+	  for(i=0,k=-1;i<test;i++,k--)
+	  {
+		  scanf("%ld",&num);
+		  for(j=0;j<num;j++)
+		  {
+			  scanf("%ld",&id);
+			  mp[id]=k;
+		  }
+	  }
+	  printf("Scenario #%ld\n",cse);
+	  while(scanf("%s",ch)&&(strcmp(ch,"STOP")!=0))
+	  {
+		  n=0;
+		  if(ch[0]=='E')
+		  {
+			  scanf("%ld",&id);
+			  d=mp[id]*(-1);
+			  if(vc[d].empty())
+			  {
+				  ara[d]=0;
+			  }
+			  if(ara[d]==0)
+			  {
+				  ara[d]=1;
+				  qu.push(d);
+			  }
+			  vc[d].push_back(id);
+		  }
+		  else
+		  {
+			  while(!qu.empty())
+			  {
+				  r=qu.front();
+				  if(!vc[r].empty())
+				  {
+					  
+					  res=vc[r].front();
+					  printf("%ld\n",res);
+					  vc[r].erase(vc[r].begin());
+					  n++;
+				  }
+				  if(vc[r].empty())
+				  {
+					  qu.pop();
+					  n=0;
+				  }
+				  break;
+			  }
+			  
+		  }
+	  }
+	  printf("\n");
+	  while(!qu.empty()) qu.pop();
+	  for(i=0;i<=test;i++)
+	  {
+		  vc[i].clear();
+		  ara[i]=0;
+	  }
+	  mp.clear();
+
+	}
+	return 0;
+}

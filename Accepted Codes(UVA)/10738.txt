@@ -1,0 +1,138 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<sstream>
+#include<queue>
+#include<cstring>
+#include<map>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define err 1e-9
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+long ara[1000000],prime[1000000],ara1[1000000],ara2[1000000],ara3[1000000];
+void sieve()
+{
+	long i,j,k=0;
+	prime[0]=2;
+	for(i=3;i<=1000000;i+=2)
+	{
+		if(ara[i]==0)
+		{
+			k++;
+			prime[k]=i;
+			if(i<=1000)
+			{
+			for(j=i*i;j<=1000000;j+=(2*i))
+			{
+				ara[j]=1;
+			}
+			}
+		}
+	}
+}
+void mart()
+{
+	sieve();
+	long p,num,i,cnt,count,n,root,sum=-1;
+	ara1[1]=1;
+	ara1[2]=-1;
+	ara1[3]=-1;
+	ara3[1]=1;
+	ara3[2]=0;
+	ara3[3]=-1;
+	for(p=4;p<=1000000;p++)
+	{
+		num=p;
+		count=n=0;
+		if(ara[p]==0&&(p%2!=0))
+		{
+			ara1[p]=-1;
+			sum+=ara1[p];
+			ara3[p]=sum;
+
+		}
+		 else
+		 {
+			root=sqrt(num);
+		for(i=0;prime[i]<=root;i++)
+		{
+			if(num%prime[i]==0)
+			{
+				cnt=0;
+				while(num%prime[i]==0)
+				{
+					cnt++;
+					count++;
+					num/=prime[i];
+					if(cnt>1)
+					{
+						n=1;
+						ara1[p]=0;
+						ara2[p]=1;
+						sum+=ara1[p];
+						ara3[p]=sum;
+						break;
+					}
+				}
+				if(n==1)
+					break;
+				if(ara2[num]==1)
+				{
+					n=1;
+					ara1[p]=0;
+					ara2[p]=1;
+					sum+=ara1[p];
+					ara3[p]=sum;
+					break;
+				}
+			}
+		}
+			     if(num>1&&n==0)
+				{
+				 count++;
+				}
+		if(odd(count)&&n==0)
+		{
+			ara1[p]=-1;
+			sum+=ara1[p];
+			ara3[p]=sum;
+		}
+		else if(even(count)&&n==0)
+		{
+			ara1[p]=1;
+			sum+=ara1[p];
+			ara3[p]=sum;
+		}
+
+		 }
+	}
+}
+int main()
+{
+	mart();
+	long num;
+	while(scanf("%ld",&num)&&num)
+	{
+		printf("%8ld%8ld%8ld\n",num,ara1[num],ara3[num]);
+	}
+	return 0;
+}

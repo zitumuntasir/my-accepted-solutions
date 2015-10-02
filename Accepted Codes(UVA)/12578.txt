@@ -1,0 +1,16 @@
+#include<stdio.h>
+#include<math.h>
+#define pi acos(-1)
+int main()
+{
+	double test,a,b,r,i;
+	scanf("%lf",&test);
+	for(i=0;i<test;i++)
+	{
+		scanf("%lf",&a);
+		r=a/5;
+		b=(a*3)/5;
+		printf("%.2lf %.2lf\n",(pi*r*r)+.000000001,((a*b)-(r*r*pi))+.000000001);
+	}
+	return 0;
+}

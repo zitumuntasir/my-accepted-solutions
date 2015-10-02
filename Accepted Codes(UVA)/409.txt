@@ -1,0 +1,78 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+map<string,long>mp;
+char ch[1000],str[100][1000],st[1000];
+long ara[1000];
+int main()
+{
+	long i,l,num1,num2,k,max,test=0,j,len;
+	char c,s;
+	while(scanf("%ld%ld",&num1,&num2)!=EOF)
+	{
+		test++;
+		max=0;
+		getchar();
+		for(i=0;i<num1;i++)
+		{
+			gets(ch);
+			mp[ch]=1;
+		}
+		for(i=0;i<num2;i++)
+		{
+		    	k=0;
+			    gets(str[i]);
+				len=strlen(str[i]);
+				for(j=0;j<len;j++)
+				{
+					if(str[i][j]>=65&&str[i][j]<=90)
+					{
+				     c=str[i][j]+32;
+					}
+					else c=str[i][j];
+				if(c==' '||c=='@'||c=='#'||c=='.'||c==','||c=='!'||c=='?'||c=='&'||c=='\"'||c==NULL)
+				{
+					st[k]=NULL;
+					if(mp[st]==1)
+					{
+						ara[i]++;
+					}
+					k=0;
+				}
+				  else
+				  {
+					st[k]=c;
+				 	k++;
+				  }
+				}
+			if(max<=ara[i])
+			{
+				max=ara[i];
+			}
+		}
+		printf("Excuse Set #%ld\n",test);
+		for(i=0;i<num2;i++)
+		{
+			if(ara[i]==max)
+			puts(str[i]);
+			ara[i]=0;
+		}
+		printf("\n");
+		mp.clear();
+	}
+	return 0;
+}

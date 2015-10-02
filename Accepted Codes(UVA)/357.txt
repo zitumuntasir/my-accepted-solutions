@@ -1,0 +1,30 @@
+#include<stdio.h>
+long ara[]={1,5,10,25,50};
+long mway[30010];
+void cng()
+{
+	long i,j;
+	for(i=0;i<5;i++)
+	{
+		for(j=ara[i];j<=30000;j++)
+		{
+			mway[j]+=mway[j-ara[i]];
+		}
+	}
+}
+int main()
+{
+	mway[0]=1;
+	long num;
+	cng();
+	while(scanf("%ld",&num)!=EOF)
+	{
+		if(mway[num]==1)
+		{
+			printf("There is only 1 way to produce %ld cents change.\n",num);
+		}
+		else
+		printf("There are %ld ways to produce %ld cents change.\n",mway[num],num);
+	}
+	return 0;
+}

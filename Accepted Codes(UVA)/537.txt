@@ -1,0 +1,77 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+map<char,double>mp;
+char ch[10000],ch1[10000];
+int main()
+{
+	double val;
+	long i,j,k,test,len;
+	char c;
+	scanf("%ld",&test);
+	getchar();
+	for(i=1;i<=test;i++)
+	{
+		gets(ch);
+		len=strlen(ch);
+		for(j=0;j<len;j++)
+		{
+			if((ch[j]=='I'||ch[j]=='P'||ch[j]=='U')&&ch[j+1]=='=')
+			{
+				c=ch[j];
+				j+=2;
+				k=0.00;
+				while(isdigit(ch[j])||ch[j]=='.')
+				{
+					ch1[k]=ch[j];
+					j++;
+					k++;
+				}
+				ch1[k]=0;
+				sscanf(ch1,"%lf",&val);
+				if(ch[j]=='m')
+				{
+					val/=1000.00;
+					mp[c]=val;
+				}
+				else if(ch[j]=='k')
+				{
+					val*=1000.00;
+					mp[c]=val;
+				}
+				 else if(ch[j]=='M')
+				{
+					val*=1000000.00;
+					mp[c]=val;
+				}
+				 else
+				 {
+					 mp[c]=val;
+				 }
+			}
+		}
+		printf("Problem #%ld\n",i);
+		if(mp['P']==0.00)
+			printf("P=%.2lfW\n\n",mp['I']*mp['U']);
+		else if(mp['I']==0.00)
+			printf("I=%.2lfA\n\n",mp['P']/mp['U']);
+				else
+			printf("U=%.2lfV\n\n",mp['P']/mp['I']);
+				mp.clear();
+	}
+	return 0;
+}

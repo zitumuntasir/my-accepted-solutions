@@ -1,0 +1,116 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+char ch1[1000],ch2[1000],str1[10][1000],str2[10][1000],st[1000];
+int main()
+{
+	long i,len,ln,j,k,l,test=0;
+	strcpy(str1[0],"eu"),strcpy(str1[1],"tu"),strcpy(str1[2],"ele/ela");
+	str1[3][0]='n',str1[3][1]=243,str1[3][2]='s',str1[3][3]=NULL;
+	str1[4][0]='v',str1[4][1]=243,str1[4][2]='s',str1[4][3]=NULL;
+	strcpy(str1[5],"eles/elas");
+	while(gets(st))
+	{
+		if(test>0)
+			printf("\n");
+		k=l=0;
+		while(st[k]!=' ')
+		{
+			ch1[k]=st[k];
+			k++;
+		}
+		ch1[k]=NULL;
+		while(st[k]==' ')
+			k++;
+		while(st[k]!=NULL)
+		{
+			ch2[l]=st[k];
+			k++;
+			l++;
+		}
+		ch2[l]=NULL;
+		printf("%s (to %s)\n",ch1,ch2);
+		len=strlen(ch1);
+		if(ch1[len-2]=='a'&&ch1[len-1]=='r')
+		{
+
+			ch1[len-2]=NULL;
+			for(i=0;i<=5;i++)
+				strcpy(str2[i],ch1);
+			str2[0][len-2]='o',str2[0][len-1]=NULL;
+			str2[1][len-2]='a',str2[1][len-1]='s',str2[1][len]=NULL;
+			str2[2][len-2]='a',str2[2][len-1]=NULL;
+			str2[3][len-2]='a',str2[3][len-1]='m',str2[3][len]='o',str2[3][len+1]='s',str2[3][len+2]=NULL;
+			str2[4][len-2]='a',str2[4][len-1]='i',str2[4][len]='s',str2[4][len+1]=NULL;
+			str2[5][len-2]='a',str2[5][len-1]='m',str2[5][len]=NULL;
+			for(i=0;i<6;i++)
+			{
+				ln=strlen(str1[i]);
+				printf("%s",str1[i]);
+				for(j=0;j<10-ln;j++)
+					printf(" ");
+				printf("%s\n",str2[i]);
+			}
+		}
+		else if(ch1[len-2]=='e'&&ch1[len-1]=='r')
+		{
+			ch1[len-2]=NULL;
+			for(i=0;i<=5;i++)
+				strcpy(str2[i],ch1);
+			str2[0][len-2]='o',str2[0][len-1]=NULL;
+			str2[1][len-2]='e',str2[1][len-1]='s',str2[1][len]=NULL;
+			str2[2][len-2]='e',str2[2][len-1]=NULL;
+			str2[3][len-2]='e',str2[3][len-1]='m',str2[3][len]='o',str2[3][len+1]='s',str2[3][len+2]=NULL;
+			str2[4][len-2]='e',str2[4][len-1]='i',str2[4][len]='s',str2[4][len+1]=NULL;
+			str2[5][len-2]='e',str2[5][len-1]='m',str2[5][len]=NULL;
+			for(i=0;i<6;i++)
+			{
+				ln=strlen(str1[i]);
+				printf("%s",str1[i]);
+				for(j=0;j<10-ln;j++)
+					printf(" ");
+				printf("%s\n",str2[i]);
+			}
+		}
+		else if(ch1[len-2]=='i'&&ch1[len-1]=='r')
+		{
+			ch1[len-2]=NULL;
+			for(i=0;i<=5;i++)
+				strcpy(str2[i],ch1);
+			str2[0][len-2]='o',str2[0][len-1]=NULL;
+			str2[1][len-2]='e',str2[1][len-1]='s',str2[1][len]=NULL;
+			str2[2][len-2]='e',str2[2][len-1]=NULL;
+			str2[3][len-2]='i',str2[3][len-1]='m',str2[3][len]='o',str2[3][len+1]='s',str2[3][len+2]=NULL;
+			str2[4][len-2]='i',str2[4][len-1]='s',str2[4][len]=NULL;
+			str2[5][len-2]='e',str2[5][len-1]='m',str2[5][len]=NULL;
+			for(i=0;i<6;i++)
+			{
+				ln=strlen(str1[i]);
+				printf("%s",str1[i]);
+				for(j=0;j<10-ln;j++)
+					printf(" ");
+				printf("%s\n",str2[i]);
+			}
+		}
+		else
+		{
+			printf("Unknown conjugation\n");
+		}
+		test++;
+	}
+	return 0;
+}

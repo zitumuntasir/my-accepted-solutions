@@ -1,0 +1,180 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+const double eps = 1e-9;
+char ch[60][60];
+struct node{
+	long x,y;
+};
+node p,q,r;
+queue<node>qu1,qu2,qu3,qu4;
+long xaray[]={0,0,1,-1};
+long yaray[]={1,-1,0,0};
+long cnt,ara[1000],h,w;
+void bfs1(node q)
+{
+	long i;
+	qu4.push(q);
+	ch[q.x][q.y]='.';
+	while(!qu4.empty())
+	{
+		p=qu4.front();
+		while(!qu4.empty())
+		{
+			p=qu4.front();
+			qu4.pop();
+			for(i=0;i<4;i++)
+			{
+				r.x=p.x+xaray[i],r.y=p.y+yaray[i];
+				if(r.x>=0&&r.x<h&&r.y>=0&&r.y<w&&ch[r.x][r.y]=='D')
+				{
+					ch[r.x][r.y]='.';
+					qu4.push(r);
+				}
+			}
+		}
+	}
+}
+
+void bfs(node p)
+{
+	long i;
+	qu2.push(p);
+	if(ch[p.x][p.y]=='X')
+	{
+		ch[p.x][p.y]='D';
+		qu3.push(p);
+	}
+	else
+	{
+		ch[p.x][p.y]='.';
+	}
+	while(!qu2.empty())
+	{
+		p=qu2.front();
+		qu2.pop();
+		for(i=0;i<4;i++)
+		{
+			r.x=p.x+xaray[i],r.y=p.y+yaray[i];
+			if((r.x>=0&&r.x<h&&r.y>=0&&r.y<w&&ch[r.x][r.y]!='.')&&ch[r.x][r.y]!='D')
+			{
+				if(ch[r.x][r.y]=='X')
+				{
+					ch[r.x][r.y]='D';
+					qu3.push(r);
+					qu2.push(r);
+				}
+				else if(ch[r.x][r.y]!='D')
+				{
+					qu2.push(r);
+					ch[r.x][r.y]='.';
+				}
+			}
+		}
+	}
+	while(!qu3.empty())
+	{
+		p=qu3.front();
+		qu3.pop();
+		if(ch[p.x][p.y]=='D')
+		{
+		cnt++;
+		bfs1(p);
+		}
+	}
+}
+int main()
+{
+	long test=0,i,j,k;
+	char c;
+	while(1)
+	{
+		test++;
+		cnt=k=0;
+		scanf("%ld%ld",&w,&h);
+		if(w==0&&h==0)
+			break;
+		else
+		{
+		getchar();
+		for(i=0;i<h;i++)
+		{
+			for(j=0;j<w;j++)
+			{
+				c=getchar();
+				ch[i][j]=c;
+				if(c!='.')
+				{
+					r.x=i,r.y=j;
+					qu1.push(r);
+				}
+			}
+			ch[i][j]=NULL;
+			getchar();
+		}
+		while(!qu1.empty())
+		{
+			cnt=0;
+			p=qu1.front();
+			qu1.pop();
+			if(ch[p.x][p.y]!='.')
+			{
+			bfs(p);
+			ara[k]=cnt;
+			k++;
+			}
+		}
+		sort(ara,ara+k);
+		printf("Throw %ld\n",test);
+		for(i=0;i<k;i++)
+		{
+			if(i>0)
+				printf(" %ld",ara[i]);
+			else
+				printf("%ld",ara[i]);
+		}
+		printf("\n\n");
+		for(i=0;i<=h;i++)
+		{
+			for(j=0;j<=w;j++)
+			{
+				ch[i][j]=NULL;
+			}
+		}
+		}
+	}
+	return 0;
+}

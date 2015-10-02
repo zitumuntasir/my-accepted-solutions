@@ -1,0 +1,132 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<set>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define srt(v) srt(v.begin(),v.end())
+#define area(x1,y1,x2,y2,x3,y3) ( x1*(y2-y3) + x2*(y3-y1) + x3*(y1-y2) )
+#define distSqr(x1,y1,x2,y2) ( sqr(x1-x2) + sqr(y1-y2) )
+#define pi acos(-1.0)
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+#define eps 1e-14
+#define pf printf
+#define sf scanf
+#define ll long long
+char ch[500];
+long ara[500], ara1[500];
+int main()
+{
+    long test, i, j, n;
+    sf("%ld",&test);
+    while(test--)
+    {
+        memset(ch,NULL, sizeof(ch));
+            sf("%ld",&n);
+            for(j = 0; j < n; j++)
+            {
+             sf("%ld",&ara[j]);
+            }
+             for(j = 0; j < n; j++)
+            {
+             sf("%ld",&ara1[j]);
+            }
+            for(j = 0; j < n; j++)
+            {
+                if(ara[j] == 1)
+                {
+                    if(ara1[j] == 1) ch[j] = '.';
+                    if(ara1[j] == 2) ch[j] = ',';
+                    if(ara1[j] == 3) ch[j] = '?';
+                    if(ara1[j] == 4) ch[j] = '"';
+                }
+                 if(ara[j] == 2)
+                {
+                    if(ara1[j] == 1) ch[j] = 'a';
+                    if(ara1[j] == 2) ch[j] = 'b';
+                    if(ara1[j] == 3) ch[j] = 'c';
+                }
+                 if(ara[j] == 3)
+                {
+                    if(ara1[j] == 1) ch[j] = 'd';
+                    if(ara1[j] == 2) ch[j] = 'e';
+                    if(ara1[j] == 3) ch[j] = 'f';
+                }
+                 if(ara[j] == 4)
+                {
+                    if(ara1[j] == 1) ch[j] = 'g';
+                    if(ara1[j] == 2) ch[j] = 'h';
+                    if(ara1[j] == 3) ch[j] = 'i';
+                }
+                 if(ara[j] == 5)
+                {
+                    if(ara1[j] == 1) ch[j] = 'j';
+                    if(ara1[j] == 2) ch[j] = 'k';
+                    if(ara1[j] == 3) ch[j] = 'l';
+                }
+
+                if(ara[j] == 6)
+                {
+                    if(ara1[j] == 1) ch[j] = 'm';
+                    if(ara1[j] == 2) ch[j] = 'n';
+                    if(ara1[j] == 3) ch[j] = 'o';
+                }
+                 if(ara[j] == 7)
+                {
+                    if(ara1[j] == 1) ch[j] = 'p';
+                    if(ara1[j] == 2) ch[j] = 'q';
+                    if(ara1[j] == 3) ch[j] = 'r';
+                    if(ara1[j] == 4) ch[j] = 's';
+                }
+                 if(ara[j] == 8)
+                {
+                    if(ara1[j] == 1) ch[j] = 't';
+                    if(ara1[j] == 2) ch[j] = 'u';
+                    if(ara1[j] == 3) ch[j] = 'v';
+                }
+                if(ara[j] == 9)
+                {
+                    if(ara1[j] == 1) ch[j] = 'w';
+                    if(ara1[j] == 2) ch[j] = 'x';
+                    if(ara1[j] == 3) ch[j] = 'y';
+                    if(ara1[j] == 4) ch[j] = 'z';
+                }
+                if(ara[j] == 0)
+                {
+                    if(ara1[j] == 1) ch[j] = ' ';
+                }
+            }
+            ch[j] = NULL;
+            cout << ch << endl;
+    }
+    return 0;
+}

@@ -1,0 +1,150 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<sstream>
+#include<queue>
+#include<cstring>
+#include<map>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define err 1e-9
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+long ara[1000000],prime[1000000],ara1[1000000],ara2[1000000],ara3[1000000];
+void sieve()
+{
+	long num,root,i,k=0,j;
+	num=500100;
+	root=sqrt(num);
+	prime[0]=2;
+	for(i=3;i<=num;i+=2)
+	{
+		if(ara[i]==0)
+		{
+			k++;
+			prime[k]=i;
+			if(i<=root)
+			{
+		     for(j=i*i;j<=num;j+=(2*i))
+			 {
+				 ara[j]=1;
+			 }
+			}
+		}
+	}
+}
+void fpoint()
+{
+	sieve();
+	long sum,i,j,num,k,n,count;
+	ara1[2]=1;
+	ara1[3]=1;
+	ara1[4]=1;
+	ara3[2]=1;
+	ara3[3]=1;
+	ara3[4]=1;
+	ara2[4]=4;
+	for(i=5;i<=500000;i++)
+	{
+		num=i;
+		if(ara[num]==0&&(num%2!=0))
+		{
+			ara1[num]=1;
+			ara3[num]=1;
+		}
+		else
+		{
+			sum=n=count=0;
+			while(1)
+			{
+				for(j=0;j<=prime[j];j++)
+				{
+					if(num%prime[j]==0)
+					{
+						while(num%prime[j]==0)
+						{
+							sum+=prime[j];
+							num/=prime[j];
+								if((ara[num]==0&&(num%2!=0))||num==2)
+								{
+									n=1;
+							      sum+=num;
+							      break;
+								}
+								else if(ara2[num]!=0)
+								{
+									n=1;
+							      sum+=ara2[num];
+								  break;
+								}
+						}
+						if(n==1)
+							break;
+					}
+				}
+				ara2[i]=sum;
+					count++;
+					if((ara[sum]==0&&(sum%2!=0))||sum==2)
+					{
+						count++;
+						ara1[i]=count;
+						break;
+					}
+					else if(ara1[sum]!=0)
+					{
+						count+=ara1[sum];
+						ara1[i]=count;
+						break;
+					}
+					else
+						num=sum;
+			}
+			ara3[i]=count;
+		}
+	}
+}
+int main()
+{
+	fpoint();
+	long test,i,j,k,max,a,b,c;
+	scanf("%ld",&test);
+	for(i=1;i<=test;i++)
+	{
+		max=0;
+		scanf("%ld%ld",&a,&b);
+		if(a>b)
+		{
+			c=a;
+			a=b;
+			b=c;
+		}
+
+		for(j=a;j<=b;j++)
+		{
+			if(ara3[j]>max)
+			{
+				max=ara3[j];
+			}
+		}
+		printf("Case #%ld:\n%ld\n",i,max);
+	}
+	return 0;
+}

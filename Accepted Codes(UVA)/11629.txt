@@ -1,0 +1,55 @@
+#include<stdio.h>
+#include<iostream>
+#include<map>
+#include<string>
+#include<string.h>
+using namespace std;
+char ch[10000],ch1[1000],str[1000][1000];
+map<string,double>mp;
+int main()
+{
+	char *pch;
+	double res,sum,num;
+	long a,b,i,j,k,l;
+	scanf("%ld%ld",&a,&b);
+		for(i=0;i<a;i++)
+		{
+			scanf("%s",ch);
+			scanf("%lf",&num);
+			mp[ch]=num;
+		}
+		getchar();
+		for(j=1;j<=b;j++)
+		{
+			sum=0;
+			gets(ch1);
+			pch=strtok(ch1," ");
+			l=0;
+			while(pch!=NULL)
+			{
+				strcpy(str[l],pch);
+				pch=strtok(NULL," ,+");
+				l++;
+			}
+			for(k=0;k<l-2;k++)
+			{
+				sum=sum+mp[str[k]];
+			}
+			sscanf(str[l-1],"%lf",&res);
+			if((strcmp(str[l-2],"<=")==0)&&sum<=res)
+				printf("Guess #%ld was correct.\n",j);
+			else if((strcmp(str[l-2],">=")==0)&&sum>=res)
+				printf("Guess #%ld was correct.\n",j);
+			else if((strcmp(str[l-2],"=")==0)&&sum==res)
+				printf("Guess #%ld was correct.\n",j);
+			else if((strcmp(str[l-2],">")==0)&&sum>res)
+				printf("Guess #%ld was correct.\n",j);
+			else if((strcmp(str[l-2],"<")==0)&&sum<res)
+				printf("Guess #%ld was correct.\n",j);
+			else
+				printf("Guess #%ld was incorrect.\n",j);
+
+		}
+		mp.clear();
+	return 0;
+}

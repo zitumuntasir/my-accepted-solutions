@@ -1,0 +1,73 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+char hr[10],mini[10],sec[10],mom[10],st[100],res[100],a1[10],b1[10],c1[10],d1[10];
+int main()
+{
+	double a,b,c,d,sum,p,q,r,s;
+	while(gets(st))
+	{
+		hr[0]=st[0],hr[1]=st[1],mini[0]=st[2],mini[1]=st[3],sec[0]=st[4],sec[1]=st[5],mom[0]=st[6],mom[1]=st[7];
+		hr[2]=0,mini[2]=0,sec[2]=0,mom[2]=0;
+		sscanf(hr,"%lf",&a),sscanf(mini,"%lf",&b),sscanf(sec,"%lf",&c),sscanf(mom,"%lf",&d);
+		sum=(a*360000.00)+(b*6000.00)+(c*100.00)+d;
+		sum=((sum/108)*125.00);
+		if(sum==long(sum))
+		sum+=.1;
+		p=(floor)(sum/1000000.00);
+		sum-=(p*1000000.00);
+		if(sum==long(sum))
+		sum+=.1; //.000000001;
+		q=(floor)(sum/10000.00);
+		sum-=(q*10000.00);
+		if(sum==long(sum))
+		sum+=.1;
+		r=(floor)(sum/100.00);
+		sum-=(r*100.00);
+		if(sum==long(sum))
+		sum+=.1;
+		s=(floor)(sum);
+		sprintf(a1,"%.lf",p),sprintf(b1,"%.lf",q),sprintf(c1,"%.lf",r),sprintf(d1,"%.lf",s);
+		printf("%s",a1);
+		if(strlen(b1)==1)
+		{
+			printf("0");
+			printf("%s",b1);
+		}
+		else
+			printf("%s",b1);
+		
+		if(strlen(c1)==1)
+		{
+			printf("0");
+			printf("%s",c1);
+		}
+		else
+			printf("%s",c1);
+		
+		if(strlen(d1)==1)
+		{
+			printf("0");
+			printf("%s\n",d1);
+		}
+		else
+			printf("%s\n",d1);
+
+	}
+	return 0;
+}
+

@@ -1,0 +1,58 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+using namespace std;
+map<string,long>mp;
+char ch[100];
+struct ss
+{
+	char st[100];
+}
+sr[2000];
+bool cmp(ss a,ss b)
+{
+	if(strcmp(a.st,b.st)<=0)
+		return 1;
+	else
+		return 0;
+}
+int main()
+{
+	char *pch;
+	long num,i,k;
+	while(~scanf("%ld",&num))
+	{
+		k=0;
+		getchar();
+		for(i=0;i<num;i++)
+		{
+			gets(ch);
+			pch=strtok(ch," ");
+			if(mp[pch]==0)
+			{
+			  strcpy(sr[k].st,pch);
+			  k++;
+			}
+			mp[pch]++;
+		}
+	     sort(sr,sr+k,cmp);
+		for(i=0;i<k;i++)
+		{
+		printf("%s %ld\n",sr[i].st,mp[sr[i].st]);
+		}
+		mp.clear();
+	}
+	return 0;
+}

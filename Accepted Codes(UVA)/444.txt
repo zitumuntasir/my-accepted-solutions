@@ -1,0 +1,64 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+char ch[10000],st[10000],str[10000],s[10000];
+int main()
+{
+	long i,len,l,num,j,as,k,e,len1;
+	while(gets(ch))
+	{
+		l=0;
+		len=strlen(ch);
+		for(i=len-1;i>=0;i--)
+		{
+			if(ch[i]>47&&ch[i]<58)
+			{
+				st[0]=ch[i];
+				if(ch[i]=='1')
+				{
+					st[1]=ch[i-1],st[2]=ch[i-2];
+					st[3]=NULL;
+					i-=2;
+				}
+				else
+				{
+					st[1]=ch[i-1];
+					st[2]=NULL;
+					i-=1;
+				}
+				sscanf(st,"%ld",&num);
+				str[l]=num;
+				l++;
+			}
+			else
+			{
+				as=ch[i];
+				sprintf(s,"%ld",as);
+				len1=strlen(s);
+				for(k=len1-1;k>=0;k--)
+				{
+					str[l]=s[k];
+					l++;
+				}
+			}
+		}
+		for(j=0;j<l;j++)
+			printf("%c",str[j]);
+		printf("\n");
+	}
+	return 0;
+}

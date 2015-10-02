@@ -1,0 +1,39 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+map<long,long>mp;
+map<long,string>mp1;
+int main()
+{
+	long m,d,sum,i,j,test;
+	mp1[1]="Saturday",mp1[2]="Sunday",mp1[3]="Monday",mp1[4]="Tuesday",mp1[5]="Wednesday",mp1[6]="Thursday",mp1[0]="Friday";
+	mp[1]=31,mp[2]=28,mp[3]=31,mp[4]=30,mp[5]=31,mp[6]=30,mp[7]=31,mp[8]=31,mp[9]=30,mp[10]=31,mp[11]=30,mp[12]=31;
+	scanf("%ld",&test);
+	for(i=0;i<test;i++)
+	{
+		sum=0;
+		scanf("%ld%ld",&m,&d);
+		for(j=1;j<m;j++)
+		{
+			sum+=mp[j];
+		}
+		sum+=d;
+		cout<<mp1[sum%7]<<endl;
+
+	}
+	return 0;
+}

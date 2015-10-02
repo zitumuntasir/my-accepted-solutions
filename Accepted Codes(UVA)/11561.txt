@@ -1,0 +1,118 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+const double eps = 1e-9;
+char ch[110][110];
+long h,w,cnt;
+long xaray[]={0,0,1,-1};
+long yaray[]={1,-1,0,0};
+typedef struct{
+	long x,y;
+}node;
+node u,v,s,t,r;
+queue<node>qu,q;
+void bfs()
+{
+	long i;
+	qu.push(s);
+	while(!qu.empty())
+	{
+		u=qu.front();
+		for(i=0;i<4;i++)
+		{
+			v.x=u.x+xaray[i],v.y=u.y+yaray[i];
+			if((v.x>0&&v.x<h-1)&&(v.y>0&&v.y<w-1)&&(ch[v.x][v.y]=='.'||ch[v.x][v.y]=='G'||ch[v.x][v.y]=='r'))
+			{
+				if(ch[v.x][v.y]=='G'||ch[v.x][v.y]=='r')
+				{
+					cnt++;
+				}
+				if(ch[v.x][v.y]!='r')
+				qu.push(v);
+
+				ch[v.x][v.y]='D';
+			}
+		}
+		qu.pop();
+	}
+}
+int main()
+{
+	long i,j;
+	while(scanf("%ld%ld",&w,&h)!=EOF)
+	{
+		cnt=0;
+		for(i=0;i<h;i++)
+		{
+		scanf("%s",ch[i]);
+		for(j=0;j<w;j++)
+		{
+			if(ch[i][j]=='P')
+			{
+				s.x=i,s.y=j;
+			}
+			if(ch[i][j]=='T')
+			{
+				t.x=i,t.y=j;
+				q.push(t);
+			}
+		}
+		}
+		while(!q.empty())
+		{
+			u=q.front();
+			for(j=0;j<4;j++)
+			{
+				r.x=u.x+xaray[j],r.y=u.y+yaray[j];
+				if((r.x>0&&r.x<h-1)&&(r.y>0&&r.y<w-1))
+				{
+					if(ch[r.x][r.y]=='G')
+						ch[r.x][r.y]='r';
+					else if(ch[r.x][r.y]!='r')
+					ch[r.x][r.y]='D';
+				}
+			}
+			q.pop();
+		}
+		if(ch[s.x][s.y]=='D')
+			printf("0\n");
+		else
+		{
+		bfs();
+		printf("%ld\n",cnt);
+		}
+	}
+	return 0;
+}

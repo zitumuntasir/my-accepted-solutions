@@ -1,0 +1,74 @@
+import java.util.*;
+import java.io.*;
+
+public class L1042 {
+	public static long cnt, numOfOne, pos;
+	public static void main(String[] args) throws IOException{
+		int test, i, j, k;
+		long num, result;
+		boolean isPowOf2;
+		BufferedReader f = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(f.readLine());
+		test = Integer.parseInt(st.nextToken());
+		for(i = 1; i <= test; i++)
+		{
+			result = 1;
+			StringTokenizer st1 = new StringTokenizer(f.readLine());
+			num = Long.parseLong(st1.nextToken());
+			isPowOf2 = Shift(num);
+			if(isPowOf2 == false)
+			{
+				for(j = 0; j < cnt; j++)
+				{
+					result *= 2;
+				}
+					for(j = 0; j < numOfOne - 1; j++)
+					{
+						result |= 1 << j;
+					}
+
+			}
+			else {
+				num |= 1 << (cnt - 1);
+				num ^= 1 << (cnt - 2);
+				for(j = 0; j < numOfOne - 1; j++)
+				{
+					num |= 1 << j;
+				}
+				for(k = j; k <= cnt - 2; k++)
+				{
+					num |= 1 << k;
+					num ^= 1 << k;
+				}
+				result = num;
+			}
+			System.out.println("Case " + i +": " + result);
+		}
+	}
+	public static boolean Shift(long num)
+	{
+		boolean foundOne = false, foundZero = false;
+		long i;
+		pos = 0; cnt = 0; numOfOne = 0;;
+		while(num != 0)
+		{
+			cnt++;
+			if((num & 1) == 1)
+			{
+				foundOne = true;
+				numOfOne++;
+			}
+			if(foundOne == true)
+			{
+				if((num & 1) == 0)
+				{
+					foundZero = true;
+					pos = cnt;
+					break;
+				}
+			}
+			num = num >> 1;
+		}
+		return foundZero;
+	}
+}

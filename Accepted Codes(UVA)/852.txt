@@ -1,0 +1,141 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+const double eps=1e-9;
+char ch[12][12];
+long xaray[]={0,0,1,-1};
+long yaray[]={-1,1,0,0};
+long X,O,cnt;
+struct node{
+	long x,y;
+};
+node p,q,r;
+queue<node>qu1,qu2;
+long bfs(node p)
+{
+	cnt++;
+	long i;
+	qu2.push(p);
+	while(!qu2.empty())
+	{
+		r=qu2.front();
+		qu2.pop();
+		ch[r.x][r.y]='D';
+		for(i=0;i<4;i++)
+		{
+			q.x=r.x+xaray[i],q.y=r.y+yaray[i];
+			if(ch[q.x][q.y]!=NULL&&ch[q.x][q.y]!='D')
+			{
+				if(ch[q.x][q.y]=='.')
+				{
+					cnt++;
+					ch[q.x][q.y]='D';
+					qu2.push(q);
+				}
+				else if(ch[q.x][q.y]=='X')
+				{
+					X=1;
+				}
+				else
+				{
+					O=1;
+				}
+			}
+		}
+	}
+	return cnt;
+}
+int main()
+{
+	char c;
+	long test,k,j,i,res,black,white;
+	scanf("%ld",&test);
+	getchar();
+	for(i=0;i<test;i++)
+	{
+		black=white=X=O=0;
+		for(j=0;j<9;j++)
+		{
+			for(k=0;k<9;k++)
+			{
+				c=getchar();
+				ch[j][k]=c;
+				if(ch[j][k]=='.')
+				{
+					r.x=j,r.y=k;
+					qu1.push(r);
+				}
+				else if(ch[j][k]=='X')
+				{
+					black++;
+				}
+				else
+				{
+					white++;
+				}
+			}
+			getchar();
+			ch[j][k]=NULL;
+		}
+		while(!qu1.empty())
+		{
+			cnt=X=O=0;
+			r=qu1.front();
+			if(ch[r.x][r.y]!='D')
+			{
+				res=bfs(r);
+				if(X==0&&O==1)
+				{
+					white+=res;
+				}
+				else if(X==1&&O==0)
+				{
+					black+=res;
+				}
+			}
+			qu1.pop();
+		}
+		printf("Black %ld White %ld\n",black,white);
+		for(j=0;j<=9;j++)
+		{
+			for(k=0;k<=9;k++)
+			{
+				ch[j][k]=NULL;
+			}
+		}
+	}
+	return 0;
+}

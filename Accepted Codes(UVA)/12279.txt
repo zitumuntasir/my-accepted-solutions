@@ -1,0 +1,17 @@
+#include<stdio.h>
+int main()
+{
+	int cnt,i,j,num,t=0;
+	while(scanf("%d",&num)&&num)
+	{
+		cnt=0;
+		t++;
+		for(i=0;i<num;i++)
+		{
+			scanf("%d",&j);
+			if(j==0) cnt++;
+		}
+		printf("Case %d: %d\n",t,(num-cnt)-cnt);
+	}
+	return 0;
+}

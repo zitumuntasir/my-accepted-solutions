@@ -1,0 +1,108 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+using namespace std;
+char ch[10000],ch1[1000][1000],ch2[1000];
+long long ara[1000];
+int main()
+{
+	long long test,i,len,sum,num,j,k,p,l,res1,res2;
+	char *pch;
+	scanf("%lld",&test);
+	getchar();
+	for(i=0;i<test;i++)
+	{
+		sum=j=l=res2=0;
+		res1=1;
+		gets(ch);
+		strcpy(ch2,ch);
+		pch=strtok(ch,"*");
+		while(pch!=NULL)
+		{
+			strcpy(ch1[j],pch);
+			pch=strtok(NULL,"*");
+			j++;
+		}
+		for(k=0;k<j;k++)
+		{
+			if(strlen(ch1[k])>2)
+			{
+				sum=0;
+				pch=strtok(ch1[k],"+");
+				{
+					while(pch!=NULL)
+					{
+						sscanf(pch,"%lld",&num);
+						sum+=num;
+						pch=strtok(NULL,"+");
+					}
+				}
+				ara[l]=sum;
+				l++;
+			}
+			else
+			{
+				sscanf(ch1[k],"%lld",&num);
+				ara[l]=num;
+				l++;
+			}
+		}
+		for(k=0;k<l;k++)
+		{
+			res1*=ara[k];
+		}
+
+		j=l=0;
+		sum=1;
+		pch=strtok(ch2,"+");
+		while(pch!=NULL)
+		{
+			strcpy(ch1[j],pch);
+			pch=strtok(NULL,"+");
+			j++;
+		}
+		for(k=0;k<j;k++)
+		{
+			if(strlen(ch1[k])>2)
+			{
+				sum=1;
+				pch=strtok(ch1[k],"*");
+				{
+					while(pch!=NULL)
+					{
+						sscanf(pch,"%lld",&num);
+						sum*=num;
+						pch=strtok(NULL,"*");
+					}
+				}
+				ara[l]=sum;
+				l++;
+			}
+			else
+			{
+				sscanf(ch1[k],"%lld",&num);
+				ara[l]=num;
+				l++;
+			}
+		}
+		for(k=0;k<l;k++)
+		{
+			res2+=ara[k];
+		}
+
+		printf("The maximum and minimum are %lld and %lld.\n",res1,res2);
+	}
+	return 0;
+}

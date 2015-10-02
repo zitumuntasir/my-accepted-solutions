@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define sf scanf
+#define pf printf
+#define ret return
+#define ll long long
+#define inf 1e13
+#define pi 3.14159265358979323846
+#define eps 1e-9
+int main()
+{
+    int test, cas;
+    double R, n;
+    cas = 0;
+    sf("%d",&test);
+    while(test--)
+    {
+     sf("%lf%lf",&R,&n);
+     pf("Case %d: %.10lf\n",++cas, (R * sin(((360.0/(n*2.0)) * pi) / 180)) / (1 + sin(((360.0/(n*2.0)) * pi) / 180))) + eps;
+    }
+    ret 0;
+}

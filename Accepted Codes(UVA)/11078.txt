@@ -1,0 +1,49 @@
+#include<stdio.h>
+#include<iostream>
+#include<algorithm>
+using namespace std;
+struct ss{
+	long val,ind;
+}ara[200000];
+bool cmp(ss aa,ss bb)
+{
+	return aa.val<bb.val;
+}
+long ara1[200000];
+int main()
+{
+	long i,res=0,n,a,b,test,mx,j,k;
+	scanf("%ld",&test);
+	while(test--)
+	{
+		mx=-100000000;
+		res=0;
+	scanf("%ld",&n);
+	for(i=0;i<n;i++)
+	{
+		scanf("%ld",&ara[i].val);
+		ara[i].ind=i;
+		ara1[i]=ara[i].val;
+	}
+	sort(ara,ara+n,cmp);
+	k=0;
+	for(i=0;i<n-1;i++)
+	{
+		for(j=k;j<n;j++)
+		{
+			if(ara[j].ind>i)
+			{
+				k=j;
+				res=ara1[i]-ara[j].val;
+				if(res>mx)
+				{
+					mx=res;
+				}
+				break;
+			}
+		}
+	}
+	printf("%ld\n",mx);
+	}
+	return 0;
+}

@@ -1,0 +1,52 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+char ch[1000],st[1000][900];
+int main()
+{
+	long k=0,i,test,len,j,l;
+	while(scanf("%ld",&test)&&test!=0)
+	{
+		k++;
+		getchar();
+	   for(i=0;i<test;i++)
+	   {
+		gets(ch);
+		strcpy(st[i],ch);
+	   }
+	   printf("Case %ld:\n#include<string.h>\n#include<stdio.h>\nint main()\n{\n",k);
+	   for(i=0;i<test;i++)
+	   {
+		   len=strlen(st[i]);
+		   printf("printf(\"");
+		   for(j=0;j<len;j++)
+		   {
+			   if(st[i][j]=='"'||st[i][j]=='\\')
+			   {
+				   printf("\\");
+			   printf("%c",st[i][j]);
+			   }
+			   else
+				   printf("%c",st[i][j]);
+
+		   }
+		   printf("\\n\");\n");
+	   }
+	   printf("printf(\"\\n\");\nreturn 0;\n}\n");
+	}
+	return 0;
+}

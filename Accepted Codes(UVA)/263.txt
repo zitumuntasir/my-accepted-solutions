@@ -1,0 +1,60 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+char ch[1000],str1[1000][1000];
+double ara1[1000],ara2[1000];
+long ara[1000];
+map<double,long>mp;
+int main()
+{
+	double num,sum1,sum2,res;
+	long i,len,j,k,l,count;
+	while(scanf("%lf",&num)&&num)
+	{
+		k=l=count=0;
+		sprintf(ch,"%.lf",num);
+		while(mp[res]!=2)
+		{
+		    len=strlen(ch);
+			sum1=sum2=0;
+		 for(i=0;i<len;i++)
+		 {
+			 ara[i]=ch[i]-48;
+		 }
+		 sort(ara,ara+len);
+		 for(i=0,j=len-1;i<len,j>=0;i++,j--)
+		 {
+			 sum1+=(ara[i]*(pow(10,i)));
+			 sum2+=(ara[i]*(pow(10,j)));
+		 }
+		 ara1[k]=sum1,k++;
+		 ara2[l]=sum2,l++;
+		 sprintf(ch,"%.lf",sum1-sum2);
+		 res=sum1-sum2;
+		 mp[res]++;
+		 count++;
+		}
+		printf("Original number was %.lf\n",num);
+		for(j=0;j<count;j++)
+		{
+			printf("%.lf - %.lf = %.lf\n",ara1[j],ara2[j],ara1[j]-ara2[j]);
+		}
+		printf("Chain length %ld\n\n",count);
+		mp.clear();
+	}
+	return 0;
+}

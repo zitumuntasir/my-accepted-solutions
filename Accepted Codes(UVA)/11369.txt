@@ -1,0 +1,46 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+using namespace std;
+struct ss
+{
+	long a;
+}T[20010];
+bool cmp(ss aa,ss bb)
+{
+	return aa.a<bb.a;
+}
+int main()
+{
+	long num,test,i,j,sum,c;
+	scanf("%ld",&test);
+	for(i=0;i<test;i++)
+	{
+		sum=0;
+		scanf("%ld",&num);
+		for(j=0;j<num;j++)
+		{
+			scanf("%ld",&T[j].a);
+		}
+		sort(T,T+num,cmp);
+		c=num%3;
+		for(j=num-3;j>=0+c;j-=3)
+		{
+			sum+=T[j].a;
+		}
+		printf("%ld\n",sum);
+	}
+	return 0;
+}

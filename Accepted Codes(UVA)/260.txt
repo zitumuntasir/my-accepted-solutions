@@ -1,0 +1,70 @@
+#include<iostream>
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+#include<vector>
+#include<limits>
+#include<cmath>
+#include<map>
+using namespace std;
+long i;
+char inp[1000][1000];
+long M,N,cnt,ans,j,Y,sum,ara[1000][1000];
+long xmyarr[]={-1,0,1,1,0,-1};
+long ymyarr[]={-1,-1,0,1,1,0};
+void fill(long x,long y)
+{
+	long p;
+	if(inp[x][y]!='b'||ara[x][y]==1||inp[x][y]==NULL) return;
+	if(x==M-1)
+		Y=1;
+	ara[x][y]=1;
+    for(p=0;p<6;p++)
+    fill(x+xmyarr[p],y+ymyarr[p]);
+}
+int main()
+{
+	long p,q,test=0,n,len,r,s;
+    while(scanf("%ld",&M)&&M)
+    {
+		test++;
+		Y=n=0;
+		N=M;
+		getchar();
+        for(i=0;i<M;i++)
+        gets(inp[i]);
+		len=strlen(inp[0]);
+        for(q=0;q<len;q++)
+        {
+			Y=0;
+            if(inp[0][q]=='b')
+			{
+				fill(0,q);
+				if(Y==1)
+				{
+					n=1;
+					printf("%ld B\n",test);
+					break;
+				}
+				for(r=0;r<M;r++)
+				{
+			for(s=0;s<M;s++)
+			{
+				ara[r][s]=0;
+			}
+				}
+			}
+        }
+		 if(n==0)
+			 printf("%ld W\n",test);
+		for(p=0;p<M;p++)
+		{
+			for(q=0;q<M;q++)
+			{
+				inp[p][q]=NULL;
+				ara[p][q]=0;
+			}
+		}
+    }
+	return 0;
+}

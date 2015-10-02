@@ -1,0 +1,62 @@
+#include<stdio.h>
+#include<iostream>
+#include<algorithm>
+#include<string>
+#include<map>
+#include<string.h>
+using namespace std;
+char ch[10000],ch1[10000];
+map<string,long>mp;
+struct ss
+{
+	char st[10000];
+}
+sr[10000];
+bool cmp(ss a,ss b)
+{
+	if(strcmp(a.st,b.st)<=0)
+		return 1;
+	else
+		return 0;
+}
+int main()
+{
+	long len,i,k,l=0;
+	while(gets(ch))
+	{
+		len=strlen(ch);
+		for(i=0;i<len;i++)
+		{
+			k=0;
+			while(((ch[i]>='A'&&ch[i]<='Z')||(ch[i]>='a'&&ch[i]<='z')==1)&&ch[i]!='\0')
+			{
+					if((ch[i]>='A'&&ch[i]<='Z'))
+					{
+						ch1[k]=ch[i]+32;
+						k++;
+					}
+					else
+					{
+						ch1[k]=ch[i];
+						k++;
+					}
+				i++;
+			}
+			ch1[k]='\0';
+			if(mp[ch1]==0&&strlen(ch1)>0)
+			{
+			strcpy(sr[l].st,ch1);
+			mp[ch1]=1;
+			l++;
+			}
+			
+		}
+	}
+	sort(sr,sr+l,cmp);
+	for(i=0;i<l;i++)
+	{
+		puts(sr[i].st);
+	}
+	mp.clear();
+	return 0;
+}

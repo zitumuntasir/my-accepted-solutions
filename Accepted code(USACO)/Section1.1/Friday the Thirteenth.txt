@@ -1,0 +1,49 @@
+/*
+ID: muntasi5
+PROG: friday
+LANG: JAVA
+*/
+import java.io.*;
+import java.util.*;
+public class friday {
+	public static int week[] = new int[8];
+	public static int month[] = new int[32];
+	public static void main(String[] args) throws IOException {
+		week[0] = 0; week[1] = 0; week[2] = 0; week[3] = 0;
+		week[4] = 0; week[5] = 0; week[6] = 0; week[7] = 0;
+		month[0] = 31; month[1] = 28; month[2] = 31; month[3] = 30; month[4] = 31; month[5] = 30;
+		month[6] = 31; month[7] = 31; month[8] = 30; month[9] = 31; month[10] = 30; month[11] = 31;
+		int numOfYears, i, j, k, d;
+	    BufferedReader f = new BufferedReader(new FileReader("friday.in"));
+        PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("friday.out")));
+        StringTokenizer st = new StringTokenizer(f.readLine());
+        numOfYears = Integer.parseInt(st.nextToken());
+        numOfYears += 1899;
+        for(i = 1900, d = 1 ; i <= numOfYears; i++)
+        {
+        	if( (i % 4 == 0 && i % 100 !=0) || (i % 100 == 0 && i % 400 ==0))
+        	{
+        		month[1] = 29;
+        	}
+        	else {
+				month[1] = 28;
+			}
+        	for(j = 0; j < 12; j++)
+        	{
+        		for(k = 0; k < month[j]; k++)
+        		{
+        			d %= 7;
+        			if(k == 12)
+        			{
+        			  week[d]++;
+        			}
+        			d++;
+        		}
+        	}
+        }
+        out.println(week[6]+ " " +  week[0] + " " +  week[1]+ " " +  week[2] + " " +week[3]+ " " +  week[4] + " " + week[5]);
+	    out.close();                                 
+	    System.exit(0); 
+	}
+
+}

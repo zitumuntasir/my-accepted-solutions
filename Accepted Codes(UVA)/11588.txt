@@ -1,0 +1,63 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+map<char,long>mp;
+map<long,char>mp1;
+char ch[10000];
+int main()
+{
+	long i,j,k,R,C,M,N,test,sum,l,max;
+	scanf("%ld",&test);
+	for(i=1;i<=test;i++)
+	{
+		l=max=sum=0;
+		scanf("%ld%ld%ld%ld",&R,&C,&M,&N);
+		getchar();
+		for(j=0;j<R;j++)
+		{
+			gets(ch);
+			for(k=0;k<C;k++)
+			{
+				if(mp[ch[k]]==0)
+				{
+					mp1[l]=ch[k];
+					l++;
+				}
+				mp[ch[k]]++;
+				if(mp[ch[k]]>=max)
+				{
+					max=mp[ch[k]];
+				}
+			}
+		}
+		for(j=0;j<l;j++)
+		{
+			if(mp[mp1[j]]==max)
+			{
+				sum+=(max*M);
+			}
+			else
+			{
+				sum+=(mp[mp1[j]]*N);
+			}
+		}
+		printf("Case %ld: %ld\n",i,sum);
+		mp.clear();
+		mp1.clear();
+	}
+	return 0;
+}

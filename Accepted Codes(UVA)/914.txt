@@ -1,0 +1,110 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<sstream>
+#include<queue>
+#include<cstring>
+#include<map>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define err 1e-9
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+long prime[1000000],ara[1000000],ara1[1000000],ara2[1000000],ara3[1000000];
+void sieve()
+{
+	long i,k=0,j;
+	prime[0]=2;
+	ara1[0]=-1;
+	ara1[1]=-1;
+	ara1[2]=0;
+	for(i=3;i<=1000000;i+=2)
+	{
+		if(ara[i]==0)
+		{
+			k++;
+			prime[k]=i;
+			if(i<=1000)
+			{
+				for(j=i*i;j<=1000000;j+=(2*i))
+				{
+					ara[j]=1;
+				}
+			}
+		}
+		ara1[i]=k;
+		ara1[i+1]=k;
+	}
+}
+int main()
+{
+	sieve();
+	long test,a,b,k,p,q,i,dif,r,max,n,j,res;
+	scanf("%ld",&test);
+	for(i=0;i<test;i++)
+	{
+		n=max=dif=p=q=k=0;
+		scanf("%ld%ld",&a,&b);
+		if((a%2!=0&&ara[a]==0&&a>1)||a==2)
+		{
+			p=ara1[a];
+		}
+		else
+			p=ara1[a]+1;
+
+			q=ara1[b];
+		for(r=p;r<q;r++)
+		{
+			dif=prime[r+1]-prime[r];
+			ara2[dif]++;
+			if(ara2[dif]==1)
+			{
+				ara3[k]=dif;
+				k++;
+			}
+			if(ara2[dif]>=max)
+			{
+				if(ara2[dif]==max)
+				{
+					n=0;
+					max=ara2[dif];
+				}
+				else
+				{
+					n=1;
+					max=ara2[dif];
+					res=dif;
+				}
+			}
+		}
+		if(dif==0||n==0)
+		{
+			printf("No jumping champion\n");
+		}
+		else
+		printf("The jumping champion is %ld\n",res);
+		for(j=0;j<k;j++)
+		{
+			ara2[ara3[j]]=0;
+		}
+	}
+	return 0;
+}

@@ -1,0 +1,50 @@
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	double a,b,c,d,e,i,j,k,r1,num,c1,f;
+	long p,q,r,s;
+	while(scanf("%lf",&num)&&num!=0)
+	{
+		f=(floor)(sqrt(num));
+		p=f;
+		c=(ceil)(sqrt(num));
+		q=c;
+		if(q%2!=0)
+		{
+			i=c*c-c;
+			if(num>i)
+			{
+				r1=c;
+				c1=c-(num-i-1);
+			}
+			else
+			{
+				r1=c-1-(i-(num));
+				c1=c;
+		}
+		}
+		else
+		{
+			i=c*c-c;
+			if(num<=i+1)
+			{
+				r1=c;
+				c1=c-(i+1-num);
+
+			}
+			else
+			{
+				r1=c-(num-1-i);
+				c1=c;
+
+			}
+
+
+		}
+		printf("%.lf %.lf\n",c1,r1);
+
+		
+	}
+	return 0;
+}

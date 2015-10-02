@@ -1,0 +1,16 @@
+#include<stdio.h>
+#include<string.h>
+char ch[100];
+int main()
+{
+	long test=0;
+	while(scanf("%s",ch)&&ch[0]!='*')
+	{
+		test++;
+		if(ch[0]=='H')
+			printf("Case %ld: Hajj-e-Akbar\n",test);
+		else
+			printf("Case %ld: Hajj-e-Asghar\n",test);
+	}
+	return 0;
+}

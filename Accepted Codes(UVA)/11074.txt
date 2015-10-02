@@ -1,0 +1,77 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+int main()
+{
+	long s,a,t,n,l,m,p,i,j,k,r,q,test=0;
+	while(1)
+	{
+		test++;
+		scanf("%ld%ld%ld",&s,&t,&n);
+		if(s==0&&t==0&&n==0)
+			break;
+		else
+		{
+			printf("Case %ld:\n",test);
+			k=p=0;
+			a=((n+1)*t)+(n*s);
+			for(i=1,k=0;i<=a;i++)
+			{
+				if(k==t)
+				{
+					q=i;
+					for(l=q;l<q+s;l++,i++)
+					{
+					  for(j=1;j<a;j++)
+					  {
+						  if(p==t)
+						  {
+							  r=j;
+							  for(m=r;m<r+s;m++,j++)
+							  {
+								  printf(".");
+							  }
+							  p=-1;
+							  j--;
+						  }
+						  else
+						  {
+							  printf("*");
+						  }
+						  p++;
+					  }
+					  printf("*\n");
+					  p=0;
+					}
+					k=-1;
+					i--;
+				}
+				else
+				{
+				  for(j=1;j<a;j++)
+				  {
+					printf("*");
+				  }
+				  printf("*\n");
+				}
+				k++;
+			}
+		}
+		printf("\n");
+	}
+	return 0;
+}

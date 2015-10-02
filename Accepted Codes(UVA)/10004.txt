@@ -1,0 +1,84 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<sstream>
+#include<queue>
+#include<cstring>
+#include<map>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define err 1e-9
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+vector<long>vc[10000];
+queue<long>qu;
+long visit[10000],num[10000];
+bool is_bipartite()
+{
+	long start=0,u,i,v;
+	qu.push(start);
+	visit[start]=1;
+	num[start]=1;
+	while(!qu.empty())
+	{
+		u=qu.front();
+		qu.pop();
+		for(i=0;i<vc[u].size();i++)
+		{
+			v=vc[u][i];
+			if(visit[v]==0)
+			{
+				visit[v]=1;
+				num[v]=3-num[u];
+				qu.push(v);
+			}
+				if(num[u]==num[v]) 
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}
+int main()
+{
+	long u,v,nod,edg,i,j;
+	while(scanf("%ld",&nod)==1&&nod)
+	{
+		scanf("%ld",&edg);
+		for(i=0;i<edg;i++)
+		{
+			scanf("%ld%ld",&u,&v);
+			vc[u].push_back(v);
+			vc[v].push_back(u);
+		}
+		if(is_bipartite())
+			printf("BICOLORABLE.\n");
+		else
+			printf("NOT BICOLORABLE.\n");
+		for(i=0;i<nod;i++)
+		{
+			vc[i].clear();
+			visit[i]=num[i]=0;
+		}
+	}
+	return 0;
+}

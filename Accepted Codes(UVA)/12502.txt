@@ -1,0 +1,62 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+const double eps = 1e-9;
+int main()
+{
+	double test,t1,t2,x,y,z,sum,res,i,per;
+	scanf("%lf",&test);
+	for(i=0;i<test;i++)
+	{
+		scanf("%lf%lf%lf",&x,&y,&z);
+		sum=x+y;
+		per=sum/3;
+		t1=x-per;
+		t2=y-per;
+		if(t1<=0)
+			printf("0\n");
+		else
+		{
+			if(t2>0)
+			{
+				sum=t1+t2;
+				res=z/sum;
+				printf("%.lf\n",res*t1);
+			}
+			else
+				printf("%.lf\n",z);
+		}
+	}
+}

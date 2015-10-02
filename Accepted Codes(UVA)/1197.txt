@@ -1,0 +1,103 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+const double eps = 1e-9;
+vector<long>vc[30010];
+long ara[30010],visit[30010],cnt;
+queue<long>qu;
+void bfs(long node)
+{
+	long u,i,v,s,size;
+	qu.push(node);
+	visit[node]=1;
+	cnt++;
+	while(!qu.empty())
+	{
+		u=qu.front();
+		s=vc[u].size();
+		for(i=0;i<s;i++)
+		{
+			v=vc[u][i];
+			if(!visit[v])
+			{
+				cnt++;
+				visit[v]=1;
+				qu.push(v);
+			}
+		}
+		qu.pop();
+	}
+}
+int main()
+{
+	long n,m,j,num,i,k;
+ 	while(1)
+	{
+		scanf("%ld%ld",&n,&m);
+		if(n==0&&m==0)
+			break;
+		else
+		{
+		cnt=0;
+		for(i=0;i<m;i++)
+		{
+			scanf("%ld",&num);
+			for(j=0;j<num;j++)
+			{
+				scanf("%ld",&ara[j]);
+			}
+			for(j=0;j<num;j++)
+			{
+				for(k=0;k<num;k++)
+				{
+					if(k!=j)
+					{
+						vc[ara[j]].push_back(ara[k]);
+					}
+				}
+			}
+		}
+		bfs(0);
+		printf("%ld\n",cnt);
+		for(j=0;j<=n;j++)
+		{
+			visit[j]=0;
+			vc[j].clear();
+		}
+		}
+	}
+	return 0;
+}

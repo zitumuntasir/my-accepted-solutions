@@ -1,0 +1,25 @@
+#include<stdio.h>
+long ara[]={1,5,10,25,50};
+long res[10000];
+void cng()
+{
+	long i,j;
+   for(i=0;i<=4;i++)
+   {
+	   for(j=ara[i];j<=7489;j++)
+	   {
+		   res[j]+=res[j-ara[i]];
+	   }
+   }
+}
+int main()
+{
+	res[0]=1;
+	cng();
+	long num;
+	while(scanf("%ld",&num)!=EOF)
+	{
+		printf("%ld\n",res[num]);
+	}
+	return 0;
+}

@@ -1,0 +1,139 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<set>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+#define eps 1e-14
+char ch[110][200000],sat[200000],str[200000],stst[110][200000],ssr[200000],str1[200000];
+long p[100000];
+map<string,long>mp,mp1;
+int main()
+{
+	long test,i,j,num,w,q,r,u,y,cnt,count,l,len,len1,len2,k;
+	char *pch;
+	scanf("%ld",&test);
+	for(i=0;i<test;i++)
+	{
+		scanf("%ld",&num);
+		for(j=0;j<num;j++)
+		{
+			scanf("%s%ld%ld",sat,&w,&p[j]);
+			strcpy(ch[j],sat);
+			l=strlen(sat);
+			for(k=0;k<w;k++)
+			{
+				len=strlen(ch[j]);
+				ch[j][len]=' ';
+				scanf("%s",sat);
+				len1=strlen(sat);
+				for(l=len+1,r=0;l<=len+len1;l++,r++)
+				{
+					ch[j][l]=sat[r];
+				}
+				ch[j][l]=NULL;
+			}
+			ch[j][l]=NULL;
+		}
+		getchar();
+		while(gets(str)&&strlen(str)!=0)
+		{
+		len2=strlen(str);
+		for(q=0;q<len2;q++)
+		{
+			cnt=0;
+			if(isalpha(str[q]))
+			{
+				while(str[q]!=NULL&&isalpha(str[q]))
+				{
+					str1[cnt]=str[q];
+					cnt++;
+					q++;
+				}
+				str1[cnt]=NULL;
+				mp[str1]=1;
+			}
+		}
+		}
+		u=y=0;
+		for(r=0;r<num;r++)
+		{
+			pch=strtok(ch[r]," ");
+			count=0;
+			strcpy(ssr,pch);
+			if(p[r]==0)
+			{
+				y=1;
+				strcpy(stst[u],ssr);
+						u++;
+			}
+			else
+			{
+			while(pch!=NULL)
+			{
+				pch=strtok(NULL," ");
+				if(pch==NULL)
+					break;
+				if(mp[pch]==1&&mp1[pch]==0)
+				{
+					mp1[pch]=1;
+					count++;
+					if(count>=p[r])
+					{
+						y=1;
+						strcpy(stst[u],ssr);
+						u++;
+						break;
+					}
+				}
+			}
+			mp1.clear();
+			}
+		}
+		if(y==0)
+			printf("SQF Problem.");
+		else
+		for(r=0;r<u;r++)
+		{
+			if(r>0)
+				printf(",");
+			printf("%s",stst[r]);
+		}
+		printf("\n");
+		mp.clear();
+		mp1.clear();
+	}
+
+	return 0;
+}

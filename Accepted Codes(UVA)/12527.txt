@@ -1,0 +1,35 @@
+#include<stdio.h>
+long ara[11];
+int main()
+{
+	long m,n,i,c,num,no,cnt,j;
+	while(scanf("%ld%ld",&n,&m)!=EOF)
+	{
+		cnt=0;
+		for(i=n;i<=m;i++)
+		{
+			no=0;
+			num=i;
+			while(num)
+			{
+				c=num%10;
+					if(ara[c]==1)
+					{
+						no=1;
+						break;
+					}
+					else
+						ara[c]=1;
+				num/=10;
+			}
+			if(no==0)
+				cnt++;
+			for(j=0;j<=10;j++)
+			{
+				ara[j]=0;
+			}
+		}
+		printf("%ld\n",cnt);
+	}
+	return 0;
+}

@@ -1,0 +1,105 @@
+/*ID: muntasi5
+PROG: beads
+LANG: JAVA
+*/
+import java.util.*;
+import java.io.*;
+public class beads {
+	public static String inp;
+	public static boolean visited[] = new boolean[1200];
+	public static boolean reached[] = new boolean[1200];
+	public static String modified;
+	public static char present, next, ch;
+	public static int output[] = new int[1200];
+	public static boolean flag;
+	public static void main(String[] args) throws IOException {
+		int i, len, l, n, j, cnt1, cnt2 = 0, k = 0, num, ind = 0;
+		flag = false;
+		modified = "";
+		BufferedReader f = new BufferedReader(new FileReader("beads.in"));
+		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("beads.out")));
+		StringTokenizer st = new StringTokenizer(f.readLine());
+		num = Integer.parseInt(st.nextToken());
+		inp = f.readLine();
+		
+		len = inp.length();
+		for(n = 0, l = 0; n < 3; n++)
+		{
+			for(i = 0; i < len; i++, l++)
+			{
+	    		modified = modified + inp.charAt(i);
+			}
+		}
+		for(i = len; i < len + len; i++)
+		{
+			flag = false; reached[ind] = false; cnt2 = 0; cnt1 = 1;
+			present = modified.charAt(i);
+			for(j = i+1;j < i + len;j++)
+			{
+				next = modified.charAt(j);
+				if(present != 'w' && flag == false)
+				{
+					flag = true;
+					ch = present;
+				}
+				if(next != 'w' && flag == false)
+				{
+					flag = true;
+					ch = next;
+				}
+				if(flag == true && present == 'w')
+				{
+					present = ch;
+				}
+				if(flag == true && next == 'w')
+				{
+					next = ch;
+				}
+				if(present == next) cnt1++;
+				else break;
+			}
+			ind = j - 1;
+			ind %= len;
+			ind += len ; 
+			reached[ind] = true;
+			flag = false;
+			if(reached[((i - 1) % len) + len] == false)
+			{
+				present = modified.charAt(i - 1);
+				cnt2 = 1;
+				for(j = i - 2; j >= i - len; j--)
+				{
+					next = modified.charAt(j);  
+					if(reached[(j % len ) + len] == true) break;
+					if(present != 'w' && flag == false)
+					{
+						flag = true;
+						ch = present;
+					}
+					if(next != 'w' && flag == false)
+					{
+						flag = true;
+						ch = next;
+					}
+					if(flag == true && present == 'w')
+					{
+						present = ch;
+					}
+					if(flag == true && next == 'w')
+					{
+						next = ch;
+					}
+					if(present == next) cnt2++;
+					else break;
+			  }
+			}
+			output[k] = cnt1 + cnt2;
+			k++;
+		}
+		Arrays.sort(output, 0, k);
+		System.out.println(output[k - 1]);
+		out.println(output[k - 1]);
+	    out.close();                                 
+	    System.exit(0); 
+	}
+}

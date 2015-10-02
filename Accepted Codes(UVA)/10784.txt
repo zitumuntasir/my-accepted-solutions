@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	double a,b,c,i=1;
+	long p;
+	while(1)
+	{
+		scanf("%lf",&c);
+		if(c==0)
+			break;
+		else
+		{
+	a=9+(8*c);
+	b=sqrt(a);
+	p=sqrt(a);
+	if(b==p)
+	printf("Case %.lf: %.lf\n",i,(3+b)/2);
+	else
+		printf("Case %.lf: %ld\n",i,((3+p)/2)+1);
+	i++;
+		}
+	}
+	return 0;
+}

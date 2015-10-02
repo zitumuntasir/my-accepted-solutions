@@ -1,0 +1,126 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<set>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define sz 10002
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+const double eps = 1e-9;
+vector<long>vc[sz];
+bool color[sz];
+long low[sz],d[sz],prn[sz],m,t,cnt;
+struct ss
+{
+	long a,b;
+}ara[10002];
+bool cmp(ss aa,ss bb)
+{
+	if(aa.a!=bb.a)
+	return  aa.a<bb.a;
+	else
+		return aa.b<bb.b;
+}
+void artp(long node)
+{
+	long i,w;
+	color[node]=1;
+	low[node]=d[node]=m++;
+	for(i=0;i<vc[node].size();i++)
+	{
+		w=vc[node][i];
+		if(color[w]==0)
+		{
+			prn[w]=node;
+			artp(w);
+			if((low[w]>d[node]))
+			{
+				if(node>w)
+				{
+					ara[cnt].a=w,ara[cnt].b=node;
+				}
+				else
+				{
+					ara[cnt].a=node,ara[cnt].b=w;
+				}
+				cnt++;
+			}
+			low[node]=MIN(low[node],low[w]);
+		}
+		else if(w!=prn[node])
+		{
+			low[node]=MIN(low[node],d[w]);
+		}
+	}
+}
+int main()
+{
+	char c;
+	long num,i,j,n,u,v,cse=0,nu;
+	while(scanf("%ld",&num)!=EOF)
+	{
+		for(i=0;i<num;i++)
+		{
+			scanf("%ld%c%c%ld%c",&u,&c,&c,&n,&c);
+			for(j=0;j<n;j++)
+			{
+				scanf("%ld",&v);
+				vc[u].push_back(v);
+				vc[v].push_back(u);
+			}
+		}
+		cnt=m=0;
+		for(i=0;i<num;i++)
+		{
+			m=0;
+			if(color[i]==0)
+			{
+				artp(i);
+			}
+		}
+		sort(ara,ara+cnt,cmp);
+		printf("%ld critical links\n",cnt);
+		for(i=0;i<cnt;i++)
+		{
+			printf("%ld - %ld\n",ara[i].a,ara[i].b);
+		}
+		printf("\n");
+		for(i=0;i<=num;i++)
+		{
+			vc[i].clear();
+			color[i]=0;
+			low[i]=d[i]=prn[i]=0;
+		}
+	}
+	return 0;
+}
+

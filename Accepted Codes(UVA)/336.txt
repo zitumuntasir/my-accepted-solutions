@@ -1,0 +1,103 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+map<long,long>visit,cost,ara,ara1,ara2;
+vector<long>vec[100000];
+queue<long>qu;
+long l;
+void bfs(long node)
+{
+	long i,v,u;
+	l=1;
+	qu.push(node);
+	ara2[0]=node;
+		while(!qu.empty())
+		{
+			v=qu.front();
+			visit[v]=1;
+			for(i=0;i<vec[v].size();i++)
+			{
+			u=vec[v][i];
+			 if(!visit[u])
+			 {
+				qu.push(u);
+				cost[u]=cost[v]+1;
+				visit[u]=1;
+				ara2[l]=u;
+				l++;
+			 }
+			}
+		qu.pop();
+		}
+}
+int main()
+{
+	long edge,u,v,source,ttl,k,i,count,test=0;
+	while(scanf("%ld",&edge)&&edge)
+	{
+		k=0;
+		 for(i=0;i<edge;i++)
+		 {
+		    scanf("%ld%ld",&u,&v);
+		    vec[u].push_back(v);
+		    vec[v].push_back(u);
+		    if(ara[u]==0)
+		   {
+			ara[u]=1;
+			ara1[k]=u;
+			k++;
+		   }
+		    if(ara[v]==0)
+			{
+			  ara[v]=1;
+		      ara1[k]=v;
+			  k++;
+			}
+		 }
+		 while(scanf("%ld%ld",&source,&ttl))
+		 {
+			 count=0;
+			  if(source==0&&ttl==0)
+			  {
+				  break;
+			  }
+			  else
+			  {
+				 cost[source]=0;
+				 bfs(source);
+			  }
+			  for(i=0;i<l;i++)
+			  {
+				  if(cost[ara2[i]]<=ttl)
+				  {
+					  count++;
+				  }
+			  }
+			  test++;
+			  printf("Case %ld: %ld nodes not reachable from node %ld with TTL = %ld.\n",test,k-count,source,ttl);
+			  cost.clear(),visit.clear(),ara2.clear();
+		 }
+		 for(i=0;i<=10000;i++)
+		 {
+			 vec[i].clear();
+		 }
+		 ara.clear(),ara1.clear();
+	}
+
+
+	return 0;
+}

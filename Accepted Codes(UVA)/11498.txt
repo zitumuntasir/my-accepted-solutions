@@ -1,0 +1,40 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+int main()
+{
+	long num,que,i,j,x,y,x1,y1;
+	  while(scanf("%ld",&que)&&que!=0)
+	  {
+		scanf("%ld%ld",&x,&y);
+		for(j=0;j<que;j++)
+		{
+			scanf("%ld%ld",&x1,&y1);
+			if(x1>x&&y1>y)
+				printf("NE\n");
+			else if(x1==x||y1==y)
+				printf("divisa\n");
+			else if(x1<x&&y1>y)
+				printf("NO\n");
+			else if(x1>x&&y1<y)
+				printf("SE\n");
+			else if(x1<x&&y1<y)
+				printf("SO\n");
+		}
+	}
+	return 0;
+}

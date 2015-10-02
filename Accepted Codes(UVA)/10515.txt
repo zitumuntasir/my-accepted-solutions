@@ -1,0 +1,83 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<set>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+#define eps 1e-14
+map<char,long>mp;
+char ch[1000000],ch1[1000000],st[100];
+int main()
+{
+	mp['0']=0,mp['1']=1,mp['2']=4,mp['3']=4,mp['4']=2,mp['5']=1,mp['6']=1,mp['7']=4,mp['8']=4,mp['9']=2;
+	long n,m,md,a,len,len1,res,sum,i;
+	while(1)
+	{
+		scanf("%s%s",ch,ch1);
+		if(strcmp(ch,"0")==0&&strcmp(ch1,"0")==0)
+			break;
+		else
+		{
+			len=strlen(ch);
+			len1=strlen(ch1)-1;
+			a=ch[len-1]-48;
+			if(a==0||a==1||a==5||a==6||(strcmp(ch1,"0")==0))
+			{
+				if(strcmp(ch1,"0")==0)
+					printf("1\n");
+				else
+				printf("%ld\n",a);
+			}
+			else
+			{
+				sum=0;
+				md=mp[ch[len-1]];
+				for(i=0;i<=len1;i++)
+				{
+					sum+=(ch1[i]-48);
+					sum=sum%md;
+					res=sum;
+					sum*=10;
+				}
+			if(res==0)
+				res=md;
+		res=pow(a,res);
+		sprintf(st,"%ld",res);
+		len=strlen(st)-1;
+		printf("%c\n",st[len]);
+			}
+		}
+	}
+	return 0;
+}

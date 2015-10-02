@@ -1,0 +1,60 @@
+#include<iostream>
+#include<stdio.h>
+#include<string.h>
+using namespace std;
+long long ara[10];
+char ch[5];
+int main()
+{
+	long long i,mn,res;
+	while(scanf("%lld",&ara[0])!=EOF)
+	{
+		mn=10000000000000;
+		for(i=1;i<9;i++) scanf("%lld",&ara[i]);
+		//for BCG
+		res=ara[1]+ara[2]+ara[3]+ara[4]+ara[6]+ara[8];
+		if(res<mn) 
+		{
+			mn=res;
+			strcpy(ch,"BCG");
+		}
+		//for BGC
+		res=ara[1]+ara[2]+ara[3]+ara[5]+ara[6]+ara[7];
+		if(res<mn) 
+		{
+			mn=res;
+			strcpy(ch,"BGC");
+		}
+		//for CBG
+		res=ara[0]+ara[1]+ara[4]+ara[5]+ara[6]+ara[8];
+		if(res<mn) 
+		{
+			mn=res;
+			strcpy(ch,"CBG");
+		}
+		//for CGB
+		res=ara[0]+ara[1]+ara[3]+ara[5]+ara[7]+ara[8];
+		if(res<mn) 
+		{
+			mn=res;
+			strcpy(ch,"CGB");
+		}
+		//for GBC
+		res=ara[0]+ara[2]+ara[4]+ara[5]+ara[6]+ara[7];
+		if(res<mn) 
+		{
+			mn=res;
+			strcpy(ch,"GBC");
+		}
+		//for GCB
+		res=ara[0]+ara[2]+ara[3]+ara[4]+ara[7]+ara[8];
+		if(res<mn) 
+		{
+			mn=res;
+			strcpy(ch,"GCB");
+		}
+
+		printf("%s %lld\n",ch,mn);
+	}
+	return 0;
+}

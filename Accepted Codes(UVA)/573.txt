@@ -1,0 +1,48 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+using namespace std;
+int main()
+{
+	double h,u,f,pe,sum,d,i;
+	while(scanf("%lf%lf%lf%lf",&h,&u,&d,&f)&&h!=0&&u!=0&&d!=0&&f!=0)
+	{
+		sum=pe=0.00;
+		i=1.00;
+		pe=(u*f)/100.00;
+		if(h<u)
+			printf("success on day %.lf\n",i);
+		else
+		{
+		sum=(u-d);
+		while(1)
+		{
+			if(sum<0||sum>h)
+				break;
+			u=u-pe;
+			if(u>=0.00)
+			sum=sum+u;
+			i++;
+			if(sum>h||sum<0.00)
+				break;
+			sum=sum-d;
+		}
+		if(sum>h)
+			printf("success on day %.lf\n",i);
+		else
+			printf("failure on day %.lf\n",i);
+		}
+	}
+	return 0;
+}

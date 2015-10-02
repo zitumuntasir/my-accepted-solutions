@@ -1,0 +1,50 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+int main()
+{
+	long a,b,c,d,p,q,r;
+	while(1)
+	{
+	   scanf("%ld%ld%ld%ld",&a,&b,&c,&d);
+	   if(a==0&&b==0&&c==0&&d==0)
+		break;
+	 else
+	 {
+		 if(b>a)
+		 {
+			 p=(a+40-b)*9;
+		 }
+		 else
+			 p=(a-b)*9;
+		 if(b>c)
+		 {
+			 q=(c+40-b)*9;
+		 }
+		 else
+			 q=(c-b)*9;
+		 if(d>c)
+		 {
+			 r=(c+40-d)*9;
+		 }
+		 else
+			 r=(c-d)*9;
+		 printf("%ld\n",p+q+r+1080);
+	 }
+	}
+	return 0;
+}

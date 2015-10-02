@@ -1,0 +1,166 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+char tour_name[1100],str[1000],str1[1000],str2[1000],str3[1000],ch[1000],s[1000],s1[1000];
+map<string,long>mp;
+map<string,long>game;
+map<string,long>win;
+map<string,long>loss;
+map<string,long>tie;
+map<string,long>diff;
+map<string,long>point;
+map<string,long>get;
+long len1,r;
+struct ss
+{
+	char st[32];
+}
+sr[32];
+bool cmp(ss a,ss b)
+{
+	if(point[a.st]!=point[b.st])
+		return point[a.st]<point[b.st];
+	else if(win[a.st]!=win[b.st])
+		return win[a.st]<win[b.st];
+	else if(diff[a.st]!=diff[b.st])
+		return diff[a.st]<diff[b.st];
+	else if(mp[a.st]!=mp[b.st])
+		return mp[a.st]<mp[b.st];
+	else if(game[a.st]!=game[b.st])
+		return game[b.st]<game[a.st];
+	else
+	{
+		len1=strlen(a.st);
+		for(r=0;r<len1;r++)
+		{
+			s[r]=toupper(a.st[r]);
+		}
+		s[r]=NULL;
+		len1=strlen(b.st);
+		for(r=0;r<len1;r++)
+		{
+			s1[r]=toupper(b.st[r]);
+		}
+		s1[r]=NULL;
+		  if (strcmp(s,s1)<=0)
+		    return 0;
+	  else
+		return 1;
+	}
+}
+int main()
+{
+	long test,i,j,k,l,m,p,num,gam,len,goal1,goal2,n;
+	scanf("%ld",&test);
+	getchar();
+	for(i=0;i<test;i++)
+	{
+		if(i>0)
+			printf("\n");
+		gets(tour_name);
+		scanf("%ld",&num);
+		getchar();
+		for(j=0;j<num;j++)
+		{
+			gets(sr[j].st);
+		}
+		scanf("%ld",&gam);
+		getchar();
+		for(j=0;j<gam;j++)
+		{
+			p=l=m=0;
+			gets(ch);
+			len=strlen(ch);
+			for(k=0;k<len;k++)
+			{
+				if(p==0)
+				{
+					while(ch[k]!='#')
+					{
+						str[l]=ch[k];
+						l++,k++;
+					}
+					str[l]=NULL;
+					k++;
+					while(ch[k]!='@')
+					{
+						str1[m]=ch[k];
+						k++,m++;
+					}
+					str1[m]=NULL;
+					sscanf(str1,"%ld",&goal1);
+					mp[str]+=goal1;
+					game[str]++;
+					p=1;
+					m=l=0;
+				}
+				else
+				{
+					while(ch[k]!='#')
+					{
+						str3[m]=ch[k];
+						k++,m++;
+					}
+					str3[m]=NULL;
+					sscanf(str3,"%ld",&goal2);
+					k++;
+					while(ch[k]!=NULL)
+					{
+						str2[l]=ch[k];
+						k++,l++;
+					}
+					str2[l]=NULL;
+					mp[str2]+=goal2;
+					game[str2]++;
+					m=l=0;
+					get[str]+=goal2;
+					get[str2]+=goal1;
+				}
+			}
+			if(goal1>goal2)
+			{
+				win[str]++;
+				loss[str2]++;
+				point[str]+=3;
+			}
+			else if(goal1<goal2)
+			{
+				win[str2]++;
+				loss[str]++;
+				point[str2]+=3;
+			}
+			else
+			{
+				tie[str]++;
+				tie[str2]++;
+				point[str]+=1;
+				point[str2]+=1;
+			}
+			diff[str]+=(goal1-goal2);
+			diff[str2]+=(goal2-goal1);
+		}
+		sort(sr,sr+num,cmp);
+		puts(tour_name);
+		for(j=num-1,n=1;j>=0;j--,n++)
+		{
+			cout<<n<<") "<<sr[j].st<<" "<<point[sr[j].st]<<"p, "<<game[sr[j].st]<<"g ("<<win[sr[j].st]<<"-"<<tie[sr[j].st]<<"-"<<loss[sr[j].st]<<"), "<<diff[sr[j].st]<<"gd ("<<mp[sr[j].st]<<"-"<<get[sr[j].st]<<")"<<endl;
+		}
+		mp.clear(),point.clear(),game.clear(),win.clear(),tie.clear(),loss.clear(),diff.clear(),get.clear();
+
+	}
+	return 0;
+}

@@ -1,0 +1,150 @@
+#include<cstdio>//run time:.036
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+using namespace std;
+vector<long>vc[1000];
+map<long,long>mp;
+long visit[1000],ara[1000];
+int main()
+{
+	long a,b,m,n,i,j,k,l,r;
+	while(scanf("%ld%ld",&a,&b))
+	{
+		r=0;
+		if(a==0&&b==0)
+			break;
+		else
+		{
+			for(i=0;i<b;i++)
+			{
+				scanf("%ld%ld",&m,&n);
+				vc[m].push_back(n);
+				mp[n]++;
+			}
+			for(i=1;i<=a;i++)
+			{
+				for(j=1,l=0;j<=a;j++)
+				{
+					if(mp[j]==0&&visit[j]==0)
+					{
+						r++;
+						cout<<j;
+						ara[l]=j;
+						l++;
+						visit[j]=1;
+						if(r==a)
+							printf("\n");
+						else
+							printf(" ");
+					}
+				}
+				for(k=0;k<l;k++)
+				{
+
+					for(j=0;j<vc[ara[k]].size();j++)
+					{
+						mp[vc[ara[k]][j]]--;
+					}
+				}
+			}
+			mp.clear();
+			for(j=0;j<=a;j++)
+			{
+				visit[j]=ara[j]=0;
+				vc[j].clear();
+			}
+		}
+	}
+	return 0;
+}
+/*run time .008
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+using namespace std;
+vector<long>vc[1000];
+queue<long>qu;
+long ara[1000];
+int main()
+{
+	long i,a,b,m,n,count,c,j,p;
+	while(scanf("%ld%ld",&a,&b))
+	{
+		count=0;
+		if(a==0&&b==0)
+			break;
+		else
+		{
+			for(i=1;i<=b;i++)
+			{
+				scanf("%ld%ld",&m,&n);
+				vc[m].push_back(n);
+				ara[n]++;
+			}
+			for(i=1;i<=a;i++)
+			{
+				if(ara[i]==0)
+				{
+					count++;
+					if(count==a)
+					printf("%ld\n",i);
+					else
+						printf("%ld ",i);
+					qu.push(i);
+				}
+			}
+			while(!qu.empty())
+			{
+				c=qu.front();
+				for(j=0;j<vc[c].size();j++)
+				{
+					p=vc[c][j];
+					ara[p]--;
+					if(ara[p]==0)
+					{
+						count++;
+					if(count==a)
+					printf("%ld\n",p);
+					else
+						printf("%ld ",p);
+						qu.push(p);
+					}
+				}
+				qu.pop();
+			}
+		}
+		for(i=0;i<=a;i++)
+		{
+			ara[i]=0;
+			vc[i].clear();
+		}
+	}
+	return 0;
+}
+*/

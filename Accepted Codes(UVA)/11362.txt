@@ -1,0 +1,67 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+struct ss{
+	char st[100];
+}sr[10010];
+bool cmp(ss aa,ss bb)
+{
+	return strlen(aa.st)<strlen(bb.st);
+}
+int main()
+{
+	long test,num,i,found,k,j,n,l,y;
+	scanf("%ld",&test);
+	for(k=0;k<test;k++)
+	{
+		scanf("%ld",&num);
+			getchar();
+	for(i=0;i<num;i++)
+	{
+		scanf("%s",sr[i].st);
+	}
+	sort(sr,sr+num,cmp);
+	for(i=0;i<num;i++)
+	{
+		
+		for(j=i+1;j<=num;j++)
+		{
+			l=n=0;
+	
+			while(sr[i].st[l]!=NULL)
+			{
+				if(sr[i].st[l]!=sr[j].st[l])
+				{
+					n=1;
+					 break;
+				}
+				l++;
+			}
+			if(n==0)
+			{
+			printf("NO\n");
+			break;
+			}
+		}
+		if(n==0)
+			break;
+	}
+	if(n==1)
+		printf("YES\n");
+	}
+	return 0;
+}

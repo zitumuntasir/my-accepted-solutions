@@ -1,0 +1,85 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+const double eps = 1e-9;
+vector<long>vc[10000];
+char ch1[2],ch[5];
+long visit[10000];
+void dfs(long node)
+{
+	long i;
+	visit[node]=1;
+	for(i=0;i<vc[node].size();i++)
+	{
+		if(visit[vc[node][i]]==0)
+			dfs(vc[node][i]);
+	}
+}
+int main()
+{
+	long test,u,v,i,mx,j,cnt;
+	scanf("%ld",&test);
+	for(i=cnt=0;i<test;i++)
+	{
+		if(i>0)
+			printf("\n");
+		scanf("%s",ch1);
+		mx=ch1[0]-64;
+		getchar();
+		while(gets(ch)&&(strlen(ch)!=0))
+		{
+			u=ch[0]-64;
+			v=ch[1]-64;
+			vc[u].push_back(v);
+			vc[v].push_back(u);
+		}
+		for(j=1;j<=mx;j++)
+		{
+			if(visit[j]==0)
+			{
+				cnt++;
+				dfs(j);
+			}
+		}
+		printf("%ld\n",cnt);
+		cnt=0;
+		for(j=0;j<=mx;j++)
+		{
+			vc[j].clear();
+			visit[j]=0;
+		}
+	}
+	return 0;
+}

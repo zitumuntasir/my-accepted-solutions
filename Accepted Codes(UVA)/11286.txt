@@ -1,0 +1,59 @@
+#include<stdio.h>
+#include<iostream>
+#include<string>
+#include<map>
+#include<algorithm>
+#include<string.h>
+using namespace std;
+char str[10000][20];
+map<string,long>mp;
+struct ss
+{
+	char st[20];
+}
+sr[10000];
+bool cmp(ss a,ss b)
+{
+	if(strcmp(a.st,b.st)<=0)
+		return 1;
+	else
+		return 0;
+}
+int main()
+{
+	long num,i,k,l,max,count,j,t;
+	while(scanf("%ld",&num)&&num!=0)
+	{
+			count=0,max=0,t=0;
+		for(i=0;i<num;i++)
+		{
+		
+			for(j=0;j<5;j++)
+			{
+		       scanf("%s",sr[j].st);
+			}
+			sort(sr,sr+5,cmp);
+			for(k=1;k<5;k++)
+			{
+				strcat(sr[0].st,sr[k].st);
+			}
+				strcpy(str[t],sr[0].st);
+				t++;
+			mp[sr[0].st]++;
+			if(max<mp[sr[0].st])
+			{
+				max=mp[sr[0].st];
+			}
+		}
+		for(l=0;l<t;l++)
+			{
+				if(mp[str[l]]==max)
+				{
+					count++;
+				}
+			}
+		printf("%ld\n",count);
+		mp.clear();
+	}
+	return 0;
+}

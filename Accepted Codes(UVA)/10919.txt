@@ -1,0 +1,68 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+using namespace std;
+map<string,long>mp;
+char ch[1000000];
+int main()
+{
+	char *pch;
+	long a,b,num,k,count,sum,q,i;
+	while(scanf("%ld",&a)&&a!=0)
+	{
+		scanf("%ld",&b);
+		q=count=sum=k=0;
+		getchar();
+		gets(ch);
+		pch=strtok(ch," ");
+		while(pch!=NULL)
+		{
+			mp[pch]=1;
+			pch=strtok(NULL," ");
+		}
+		for(i=0;i<b;i++)
+		{
+			k=count=0;
+			gets(ch);
+			pch=strtok(ch," ");
+			while(pch!=NULL)
+			{
+				if(k==1)
+				{
+					sscanf(pch,"%ld",&num);
+				}
+				else if(k>1)
+				{
+					if(mp[pch]==1)
+					{
+						count++;
+					}
+				}
+				pch=strtok(NULL," ");
+				k++;
+			}
+			if(count>=num)
+			{
+				sum++;
+			}
+		}
+		if(sum==b)
+			printf("yes\n");
+		else
+			printf("no\n");
+		mp.clear();
+	}
+	return 0;
+}

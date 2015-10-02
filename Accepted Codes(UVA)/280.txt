@@ -1,0 +1,91 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+using namespace std;
+vector<long>vc[10000];
+queue<long>qu;
+long visit[1000000],ara[100000],cost[100000];
+void bfs(long node)
+{
+	long i,u,v;
+	qu.push(node);
+	cost[node]=0;
+	while(!qu.empty())
+	{
+		v=qu.front();
+		for(i=0;i<vc[v].size();i++)
+		{
+			u=vc[v][i];
+			if(!visit[u])
+			{
+				cost[u]=cost[v]+1;
+				qu.push(u);
+				visit[u]=1;
+			}
+		}
+		qu.pop();
+	}
+
+}
+int main()
+{
+	long ver,n,no,k,i,j,s,num;
+	while(scanf("%ld",&ver)&&ver)
+	{
+		while(scanf("%ld",&n)&&n)
+		{
+			while(scanf("%ld",&no)&&no)
+			{
+			  vc[n].push_back(no);
+			}
+		}
+		scanf("%ld",&num);
+		for(i=0;i<num;i++)
+		{
+			k=0;
+			scanf("%ld",&s);
+			bfs(s);
+			for(j=1;j<=ver;j++)
+			{
+				if(cost[j]==0)
+				{
+					ara[k]=j;
+					k++;
+				}
+			}
+			if(k==0)
+				printf("0\n");
+			else
+			{
+			printf("%ld ",k);
+			for(j=0;j<k-1;j++)
+			{
+				printf("%ld ",ara[j]);
+			}
+			printf("%ld\n",ara[j]);
+			}
+			for(j=0;j<=ver;j++)
+			{
+				cost[j]=visit[j]=0;
+			}
+		}
+		for(j=0;j<=ver;j++)
+		{
+			vc[j].clear();
+		}
+	}
+	return 0;
+}

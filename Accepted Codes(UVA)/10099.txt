@@ -1,0 +1,130 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<set>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+#define eps 1e-14
+long ar[10000],rank[10000],par[10000];
+void makepair(int n)
+{
+	par[n]=n;
+}
+int findpar(int r)
+{
+	if(par[r]==r) return r;
+	else return par[r]=findpar(par[r]);
+}
+struct ss{
+	int in,fn,cst;
+}ara[10010];
+bool cmp(ss aa,ss bb)
+{
+	return aa.cst<bb.cst;
+}
+int main()
+{
+	int i,j,test=0,n,m,cnt,src,dst,u,v,mn;
+	double cost,num;
+	while(scanf("%ld%ld",&n,&m)&&(n!=0||m!=0))
+	{
+		mn=9999999;
+		test++;
+		for(i=0;i<m;i++)
+		{
+		scanf("%ld%ld%ld",&ara[i].in,&ara[i].fn,&ara[i].cst);
+		if(ar[ara[i].in]==0)
+		{
+			par[ara[i].in]=1;
+			makepair(ara[i].in);
+		}
+		if(ar[ara[i].fn]==0)
+		{
+			par[ara[i].fn]=1;
+			makepair(ara[i].fn);
+		}
+		}
+		scanf("%ld%ld%lf",&src,&dst,&num);
+		sort(ara,ara+m,cmp);
+		for(i=m-1;i>=0;i--)
+		{
+			u=findpar(ara[i].in);
+			v=findpar(ara[i].fn);
+			if(u!=v)
+			{
+				if(mn>ara[i].cst)
+				{
+					mn=ara[i].cst;
+				}
+				if(rank[u]==0&&rank[v]==0)
+				{
+					par[v]=u;
+					rank[u]+=2;
+				}
+				else if(rank[u]==rank[v])
+				{
+					par[v]=u;
+					rank[u]+=rank[v];
+				}
+				else if(rank[u]>rank[v])
+				{
+					par[v]=u;
+					if(rank[v]==0) rank[u]++;
+					else
+						rank[u]+=rank[v];
+				}
+				else if(rank[v]>rank[u])
+				{
+					par[u]=v;
+					if(rank[u]==0) rank[v]++;
+					else 
+						rank[v]+=rank[u];
+				}
+			}
+			u=findpar(src);
+			v=findpar(dst);
+			if(u==v)
+			{
+				mn--;
+				printf("Scenario #%d\nMinimum Number of Trips = %.lf\n\n",test,(ceil)(num/mn));
+				break;
+			}
+		}
+		for(i=0;i<=n;i++)
+		{
+			par[i]=rank[i]=ar[i]=0;
+		}
+	}
+	return 0;
+}

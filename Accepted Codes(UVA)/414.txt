@@ -1,0 +1,51 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+long ara[1000000];
+int main()
+{
+	long num,sum,i,j,min,count;
+	char c;
+	while(scanf("%ld",&num)&&num!=0)
+	{
+		min=30;
+		sum=0;
+		getchar();
+	for(i=0;i<num;i++)
+	{
+		count=0;
+		while(scanf("%c",&c)&&c!='\n')
+		{
+			if(c==' ')
+			{
+				count++;
+			}
+		}
+		ara[i]=count;
+		if(min>count)
+		{
+			min=count;
+		}
+	}
+	for(j=0;j<num;j++)
+	{
+		sum+=(ara[j]-min);
+	}
+	printf("%ld\n",sum);
+	}
+	return 0;
+}

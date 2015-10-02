@@ -1,0 +1,140 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<set>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define area(x1,y1,x2,y2,x3,y3) ( x1*(y2-y3) + x2*(y3-y1) + x3*(y1-y2) )
+#define distSqr(x1,y1,x2,y2) ( sqr(x1-x2) + sqr(y1-y2) )
+#define pi acos(-1.0)
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+#define eps 1e-14
+char ch[1000],ch1[1000],ch2[1000],ch3[1000];
+vector<long>vc[28];
+map<char,long>mp1,mp2;
+map<long,long>mp,mp3;
+int main()
+{
+	long n,e,i,len,cnt,j,num,sz,sum,res,rs,s,t,test=0,y,nd;
+	char c;
+	while(~scanf("%ld%ld",&nd,&e))
+	{
+		if(test) getchar();
+		test++;
+		cnt=sum=res=rs=0,n=1;
+		scanf("%s",ch);
+		len=strlen(ch);
+		for(i=0,rs=0;i<len;i++,rs++) 
+		{
+			mp2[ch[i]]=rs;
+			mp[i]=1;
+			mp1[ch[i]]=1;
+		}
+	  for(i=0;i<e;i++)
+	  {
+		  scanf("%s",ch1);
+		  if(mp1[ch1[0]]==0)
+		  {
+			  mp1[ch1[0]]=1;
+			  ch2[cnt]=ch1[0];
+			  mp2[ch1[0]]=rs;
+			  cnt++;
+			  rs++;
+		  }
+		  if(mp1[ch1[1]]==0)
+		  {
+			  mp1[ch1[1]]=1;
+			  mp2[ch1[1]]=rs;
+			  ch2[cnt]=ch1[1];
+			  cnt++;
+			  rs++;
+		  }
+		  vc[mp2[ch1[0]]].push_back(mp2[ch1[1]]);
+		  vc[mp2[ch1[1]]].push_back(mp2[ch1[0]]);
+	  }
+	  ch2[cnt]=NULL;
+	  while(n==1)
+	  {
+		  res++;
+		  n=y=0;
+		  for(i=len;i<rs;i++)
+		  {
+			  num=0;
+			  if(mp3[i]==0)
+			  {
+			   sz=vc[i].size();
+			   for(j=0;j<sz;j++)
+			   {
+				   s=mp[vc[i][j]];
+				   t=mp[s];
+				  if(mp[vc[i][j]]==1)
+				  {
+					  num++;
+				  }
+			   }
+			   if(num>=3) 
+			   {
+				   n=1;
+				   //mp[mp2[ch2[i-len]]]=1;
+				   mp3[i]=1;
+				   ch3[y]=ch2[i-len];
+				   y++;
+				   sum++;
+			   }
+			  }
+		  }
+		  ch3[y]=NULL;
+		  j=0;
+		  while(ch3[j]!=NULL) 
+		  {
+			  mp[mp2[ch3[j]]]=1;
+			  j++;
+		  }
+	  }
+	  if(e==0&&nd>len)
+	  {
+	  printf("THIS BRAIN NEVER WAKES UP\n");
+	  }
+	  else if(sum==cnt&&len>2)
+	  {
+		  printf("WAKE UP IN, %ld, YEARS\n",res-1);
+	  }
+	  else
+	  {
+		  printf("THIS BRAIN NEVER WAKES UP\n");
+	  }
+	  mp.clear(),mp1.clear(),mp2.clear(),mp3.clear();
+	  for(i=0;i<27;i++) vc[i].clear();
+
+	}
+	return 0;
+}

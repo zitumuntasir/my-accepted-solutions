@@ -1,0 +1,58 @@
+#include<stdio.h>
+#include<string.h>
+char ch1[10000][10000],st[10000],st1[10000][10000],str[10000],ch[10000],ara2[1000];
+long ara[10000],ara1[10000];
+int main()
+{
+	long i,k,j,a,b,count;
+	while(scanf("%ld%ld",&a,&b)!=EOF)
+	{
+		scanf("%s",ch);
+		strcpy(str,ch);
+		scanf("%s",st);
+		for(i=1;i<=a-2;i++)
+		{
+			scanf("%s",ch1[i]);
+		}
+		for(i=1;i<=a-2;i++)
+		{
+				for(k=0;k<b;k++)
+				{
+					ara1[k]=str[k];
+				}
+			for(j=1;j<=a-2;j++)
+			{
+				count=0;
+				if(strcmp(ch1[j],"")!=0)
+				{
+				for(k=0;k<b;k++)
+				{
+					ara2[k]=ch1[j][k];
+				}
+				for(k=0;k<b;k++)
+				{
+					if(ara1[k]==ara2[k])
+						count++;
+				}
+				 if(count==b-1)
+				 {
+					strcpy(st1[i],ch1[j]);
+					strcpy(str,ch1[j]);
+					strcpy(ch1[j],"");
+						break;
+				 }
+				}
+			}
+			for(k=0;k<=b;k++)
+			{
+				ara1[k]=ara2[k]=0;
+			}
+		}
+		puts(ch);
+		for(i=1;i<=a-2;i++)
+			puts(st1[i]);
+		puts(st);
+
+	}
+	return 0;
+}

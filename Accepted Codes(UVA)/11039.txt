@@ -1,0 +1,63 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+struct ss
+{
+	long val;
+}T[500000];
+bool cmp(ss aa,ss bb)
+{
+	return abs(aa.val)<abs(bb.val);
+}
+int main()
+{
+	long i,j,num,test,count;
+	scanf("%ld",&test);
+	for(i=0;i<test;i++)
+	{
+		count=0;
+		scanf("%ld",&num);
+		for(j=0;j<num;j++)
+		{
+			scanf("%ld",&T[j].val);
+		}
+		sort(T,T+num,cmp);
+		for(j=num-1;j>=0;)
+		{
+			if(T[j].val<0)
+			{
+				j--;
+				while(T[j].val<0&&j>=0)
+				{
+					j--;
+				}
+				count++;
+			}
+			else
+			{
+				j--;
+				while(T[j].val>0&&j>=0)
+				{
+					j--;
+				}
+				count++;
+			}
+		}
+		printf("%ld\n",count);
+	}
+	return 0;
+}

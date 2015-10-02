@@ -1,0 +1,52 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+using namespace std;
+map<char,double>mp;
+int main()
+{
+	long long i,j,k,len,num,test,line,l;
+	double sum,a;
+	char c;
+	scanf("%ld",&test);
+	for(i=0;i<test;i++)
+	{
+		sum=0.00;
+		scanf("%lld",&num);
+		getchar();
+		for(j=0;j<num;j++)
+		{
+			c=getchar();
+			scanf("%lf",&a);
+			getchar();
+			mp[c]=a;
+		}
+		scanf("%lld",&line);
+		getchar();
+		for(l=0;l<line;l++)
+		{
+             while(1)
+             {
+                c=getchar();
+                if(c=='\n')
+                break;
+                if(mp[c]!=0.00)             
+				sum=sum+mp[c];
+             }
+		}
+		sum/=100;
+		printf("%.2lf$\n",sum);
+		mp.clear();
+	}
+	return 0;
+}

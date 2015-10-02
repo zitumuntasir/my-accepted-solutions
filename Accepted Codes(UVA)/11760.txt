@@ -1,0 +1,54 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+using namespace std;
+long ara[100000],ara1[100000],row[100000],col[100000];
+int main()
+{
+	long a,b,c,p,q,i,t=0;
+	while(scanf("%ld%ld%ld",&a,&b,&c)&&(a!=0&&b!=0&&c!=0))
+	{
+		t++;
+		for(i=0;i<c;i++)
+		{
+			scanf("%ld%ld",&p,&q);
+			row[p]=1,col[q]=1;
+			ara[i]=p,ara1[i]=q;
+		}
+		scanf("%ld%ld",&p,&q);
+		if(row[p]==0&&col[q]==0)
+		{
+			printf("Case %ld: Escaped again! More 2D grid problems!\n",t);
+		}
+		else if(row[p]!=0&&col[q]!=0)
+		{
+			printf("Case %ld: Party time! Let's find a restaurant!\n",t);
+		}
+		else if(row[p]!=0&&((row[p-1]==0&&p-1>=0)||(row[p+1]==0&&p+1<=a)))
+		{
+			printf("Case %ld: Escaped again! More 2D grid problems!\n",t);
+		}
+		else if(col[q]!=0&&((col[q-1]==0&&q-1>=0)||(col[q+1]==0&&q+1<=b)))
+		{
+			printf("Case %ld: Escaped again! More 2D grid problems!\n",t);
+		}
+		else
+			printf("Case %ld: Party time! Let's find a restaurant!\n",t);
+		for(i=0;i<c;i++)
+		{
+			row[ara[i]]=col[ara1[i]]=0;
+			ara[i]=ara1[i]=0;
+		}
+	}
+	return 0;
+}

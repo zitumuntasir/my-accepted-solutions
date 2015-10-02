@@ -1,0 +1,62 @@
+#include <iostream>
+#include<stdio.h>
+#include<map>
+#include<string>
+#include <algorithm>
+#include<cstring>
+using namespace std;
+char ch[1000][20],ch1[1000],ch2[100],ch3[10];
+long ara[1000],ara1[1000],ara3[1000],ara4[1000];
+map<string,long>mp;
+map<string,long>mp1;
+int main () 		
+{
+	long i=0,k,count,len,len1,n=0,p,j,l;
+	while(gets(ch[i])&&(strcmp(ch[i],"#")!=0))
+	{
+
+		i++;
+	}
+	while(gets(ch1)&&(strcmp(ch1,"#")!=0))
+	{
+		count=0,p=0;
+		len=strlen(ch1);
+		for(j=0;j<len;j++)
+		{
+			if(ch1[j]!=' ')
+			{
+				ara[ch1[j]]++;
+				ara4[p]=ch1[j];
+				p++;
+			}
+		}
+		for(k=0;k<i;k++)
+		{
+			n=0;
+			len1=strlen(ch[k]);
+			for(l=0;l<len1;l++)
+			{
+				ara3[l]=ch[k][l];
+				ara1[ch[k][l]]++;
+				if(ara1[ch[k][l]]>ara[ch[k][l]])
+				{
+					n=1;
+					break;
+				}
+			}
+			if(n==0)
+				count++;
+			for(l=0;l<len1;l++)
+			{
+				ara1[ara3[l]]=0;
+			}
+		}
+		   for(l=0;l<len;l++)
+			{
+				ara[ara4[l]]=0;
+			}
+		printf("%ld\n",count);
+			
+	}
+	return 0;
+}

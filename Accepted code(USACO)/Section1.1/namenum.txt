@@ -1,0 +1,76 @@
+/*ID: muntasi5
+PROG: namenum
+LANG: JAVA
+*/
+import java.util.*;
+import java.io.*;
+public class namenum {
+	public static HashMap<String , Integer>exist = new HashMap();
+	public static String map[] = new String[10];
+	public static String numToChar[] = new String[10];
+	public static boolean visited1[] = new boolean[14];
+	public static boolean visited2[][] = new boolean[14][5];
+	public static String answer[] = new String[6000];
+	public static String c;
+	public static char neword[] = new char[14];
+	public static int result = 0, cnt = 0;
+	public static void main(String[] args) throws IOException{
+		numToChar[2] = "ABC"; numToChar[3] = "DEF"; numToChar[4] = "GHI"; numToChar[5] = "JKL";
+		numToChar[6] = "MNO"; numToChar[7] = "PRS"; numToChar[8] = "TUV"; numToChar[9] = "WXY";
+		int i, j, len, length = 0;
+		boolean NONE = false;
+		String word = null;
+		BufferedReader f = new BufferedReader(new FileReader("namenum.in"));
+		BufferedReader dict = new BufferedReader(new FileReader("dict.txt"));
+		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("namenum.out")));
+		while((word = dict.readLine()) != null) exist.put(word, 1);
+		word = f.readLine();
+		len = word.length();
+		for(i = 0; i < len; i++) if(word.charAt(i) <= '1' ) NONE = true;
+		if(NONE  == false)
+		Solve(len, word, length);
+		if(result == 0 || NONE == true)
+		out.println("NONE");
+		else for(i = 0; i < result; i++) out.println(answer[i]);
+	    out.close();                                 
+	    System.exit(0);
+	}
+	public static void Solve(int len, String word, int length)
+	{
+		int i, j, ind, k;
+		if(length == len)
+		{
+			c = new String(neword, 0, len);
+			cnt++;
+			if(exist.get(c) != null)
+			{
+				answer[result] = c;
+				result++; 
+			}
+			return;
+		}
+		for(i = 0; i < len; i++)
+		{
+			if(!visited1[i])
+			{
+			 visited1[i] = true;
+			 for(j = 0; j < 3; j++)
+			 {
+				 if(!visited2[i][j])
+				 {
+					visited2[i][j] = true;
+					ind = word.charAt(i) - 48;
+					neword[length] = numToChar[ind].charAt(j);
+					length++;
+					Solve(len, word, length);
+					length--;
+					visited2[i][j] = false;
+				 }
+			 }
+			 visited1[i] = false;
+			 return;
+			}
+		}
+	}
+	
+}

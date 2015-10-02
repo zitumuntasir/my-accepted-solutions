@@ -1,0 +1,140 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<set>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+#define eps 1e-14
+long par[1010],rank[1010],ar[1010],xa[1010],ya[1010];
+struct ss{
+	long in,fn,cst;
+}ara[1000005];
+bool cmp(ss aa,ss bb)
+{
+	return aa.cst<bb.cst;
+}
+void makepair(long n)
+{
+	par[n]=n;
+}
+long findpar(long r)
+{
+	if(par[r]==r) return r;
+	else 
+		return par[r]=findpar(par[r]);
+}
+int main()
+{
+	long n,i,dis,j,x,y,u,v,k,mx,cnt,test=0;
+	double res;
+	while(scanf("%ld",&n)&&n)
+	{
+		test++;
+		k=mx=cnt=0;
+		for(i=0;i<n;i++)
+		{
+			scanf("%ld%ld",&xa[i],&ya[i]);
+			if(ar[i]==0)
+			{
+				makepair(i);
+				ar[i]=1;
+			}
+			for(j=0;j<i;j++)
+			{
+				dis=((xa[i]-xa[j])*(xa[i]-xa[j]))+((ya[i]-ya[j])*(ya[i]-ya[j]));
+				ara[k].cst=dis;
+				ara[k].in=i;
+				ara[k].fn=j;
+				k++;
+			}
+		}
+		sort(ara,ara+k,cmp);
+		for(i=0;i<k;i++)
+		{
+			u=findpar(ara[i].in);
+			v=findpar(ara[i].fn);
+			if(u!=v)
+			{
+				if(ara[i].cst>mx)
+				{
+					mx=ara[i].cst;
+				}
+				if(rank[u]==0&&rank[v]==0)
+				{
+					par[v]=u;
+					rank[u]+=rank[v];
+					cnt+=2;
+				}
+				else if(rank[u]==rank[v])
+				{
+					par[v]=u;
+					rank[u]+=rank[v];
+				}
+				else if(rank[u]>rank[v])
+				{
+					par[v]=u;
+					if(rank[v]==0)
+					{
+						cnt++;
+						rank[u]++;
+					}
+					else rank[u]+=rank[v];
+				}
+				else if(rank[v]>rank[u])
+				{
+					if(rank[u]==0)
+					{
+						rank[v]++;
+						cnt++;
+					}
+					else rank[v]+=rank[u];
+				}
+			}
+			u=findpar(0);
+			v=findpar(1);
+			if(u==v)
+			{
+				res=sqrt(mx)+.00000000001;
+				printf("Scenario #%ld\nFrog Distance = %.3lf\n\n",test,res);
+				break;
+			}
+
+		}
+		for(i=0;i<=n;i++)
+		{
+			ar[i]=par[i]=rank[i]=0;
+		}
+	}
+	return 0;
+}

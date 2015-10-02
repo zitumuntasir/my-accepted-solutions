@@ -1,0 +1,80 @@
+/*ID: muntasi5
+PROG: milk2
+LANG: JAVA
+*/
+import java.util.*;
+import java.io.*;
+public class milk2 {
+	public static int start, end;
+	public static void main(String[] args) throws IOException {
+		int numOfFarmers, i, present = 0, result1 = 0, result2 = 0, begin = 0;
+		boolean flag = false;
+		BufferedReader f = new BufferedReader(new FileReader("milk2.in"));
+		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("milk2.out")));
+		numOfFarmers = Integer.parseInt(f.readLine());
+		Interval[] intervals = new Interval[numOfFarmers];
+		for(i = 0; i < numOfFarmers; i++)
+		{
+			StringTokenizer st = new StringTokenizer(f.readLine());
+			start = Integer.parseInt(st.nextToken());
+			end = Integer.parseInt(st.nextToken());
+			intervals[i] = new Interval(start, end);
+		}
+            Arrays.sort(intervals, new Comparator<Interval>() {
+            //@Override
+            public int compare(Interval ob1, Interval ob2) {
+            	if(ob1.getstart() > ob2.getstart())
+            		return 1;
+            	else return -1;
+            }
+        });
+        for(i = 0; i < numOfFarmers; i++)
+        {
+        	if(flag == true)
+        	{
+				if(intervals[i].start <= present)
+				{
+					present = Math.max(present, intervals[i].end);
+					result1 = Math.max(result1, present - begin);
+				}
+				else {
+		        	result2 = Math.max(result2, intervals[i].start - present);
+					flag = false;
+				}
+			}
+        	if(flag == false)
+        	{
+           	 begin = intervals[i].start;
+        	 present = intervals[i].end;
+        	 result1 = Math.max(result1,present - begin);
+        	 flag = true;
+        	}
+
+        }
+        if(i == numOfFarmers)
+        {
+        	result1 = Math.max(result1, present - begin);
+        }
+        out.println(result1 + " " + result2);
+	    out.close();                                 
+	    System.exit(0);
+	}
+		
+	private static class Interval
+	{
+		private int start, end;
+		public Interval(int start, int end)
+		{
+			this.start = start;
+			this.end = end;
+		}
+		public int getstart()
+		{
+			return this.start;
+		}
+		public int getend()
+		{
+			return this.end;
+		}
+	}
+}

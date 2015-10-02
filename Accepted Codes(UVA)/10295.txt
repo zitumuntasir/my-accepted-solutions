@@ -1,0 +1,32 @@
+#include<stdio.h>
+#include<iostream>
+#include<map>
+#include<string>
+#include<string.h>
+using namespace std;
+map<string,long>mp;
+char ch[1000];
+int main()
+{
+	long a,b,money,i,j,sum;
+	while(scanf("%ld%ld",&a,&b)!=EOF)
+	{
+		for(i=0;i<a;i++)
+		{
+			scanf("%s",&ch);
+			scanf("%ld",&money);
+			mp[ch]=money;
+		}
+		for(j=0;j<b;j++)
+		{
+			sum=0;
+			while(scanf("%s",ch)&&strcmp(ch,".")!=0)
+			{
+				sum=sum+mp[ch];
+			}
+			printf("%ld\n",sum);
+		}
+		mp.clear();
+	}
+	return 0;
+}

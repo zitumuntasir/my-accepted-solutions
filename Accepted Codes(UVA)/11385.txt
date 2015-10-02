@@ -1,0 +1,79 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+map<double,long>mp;
+double ara[100000],ara3[1000000];
+char ch[10000],str[10000];
+void fib()
+{
+	double num1,num2,sum;
+	long i;
+	num1=1.00,num2=2.00;
+	mp[1.00]=1.00,mp[2.00]=2.00;
+	for(i=3;i<=47;i++)
+	{
+	 sum=num1+num2;
+	 mp[sum]=i;
+	 num1=num2;
+	 num2=sum;
+	}
+
+}
+int main()
+{
+	long test,i,j,k,len,l,num,max,p;
+	fib();
+	scanf("%ld",&test);
+	for(i=0;i<test;i++)
+	{
+		l=max=p=0;
+		scanf("%ld",&num);
+		for(j=0;j<num;j++)
+		{
+			scanf("%lf",&ara3[j]);
+			if(mp[ara3[j]]!=0)
+			{
+				ara[p]=ara3[j];
+				p++;
+			}
+		}
+		getchar();
+		gets(ch);
+		len=strlen(ch);
+		for(k=0;k<len&&l<p;k++)
+		{
+			if(ch[k]>=65&&ch[k]<=90)
+			{
+				str[mp[ara[l]]]=ch[k];
+				if(max<mp[ara[l]])
+				{
+					max=mp[ara[l]];
+				}
+				l++;
+			}
+		}
+		for(k=1;k<=max;k++)
+		{
+			if(str[k]==0)
+				printf(" ");
+			else printf("%c",str[k]);
+			str[k]=0;
+		}
+		printf("\n");
+	}
+	return 0;
+}

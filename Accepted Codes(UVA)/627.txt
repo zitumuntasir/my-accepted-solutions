@@ -1,0 +1,127 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+using namespace std;
+vector<long>vc[100];
+queue<long>q;
+map<long,long>mp,mp1;
+long visit[1000],cost[1000],p[1000],ara[1000];
+char ch[1000];
+void bfs(long node)
+{
+	long i,u,v;
+	q.push(node);
+	while(!q.empty())
+	{
+		v=q.front();
+		visit[v]=1;
+		for(i=0;i<vc[v].size();i++)
+		{
+			u=vc[v][i];
+			if(!visit[u])
+			{
+			  q.push(u);
+			  cost[u]=cost[v]+1;
+			  visit[u]=1;
+			  p[u]=v;
+			}
+		}
+		q.pop();
+	}
+}
+int main()
+{
+	long n,i,l,k,num,d,j,source,dest,test,m,b,r;
+	char *pch;
+	while(scanf("%ld",&num)!=EOF)
+	{
+		l=1;
+		getchar();
+		for(i=0;i<num;i++)
+		{
+			k=0;
+			gets(ch);
+			pch=strtok(ch,"-,");
+			while(pch!=NULL)
+			{
+				if(k==0)
+				{
+					sscanf(pch,"%ld",&n);
+					if(mp[n]==0)
+					{
+						mp[n]=l;
+						mp1[l]=n;
+						l++;
+					}
+				}
+				else
+				{
+					sscanf(pch,"%ld",&d);
+					if(mp[d]==0)
+					{
+						mp[d]=l;
+						mp1[l]=d;
+						l++;
+					}
+					vc[mp[n]].push_back(mp[d]);
+				}
+				pch=strtok (NULL, "-,");
+				k++;
+			}
+		}
+		    
+			scanf("%ld",&test);
+			printf("-----\n");
+			for(j=0;j<test;j++)
+			{
+				b=1;
+				scanf("%ld%ld",&source,&dest);
+				cost[mp[source]]=0;
+				ara[0]=dest;
+				bfs(mp[source]);
+				if(cost[mp[dest]]==0)
+					printf("connection impossible\n");
+				else
+				{
+				while(1)
+				{
+					dest=mp1[p[mp[dest]]];
+					ara[b]=dest;
+					if(dest==source)
+					{
+						break;
+					}
+					b++;
+				}
+				for(m=b;m>0;m--)
+				{
+					printf("%ld ",ara[m]);
+				}
+				printf("%ld\n",ara[m]);
+				}
+				for(m=0;m<l;m++)
+				{
+					visit[m]=cost[m]=0;
+				}
+			}
+		mp.clear(),mp1.clear();
+		for(m=0;m<l;m++)
+		{
+			vc[m].clear();
+		}
+	}
+	return 0;
+}

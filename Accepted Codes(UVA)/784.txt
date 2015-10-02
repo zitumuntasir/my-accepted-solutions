@@ -1,0 +1,107 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<sstream>
+#include<queue>
+#include<cstring>
+#include<map>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define err 1e-9
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+char inp[1000][1000];
+long cnt;
+long xmyarr[]={-1, 0, 1,1,1,0,-1,-1};
+long ymyarr[]={-1,-1,-1,0,1,1, 1, 0};
+void fill(long x,long y)
+{
+	long p;
+    if(inp[x][y]!=' '||inp[x][y]==NULL) return;
+    inp[x][y]='#';
+    for(p=0;p<8;p++)
+    fill(x+xmyarr[p],y+ymyarr[p]);
+}
+int main()
+{
+	long i,num,k,j,t,n,y,len;
+	scanf("%ld",&num);
+	getchar();
+	for(t=0;t<num;t++)
+	{
+
+		k=n=0;
+		while(gets(inp[k]))
+		{
+			y=0;
+			len=strlen(inp[k]);
+			for(i=0;i<len;i++)
+			{
+				if(inp[k][i]!='_')
+				{
+					y=1;
+				}
+			}
+			if(y==0)
+			{
+				break;
+			}
+			k++;
+		}
+		for(i=0;i<k;i++)
+		{
+			for(j=0;j<strlen(inp[i]);j++)
+			{
+				if(inp[i][j]=='*')
+				{
+					inp[i][j]=' ';
+					fill(i,j);
+					n=1;
+					break;
+				}
+			}
+			if(n==1)
+				break;
+		}
+		for(i=0;i<k;i++)
+		{
+			for(j=0;j<strlen(inp[i]);j++)
+			{
+				printf("%c",inp[i][j]);
+			}
+			printf("\n");
+		}
+		for(i=0;i<len;i++)
+		{
+			printf("_");
+		}
+		printf("\n");
+		for(i=0;i<k;i++)
+		{
+			for(j=0;j<strlen(inp[i]);j++)
+			{
+				inp[i][j]=NULL;
+			}
+		}
+
+	}
+	return 0;
+}

@@ -1,0 +1,55 @@
+/*ID: muntasi5
+PROG: barn1
+LANG: JAVA
+*/
+import java.io.*;
+import java.util.*;
+
+public class barn1 {
+	public static int[] gap = new int[202];
+	public static void main(String[] args) throws IOException{
+		int m, s, i, c, result, l = 0, need = 0;
+		BufferedReader f = new BufferedReader(new FileReader("barn1.in"));
+		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("barn1.out")));
+		StringTokenizer st = new StringTokenizer(f.readLine());
+		m = Integer.parseInt(st.nextToken());
+		s = Integer.parseInt(st.nextToken());
+		c = Integer.parseInt(st.nextToken());
+		int[] stall = new int[c];
+		for(i = 0; i < c; i++)
+		{
+			StringTokenizer st1 = new StringTokenizer(f.readLine());
+			stall[i] = Integer.parseInt(st1.nextToken());
+		}
+		Arrays.sort(stall, 0, c);
+		result = 1;
+		if(c == 1) result = 1;
+		else {
+				for(i = 0; i < c - 1; i++)
+				{
+					if(stall[i] + 1 == stall[i + 1])
+					{
+						result++;
+					}
+					else {
+						gap[l] = (stall[i + 1] - stall[i]) - 1;
+						l++;
+						result++;
+					}
+				}
+				Arrays.sort(gap, 0, l);
+				if(m < l + 1)
+				{
+					need = (l + 1) - m;
+					for(i = 0; i < need; i++)
+					{
+						result += gap[i];
+					}
+				}
+	    	}
+		out.println(result);
+		out.close();
+		System.exit(0);
+	}
+
+}

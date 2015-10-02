@@ -1,0 +1,112 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<sstream>
+#include<queue>
+#include<cstring>
+#include<map>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define err 1e-9
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+long ara[1000000],prime[1000000],ara1[1000000],ara2[1000000];
+char ch[100],ch1[100];
+void sieve()
+{
+	long i,j;
+	for(i=3;i<=1000;i+=2)
+	{
+		if(ara[i]==0)
+		{
+             	for(j=i*i;j<=1000000;j+=(2*i))
+				{
+					ara[j]=1;
+				}
+		}
+	}
+}
+void circular()
+{
+	sieve();
+	long p,num,s,no,len,r,q,cnt=0,len1;
+	char c;
+	for(p=100;p<=1000000;p++)
+	{
+		num=p;no=0;
+		if((ara[num]==0&&(num/2!=0))||num==2)
+		{
+			sprintf(ch,"%ld",num);
+			len=strlen(ch);
+			for(q=0;q<len;q++)
+			{
+				r=0;
+				c=ch[r];
+				for(s=1;s<len;s++)
+				{
+					ch[s-1]=ch[s];
+				}
+				ch[s-1]=c;ch[s]=NULL;
+				sscanf(ch,"%ld",&num);
+				sprintf(ch1,"%ld",num);
+				len1=strlen(ch1);
+				if(ara[num]==1||num%2==0)
+				{
+					no=1;
+					break;
+				}
+				if(ara2[num]==1&&len1==len)
+				{
+					no=2;
+					break;
+				}
+			}
+			if(no==0||no==2)
+			{
+				cnt++;
+				ara2[p]=1;
+			}
+		}
+				ara1[p]=cnt;
+	}
+}
+int main()
+{
+	circular();
+	long a,b,res,s;
+	while(scanf("%ld",&a)&&a!=(-1))
+	{
+		s=0;
+		scanf("%ld",&b);
+		if(ara2[a]==1)
+		{
+			s=1;
+		}
+		res=s+(ara1[b]-ara1[a]);
+		if(res==0)
+			printf("No Circular Primes.\n");
+		else if(res==1)
+			printf("%ld Circular Prime.\n",res);
+		else
+			printf("%ld Circular Primes.\n",res);
+	}
+	return 0;
+}

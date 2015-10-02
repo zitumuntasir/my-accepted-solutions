@@ -1,0 +1,94 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+map<string,long>mp;
+map<long,string>mp1;
+map<string,long>mp2;
+char ch[100000],year[1000],dat[100],mon[100];
+int main()
+{
+	long i,test,d,q,t,m,y,start,p,k,l,month,aft;
+	mp["January"]=31,mp["February"]=28,mp["March"]=31,mp["April"]=30,mp["May"]=31,mp["June"]=30,mp["July"]=31,
+    mp["August"]=31,mp["September"]=30,mp["October"]=31,mp["November"]=30,mp["December"]=31;
+	mp1[1]="January",mp1[2]="February",mp1[3]="March",mp1[4]="April",mp1[5]="May",mp1[6]="June",mp1[7]="July",
+    mp1[8]="August",mp1[9]="September",mp1[10]="October",mp1[11]="November",mp1[12]="December";
+	mp2["January"]=1,mp2["February"]=2,mp2["March"]=3,mp2["April"]=4,mp2["May"]=5,mp2["June"]=6,mp2["July"]=7,
+    mp2["August"]=8,mp2["September"]=9,mp2["October"]=10,mp2["November"]=11,mp2["December"]=12;
+    scanf("%ld",&test);
+	getchar();
+	for(p=1;p<=test;p++)
+	{
+		k=l=0;
+ 		gets(ch);
+		while(ch[k]!='-')
+		{
+			year[l]=ch[k];
+			k++;
+			l++;
+		}
+		year[l]=0;
+		k++;
+		l=0;
+		while(ch[k]!='-')
+		{
+			mon[l]=ch[k];
+			k++;
+			l++;
+		}
+		mon[l]=0;
+		k++;
+		dat[0]=ch[k],dat[1]=ch[k+1],dat[2]=0;
+	sscanf(dat,"%ld",&d),sscanf(year,"%ld",&y);
+	month=mp2[mon];
+	if((y%4==0&&y%100!=0)||(y%400)==0)
+	{
+		mp["February"]=29;
+	}
+	else mp["February"]=28;
+	start=d;
+	scanf("%ld",&aft);
+	for(i=start;i<start+aft;i++)
+	{
+		while(d<mp[mp1[month]]&&i<start+aft)
+		{
+			d++;
+			i++;
+		}
+		if(i<start+aft)
+		{
+			d=1;
+			month++;
+		   if(month>12)
+		   {
+			month=1;
+			y++;
+		    if((y%4==0&&y%100!=0)||(y%400)==0)
+		    mp["February"]=29;
+		     else mp["February"]=28;
+		   }
+		}
+	}
+	printf("Case %ld: ",p);
+	printf("%ld-",y);
+	cout<<mp1[month]<<"-";
+	if(d<10)
+		printf("0");
+		printf("%ld\n",d);
+		getchar();
+	}
+	return 0;
+}

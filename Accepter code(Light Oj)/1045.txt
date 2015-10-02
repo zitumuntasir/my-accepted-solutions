@@ -1,0 +1,33 @@
+import java.util.*;
+import java.io.*;
+
+public class L1045 {
+	public static double sum[] = new double[1000001];
+	public static void main(String[] args) throws IOException{
+		int i, test, num, b;
+		Pre();
+		BufferedReader f = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(f.readLine());
+		test = Integer.parseInt(st.nextToken());
+		for(i = 1; i <= test; i++)
+		{
+			StringTokenizer st1 = new StringTokenizer(f.readLine());
+			num = Integer.parseInt(st1.nextToken());
+			b = Integer.parseInt(st1.nextToken());
+			if(num == 0) System.out.println("Case " + i + ": 1");
+			else
+			System.out.println("Case " + i + ": " + (long)Math.ceil(sum[num] / Math.log(b)));
+		}
+	}
+	public static void Pre()
+	{
+		int i;
+		double value = 0;
+		for(i = 1; i <= 1000000; i++)
+		{
+			value += Math.log(i);
+			sum[i] =  value;
+		}
+	}
+
+}

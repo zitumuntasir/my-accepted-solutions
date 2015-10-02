@@ -1,0 +1,68 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+using namespace std;
+long profit[1000][50],weight[1000],values[1000];
+int main()
+{
+	long test,i,j,k,w,items,num,sum,k_weight;
+	scanf("%ld",&test);
+	for(i=0;i<test;i++)
+	{
+		sum=0;
+		scanf("%ld",&items);
+		for(j=1;j<=items;j++)
+		{
+			scanf("%ld%ld",&values[j],&weight[j]);
+		}
+		scanf("%ld",&num);
+		for(j=0;j<num;j++)
+		{
+			scanf("%ld",&k_weight);
+			for(k=1;k<=items;k++)
+			{
+				for(w=1;w<=k_weight;w++)
+				{
+					if(weight[k]>w)
+					{
+						profit[k][w]=profit[k-1][w];
+
+					}
+					else
+					{
+						if(profit[k-1][w]>=(profit[k-1][w-weight[k]]+values[k]))
+						{
+							profit[k][w]=profit[k-1][w];
+						}
+						else
+						{
+							profit[k][w]=profit[k-1][w-weight[k]]+values[k];
+						}
+					}
+				}
+			}
+			sum+=profit[items][k_weight];
+			for(k=1;k<=items;k++)
+			{
+				for(w=1;w<=k_weight;w++)
+				{
+					profit[k][w]=0;
+				}
+			}
+		}
+		printf("%ld\n",sum);
+	}
+	return 0;
+}

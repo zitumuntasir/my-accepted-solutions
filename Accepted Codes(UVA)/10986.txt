@@ -1,0 +1,104 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+const double eps = 1e-9;
+vector<long>vc[20010],cst[20010];
+long d[20010],pcost;
+struct data {
+    long city, dist;
+    bool operator<(const data&p)const{
+        return dist>p.dist;
+    }
+};
+data x,y;
+priority_queue<data>q;
+ void dsktra(long node)
+ {
+   long i;
+   d[node]=0;
+   x.city=node;
+   x.dist=0;
+   q.push(x);
+   while(!q.empty())
+   {
+	   x=q.top();
+	   q.pop();
+	   pcost=d[x.city];
+	   for(i=0;i<vc[x.city].size();i++)
+	   {
+		   y.city=vc[x.city][i];
+		   y.dist=cst[x.city][i]+pcost;
+		   if(d[y.city]>y.dist)
+		   {
+			   d[y.city]=y.dist;
+			   q.push(y);
+		   }
+	   }
+   }
+
+ }
+int main()
+{
+	long test,i,j,m,n,s,t,u,v,w;
+	scanf("%ld",&test);
+	for(i=1;i<=test;i++)
+	{
+		scanf("%ld%ld%ld%ld",&n,&m,&s,&t);
+		for(j=0;j<=n;j++)
+		{
+			d[j]=inf;
+		}
+		for(j=0;j<m;j++)
+		{
+			scanf("%ld%ld%ld",&u,&v,&w);
+			vc[u].push_back(v);
+			vc[v].push_back(u);
+			cst[u].push_back(w);
+			cst[v].push_back(w);
+		}
+		dsktra(s);
+		if(d[t]==inf)
+			printf("Case #%ld: unreachable\n",i);
+		else
+		printf("Case #%ld: %ld\n",i,d[t]);
+		for(j=0;j<=n;j++)
+		{
+			vc[j].clear();
+			cst[j].clear();
+		}
+	}
+	return 0;
+}

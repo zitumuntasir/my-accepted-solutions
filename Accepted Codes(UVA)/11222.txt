@@ -1,0 +1,217 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+using namespace std;
+long ara1[50100],ara2[50100],ara3[50100],f1[10000],f2[10000],f3[10000];
+long st1[50100],st2[50100],st3[50100];
+struct ss
+{
+	long value;
+}
+ara[100];
+bool cmp(ss a,ss b)
+{
+
+	return a.value<b.value;
+}
+int main()
+{
+	long test,i,j,num,a,b,c,count1,count2,count3,p,r,s,t;
+	scanf("%ld",&test);
+	for(i=1;i<=test;i++)
+	{
+		j=num=a=b=c=count1=count2=count3=p=r=s=t=ara[0].value=ara[1].value=ara[2].value=0;
+		scanf("%ld",&a);
+		for(j=0;j<a;j++)
+		{
+			scanf("%ld",&num);
+			st1[j]=num;
+			f1[num]=1;
+		}
+		scanf("%ld",&b);
+		for(j=0;j<b;j++)
+		{
+			scanf("%ld",&num);
+			st2[j]=num;
+			f2[num]=1;
+		}
+		scanf("%ld",&c);
+		for(j=0;j<c;j++)
+		{
+			scanf("%ld",&num);
+			st3[j]=num;
+			f3[num]=1;
+		}
+		for(j=0;j<a;j++)
+		{
+			if(f2[st1[j]]!=1&&f3[st1[j]]!=1)
+			{
+			ara1[count1]=st1[j];
+				count1++;
+			}
+		}
+		for(j=0;j<b;j++)
+		{
+			if(f1[st2[j]]!=1&&f3[st2[j]]!=1)
+			{
+			ara2[count2]=st2[j];
+				count2++;
+			}
+		}
+		for(j=0;j<c;j++)
+		{
+			if(f1[st3[j]]!=1&&f2[st3[j]]!=1)
+			{
+				ara3[count3]=st3[j];
+				count3++;
+			}
+		}
+		ara[0].value=count1,ara[1].value=count2,ara[2].value=count3;
+		sort(ara,ara+3,cmp);
+		if(count1==count2)
+		{
+			p=1;
+		}
+		if(count1==count3)
+		{
+			if(p==1)
+				r=1;
+				else
+				{
+					s=1;
+				}
+		}
+		if(count2==count3)
+		{
+			t=1;
+		}
+		sort(ara1,ara1+count1);
+		sort(ara2,ara2+count2);
+		sort(ara3,ara3+count3);
+		if(count1==0&&count2==0&&count3==0)
+		{
+			printf("Case #%ld:\n",i);
+			printf("1 0\n2 0\n3 0\n");
+		}
+		else if(ara[1].value==ara[2].value)
+		{
+		if(r==1&&count1!=0)
+		{
+			printf("Case #%ld:\n",i);
+			printf("1 %ld ",count1);
+			for(j=0;j<count1-1;j++)
+			{
+				printf("%ld ",ara1[j]);
+			}
+			printf("%ld\n",ara1[j]);
+			printf("2 %ld ",count1);
+			for(j=0;j<count1-1;j++)
+			{
+				printf("%ld ",ara2[j]);
+			}
+			printf("%ld\n",ara2[j]);
+			printf("3 %ld ",count1);
+			for(j=0;j<count1-1;j++)
+			{
+				printf("%ld ",ara3[j]);
+			}
+			printf("%ld\n",ara3[j]);
+		}
+		else if(t==1&&count2!=0)
+		{
+			printf("Case #%ld:\n",i);
+			printf("2 %ld ",count2);
+			for(j=0;j<count2-1;j++)
+			{
+				printf("%ld ",ara2[j]);
+			}
+			printf("%ld\n",ara2[j]);
+			printf("3 %ld ",count3);
+			for(j=0;j<count2-1;j++)
+			{
+				printf("%ld ",ara3[j]);
+			}
+			printf("%ld\n",ara3[j]);
+		}
+		else if(s==1&&count1!=0)
+		{
+			printf("Case #%ld:\n",i);
+			printf("1 %ld ",count1);
+			for(j=0;j<count1-1;j++)
+			{
+				printf("%ld ",ara1[j]);
+			}
+			printf("%ld\n",ara1[j]);
+			printf("3 %ld ",count3);
+			for(j=0;j<count1-1;j++)
+			{
+				printf("%ld ",ara3[j]);
+			}
+			printf("%ld\n",ara3[j]);
+		}
+		else if(p==1&&r==0&&count1!=0)
+		{
+			printf("Case #%ld:\n",i);
+			printf("1 %ld ",count1);
+			for(j=0;j<count2-1;j++)
+			{
+				printf("%ld ",ara1[j]);
+			}
+			printf("%ld\n",ara1[j]);
+			printf("2 %ld ",count2);
+			for(j=0;j<count2-1;j++)
+			{
+				printf("%ld ",ara2[j]);
+			}
+			printf("%ld\n",ara2[j]);
+		}
+		}
+		else
+		{
+			printf("Case #%ld:\n",i);
+		if(count1==ara[2].value)
+		{
+		printf("1 %ld ",count1);
+			for(j=0;j<count1-1;j++)
+			{
+				printf("%ld ",ara1[j]);
+			}
+			printf("%ld\n",ara1[j]);
+		}
+		else if(count2==ara[2].value)
+		{
+			printf("2 %ld ",count2);
+			for(j=0;j<count2-1;j++)
+			{
+				printf("%ld ",ara2[j]);
+			}
+			printf("%ld\n",ara2[j]);
+
+		}
+		else
+		{
+			printf("3 %ld ",count3);
+			for(j=0;j<count3-1;j++)
+			{
+				printf("%ld ",ara3[j]);
+			}
+			printf("%ld\n",ara3[j]);
+		}
+		}
+		for(j=0;j<=10000;j++)
+		{
+			ara1[j]=ara2[j]=ara3[j]=st1[j]=st2[j]=st3[j]=f1[j]=f2[j]=f3[j]=0;
+		}
+	}
+	return 0;
+}

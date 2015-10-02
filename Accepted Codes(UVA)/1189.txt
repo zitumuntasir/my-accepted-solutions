@@ -1,0 +1,91 @@
+#include <bits/stdc++.h>
+#define sf scanf
+#define pf printf
+#define fsf fscanf
+#define fpf fprintf
+#define ret return
+#define ll long long
+#define inf 1e13
+#define pi 3.14159265358979323846
+#define eps 1e-9
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+using namespace std;
+ll fact[10000], answer[10000], sum[10000];
+void Fact()
+{
+		fact[0] = 1;
+		sum[0] = 1;
+		ll  f = 1, val = 1;
+		ll i;
+		for(i = 1;; i++)
+		{
+			if(f > 1000000000000000000) break;
+			f *= i;
+			fact[i] = f;
+			val += fact[i];
+			sum[i] = val;
+		}
+}
+ll nextFact(ll num, ll n)
+{
+    int i;
+    for(i = 0; i <=n; i++)
+    {
+        if(num == sum[i])
+        {
+            return i;
+        }
+        else if(fact[i] > num)
+        {
+            return i - 1;
+        }
+        else if(sum[i] > num)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+int main()
+{
+    ll i, value, test, num, left, total = 0, length, no, n, j;
+    Fact();
+    sf("%lld",&test);
+    for(i = 1; i <= test; i++)
+    {
+        total = 0;
+        n = 20;
+        no = 0;
+        length = 0;
+        sf("%lld",&num);
+        while(1)
+        {
+         left = num - total;
+         if(left == 0) break;
+         value = nextFact(left, n);
+         if(value == -1) {
+           no = 1;
+           break;
+         }
+         answer[length] = value;
+         length++;
+         total += fact[value];
+         n = value  - 1;
+        }
+   pf("Case %lld: ",i);
+   if(no == 1) pf("impossible\n");
+    else {
+         for(j  = length - 1; j >= 0; j--)
+         {
+                if(j != length - 1) pf("+");
+                pf("%lld!", answer[j]);
+          }
+            pf("\n");
+        }
+    }
+
+  ret 0;
+}

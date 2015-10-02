@@ -1,0 +1,24 @@
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	long a,b,c,d,min,e;
+	while(scanf("%ld%ld",&a,&b)&&(a!=-1&&b!=-1))
+	{
+		min=10000;
+		if(b<a)
+		{
+			e=b;
+			b=a;
+			a=e;
+		}
+		c=b-a;
+		if(c<min)
+			min=c;
+		d=(99-b)+1+a;
+		if(d<min)
+			min=d;
+		printf("%ld\n",min);
+	}
+	return 0;
+}

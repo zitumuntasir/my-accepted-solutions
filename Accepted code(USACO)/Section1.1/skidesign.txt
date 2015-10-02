@@ -1,0 +1,48 @@
+/*ID: muntasi5
+PROG: skidesign
+LANG: JAVA
+*/
+import java.io.*;
+import java.util.*;
+
+public class skidesign {
+	public static int[] elevation = new int[1010];
+	public static void main(String[] args) throws IOException{
+		int i, j, k, numOfHills, maxMin, minMax, result = 0, present, value, ans = 1000000000;
+		BufferedReader f = new BufferedReader(new FileReader("skidesign.in"));
+		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("skidesign.out")));
+		StringTokenizer st = new StringTokenizer(f.readLine());
+		numOfHills = Integer.parseInt(st.nextToken());
+		for(i = 0; i < numOfHills; i++)
+		{
+			StringTokenizer st1 = new StringTokenizer(f.readLine());
+			elevation[i] = Integer.parseInt(st1.nextToken());
+		}
+		Arrays.sort(elevation, 0, numOfHills);
+		if(elevation[numOfHills - 1] - elevation[0] <= 17) ans = 0;
+		else {
+			maxMin = elevation[numOfHills - 1] - 17;
+			minMax = elevation[0];
+			for(i = maxMin; i>= minMax; i--)
+			{
+				result = 0;
+				for(j = 0; j < numOfHills; j++)
+				{
+					if(elevation[j] <= i)
+					{
+						result += (i - elevation[j]) * (i - elevation[j]);
+					}
+					else {
+						value = (elevation[j] - i);
+						if(value >= 17) result += (value - 17) * (value - 17);
+					}
+				}
+				ans = Math.min(ans, result);
+			}
+		}
+		out.println(ans);
+		out.close();
+		System.exit(0);
+	}
+
+}

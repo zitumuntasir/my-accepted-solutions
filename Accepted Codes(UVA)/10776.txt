@@ -1,0 +1,52 @@
+#include<stdio.h>
+#include<map>
+#include<iostream>
+#include<vector>
+#include<string.h>
+#include<algorithm>
+using namespace std;
+vector<char>result;
+map<string,long>mp;
+char s[50], flg[50], last, present;
+long temp_size, sz, len, taken[32];
+void call()
+{
+    long i;
+    if(result.size() == len)
+    {
+        for(i = 0; i<len; i++)
+        {
+            printf("%c", result[i]);
+        }
+        puts("");
+        return;
+    }
+    for(i = 0; i<sz; i++)
+    {
+        temp_size = result.size();
+        present = s[i];
+        if(taken[i] == 0 && present != last && (temp_size == 0  || present >= result[temp_size - 1] ) )
+        {
+            taken[i] = 1, result.push_back(s[i]);
+            call();
+            last = s[i];
+            taken[i] = 0, result.pop_back();
+        }
+    }
+}
+int main()
+{
+    while(scanf("%s %ld", s, &len) != EOF)
+    {
+    sz = strlen(s);
+    sort(s,s+sz);
+    call();
+    while(!result.empty()) result.pop_back();
+    memset(taken,0,sizeof(taken));
+    temp_size = sz = len = 0;
+    last = NULL;
+    present = NULL;
+    mp.clear();
+    }
+    return 0;
+}

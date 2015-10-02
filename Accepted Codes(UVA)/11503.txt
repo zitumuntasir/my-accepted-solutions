@@ -1,0 +1,124 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<set>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+const double eps = 1e-9;
+char ch[100],ch1[100];
+map<string,long>mp;
+long par[100010],res[100100];
+void makeset(long n)
+{
+	par[n]=n;
+}
+long findpar(long r)
+{
+  if(par[r]==r) return r;
+  else
+	  return par[r]=findpar(par[r]);
+}
+int main()
+{
+	long test,i,j,num,k,a,b,p,q,r,n,sum,y;
+	scanf("%ld",&test);
+	for(i=0;i<test;i++)
+	{
+		n=y=0;
+		k=1;
+		scanf("%ld",&num);
+ 		for(j=0;j<num;j++)
+		{
+			scanf("%s%s",ch,ch1);
+			if(mp[ch]==0)
+			{
+				mp[ch]=k;
+				k++;
+			    makeset(mp[ch]);
+			}
+			p=mp[ch];
+			if(mp[ch1]==0)
+			{
+				mp[ch1]=k;
+				k++;
+			    makeset(mp[ch1]);
+			}
+			q=mp[ch1];
+			a=findpar(p);
+			b=findpar(q);
+			 if(a!=b)
+			 {
+				 n=1;
+				if(res[a]==0&&res[b]==0)
+				{
+					par[b]=a;
+					res[a]+=2;
+				}
+				else if(res[a]!=0&&res[b]==0)
+				{
+					par[b]=a;
+				    res[a]++;
+				}
+				else if(res[a]==0&&res[b]!=0)
+				{
+					res[b]++;
+					par[a]=b;
+				}
+				else if(res[a]!=0&&res[b]!=0)
+				{
+					par[b]=a;
+					res[a]+=res[b];
+				}
+			 }
+			     else if(p==q)
+				 {
+					 if(res[a]==0)
+					 res[a]++;
+				 }
+				 if(res[a]==0&&res[b]!=0)
+				 {
+					 printf("%ld\n",res[b]);
+					 y=0;
+				 }
+				 else
+				 printf("%ld\n",res[a]);
+		}
+		for(j=0;j<=num;j++)
+		{
+			res[j]=par[j]=0;
+		}
+		mp.clear();
+	}
+	return 0;
+}

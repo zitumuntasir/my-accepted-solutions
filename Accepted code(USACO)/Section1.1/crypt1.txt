@@ -1,0 +1,114 @@
+/*ID: muntasi5
+PROG: crypt1
+LANG: JAVA
+*/
+import java.io.*;
+import java.util.*;
+public class crypt1 {
+	public static int n, numOf3, numOf2;
+	public static int[] input = new int[100];
+	public static int[] dummy = new int[5];
+	public static int[] all3Digits = new int[6000];
+	public static int[] all2Digits = new int[6000];
+	public static boolean[] flag = new boolean[100];
+	public static void main(String[] args) throws IOException{
+		int numOfDigits, i, j, inp, length =0, result = 0, ans = 0, value = 0, digit, cnt = 0;
+		n = 0; numOf3 = 0; numOf2 = 0;
+		BufferedReader f = new BufferedReader(new FileReader("crypt1.in"));
+		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("crypt1.out")));
+		numOfDigits = Integer.parseInt(f.readLine());
+		StringTokenizer st = new StringTokenizer(f.readLine());
+		for(i = 0; i < numOfDigits; i++)
+		{
+			inp = Integer.parseInt(st.nextToken());
+			if(flag[inp] == false)
+			{
+				input[n] = inp;
+				flag[inp] = true;
+				n++;
+			}
+		}
+		All3Digits(length);
+		length = 0;
+		All2Digits(length);
+		for(i = 0; i < numOf3; i++)
+		{
+			for(j = 0; j < numOf2; j++)
+			{
+				cnt = 0;
+				result = all3Digits[i] * all2Digits[j];
+				if(IsValid(result) == true && (result / 10000 == 0)) cnt++;
+				value = all2Digits[j];
+				digit = value % 10;
+				result = digit * all3Digits[i];
+				value /= 10;
+				if(IsValid(result) == true && (result / 1000 == 0)) cnt++;
+				digit = value % 10;
+				result = digit * all3Digits[i];
+				if(IsValid(result) == true && (result / 1000 == 0)) cnt++;
+				if(cnt == 3) ans++;
+			}
+		}
+		out.println(ans);
+		out.close();
+		System.exit(0);
+	}
+	public static boolean IsValid(int value)
+	{
+		int i, digit;
+		boolean ret = true;
+		while(true)
+		{
+			if(value == 0) break;
+			digit = value % 10;
+			if(flag[digit] == false)
+			{
+				ret = false;
+				break;
+			}
+			value /= 10;
+		}
+		return ret;
+	}
+	public static void All3Digits(int length)
+	{
+		int i;
+		if(length == 3)
+		{
+			int value;
+			value = dummy[0] + dummy[1] * 10 + dummy[2] * 100;
+			all3Digits[numOf3] = value;
+			numOf3++;
+			return;
+		}
+		for(i = 0; i < n; i++)
+		{
+			dummy[length] = input[i];
+			length++;
+			All3Digits(length);
+			length--;
+		}
+		return;
+	}
+	public static void All2Digits(int length)
+	{
+		int i;
+		if(length == 2)
+		{
+			int value;
+			value = dummy[0] + dummy[1] * 10;
+			all2Digits[numOf2] = value;
+			numOf2++;
+			return;
+		}
+		for(i = 0; i < n; i++)
+		{
+			dummy[length] = input[i];
+			length++;
+			All2Digits(length);
+			length--;
+		}
+		return;
+	}
+
+}

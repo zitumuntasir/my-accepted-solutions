@@ -1,0 +1,92 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+long ara[50100],ara1[25100];
+int main()
+{
+	long num,low,high,f,mid,i,flag,q,p;
+	while(scanf("%ld",&num)!=EOF)
+	{
+		flag=0;
+		for(i=0;i<num;i++)
+		{
+			scanf("%ld",&ara[i]);
+		}
+		scanf("%ld",&q);
+		for(i=0;i<q;i++)
+		{
+			scanf("%ld",&ara1[i]);
+		}
+		for(i=0;i<q;i++)
+		{
+			flag=0;
+			f=ara1[i];
+		low=0,high=num-1;
+				while(low<=high)
+		{
+			mid=(low+high)/2;
+			if(f==ara[mid])
+			{
+				flag=1;
+				break;
+			}
+			else if(f<ara[mid])
+			{
+				high=mid-1;
+			}
+			else 
+			{
+				low=mid+1;
+			}
+		}
+		if(flag==1)
+		{
+			while(ara[mid-1]==f)
+			{
+				mid--;
+			}
+			if(ara[mid-1]!=0&&mid>=0)
+			printf("%ld ",ara[mid-1]);
+			else printf("X ");
+			
+			while(ara[mid+1]==f)
+			{
+				mid++;
+			}
+			if(ara[mid+1]!=0&&mid<num)
+				printf("%ld\n",ara[mid+1]);
+			else
+				printf("X\n");
+		}
+		else
+		{
+			if(ara[high]<f&&ara[high]!=0)
+				printf("%ld ",ara[high]);
+			else printf("X ");
+			if(ara[low]>f&&ara[low]!=0)
+				printf("%ld\n",ara[low]);
+			else printf("X\n");
+
+		}
+	}
+		for(p=0;p<num;p++)
+		{
+			ara[p]=0;
+		}
+	}
+	return 0;
+}

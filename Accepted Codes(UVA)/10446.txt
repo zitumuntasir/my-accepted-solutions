@@ -1,0 +1,57 @@
+#include<iostream>
+#include<stdio.h>
+using namespace std;
+unsigned long long count;
+unsigned long long in[100],fn[100],dp[100];
+long trib(long n,long back)
+{
+    long i;
+    count++;
+
+    if(n<=0) return 0;
+    if(n==1) return 0;
+	if(dp[n]) 
+	{
+		count--;
+		count+=dp[n];
+	 	return 0;
+	}
+	else
+		in[n]=count-1;
+    for(i=1;i<=back;i++)
+	{
+         trib(n-i,back);
+	}
+	fn[n]=count;
+	dp[n]=fn[n]-in[n];
+    return 0;
+}
+
+ 
+
+int main()
+{
+	long i,n,back,cas=0;
+	while(1)
+	{
+		scanf("%ld%ld",&n,&back);
+		if(n>60) break;
+	  count=0;
+	  trib(n,back);
+	  if(n<=1||back<1)
+		 printf("Case %ld: 1\n",++cas);
+	   else if(back==1)
+	   {
+		   printf("Case %ld: %llu\n",++cas,n);
+	   }
+	  else
+	  printf("Case %ld: %llu\n",++cas,dp[n]);
+	  for(i=0;i<=n;i++)
+	  {
+		  in[i]=0;
+		  fn[i]=0;
+		  dp[i]=0;
+	  }
+	}
+	return 0;
+}

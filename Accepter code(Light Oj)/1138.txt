@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define sf scanf
+#define pf printf
+#define ret return
+#define ll long long
+#define inf 1e13
+ll NumberOfZeros(ll num)
+{
+    ll five, totalZeros;
+    five = 1, totalZeros = 0;
+    while(1)
+    {
+        five *= 5;
+        if((num / five) == 0) break;
+        else
+        {
+            totalZeros += (num / five);
+        }
+    }
+    ret totalZeros;
+}
+ll BinSearch(ll sought)
+{
+    bool found = false;
+    ll low, high, nozInLow, nozInHigh, nozInMid, mid, res;
+    low = 1, high = 500000000;
+    while(low <= high)
+    {
+        mid = (low + high) / 2;
+        nozInMid = NumberOfZeros(mid);
+        if(sought == nozInMid)
+        {
+            found = true;
+            res = mid;
+            high = mid - 1;
+        }
+        else if(nozInMid < sought)
+        {
+            low = mid + 1;
+        }
+        else
+        {
+            high = mid - 1;
+        }
+    }
+    if(found) ret res;
+    else
+        ret -1;
+}
+int main()
+{
+    ll test, n, result, cas;
+    cas = 0;
+    sf("%lld",&test);
+    while(test--)
+    {
+        sf("%lld",&n);
+        result = BinSearch(n);
+        if(result == -1) pf("Case %lld: impossible\n", ++cas);
+        else pf("Case %lld: %lld\n", ++cas, result);
+    }
+    ret 0;
+}

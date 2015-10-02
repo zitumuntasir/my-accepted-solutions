@@ -1,0 +1,68 @@
+/*ID: muntasi5
+PROG: palsquare
+LANG: JAVA
+*/
+import java.io.*;
+import java.util.*;
+public class palsquare {
+	public static int[] palindrome = new int[100];
+	public static int length;
+	public static HashMap<Integer , String>BaseB = new HashMap(); 
+	public static void main(String[] args) throws IOException{
+		BaseB.put(10, "A");BaseB.put(11, "B");BaseB.put(12, "C");BaseB.put(13, "D");
+		BaseB.put(14, "E");BaseB.put(15, "F");BaseB.put(16, "G");BaseB.put(17, "H");
+		BaseB.put(18, "I");BaseB.put(19, "J");BaseB.put(20, "K");
+		int base, i, sqr, j;
+		boolean flag = false;
+		BufferedReader f = new BufferedReader(new FileReader("palsquare.in"));
+		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("palsquare.out")));
+		base = Integer.parseInt(f.readLine());
+		for(i = 1 ; i <= 300; i++)
+		{
+			flag = false;
+			sqr = Square(i);
+			Base(base, sqr);
+			for(j = 0; j < length / 2; j++)
+			{
+				if(palindrome[j] != palindrome[length - (j + 1)]) flag = true;
+			}
+			if(flag == false)
+			{
+				Base(base, i);
+				for(j = length - 1; j >= 0; j--)
+				{
+					if(palindrome[j] > 9) out.print(BaseB.get(palindrome[j]));
+					else out.print(palindrome[j]);
+				}
+				out.print(" ");
+				Base(base, sqr);
+				for(j = length - 1; j >= 0; j--)
+				{
+					if(palindrome[j] > 9) out.print(BaseB.get(palindrome[j]));
+					else out.print(palindrome[j]);
+				}
+				out.println();
+			}
+		}
+	    out.close();                                 
+	    System.exit(0); 
+	}
+	public static void Base(int base, int num)
+	{
+		int i, mod;
+		length = 0;
+		while(true)
+		{
+			mod = num % base; 
+			num /= base;
+			palindrome[length] = mod;
+			length++;
+			if(num == 0) break;
+		}
+	}
+	public static int Square(int n)
+	{
+		return n*n;
+	}
+
+}

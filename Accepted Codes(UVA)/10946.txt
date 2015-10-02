@@ -1,0 +1,115 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<sstream>
+#include<queue>
+#include<cstring>
+#include<map>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define err 1e-9
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+map<long,long>mp;
+map<long,char>mp1;
+long cnt,ara[1000][1000],ara1[1000],ara2[1000];
+char c;
+long xmyarr[]={0,1,0,-1};
+long ymyarr[]={-1,0,1,0};
+char inp[1000][1000];
+void fill(long x,long y)
+{
+	long p;
+    if(inp[x][y]!=c||inp[x][y]==NULL) return;
+    cnt++;
+    inp[x][y]='.';
+    for(p=0;p<4;p++)
+    fill(x+xmyarr[p],y+ymyarr[p]);
+}
+int main()
+{
+	long x,y,p,q,l,i,k,num,test=0;
+	while(scanf("%ld%ld",&x,&y)&&(x||y))
+	{
+		test++;
+		getchar();
+		l=0,i=0;
+	  for(i=0;i<x;i++)
+	  {
+		gets(inp[i]);
+	  }
+	  for(p=0;p<x;p++)
+	  {
+		  for(q=0;q<y;q++)
+		  {
+			  if(inp[p][q]!='.')
+			  {
+				  cnt=0;
+				  c=inp[p][q];
+				  fill(p,q);
+				  ara[c][ara1[c]]=cnt;
+				  ara1[c]++;
+				  if(mp[cnt]==0)
+				  {
+					  ara2[l]=cnt;
+					  l++;
+					  mp[cnt]=1;
+				  }
+			  }
+		  }
+	  }
+	  sort(ara2,ara2+l);
+	  num=ara2[l-1];
+	  printf("Problem %ld:\n",test);
+	  for(k=l-1;k>=0;k--)
+	  {
+	    for(p=65;p<=90;p++)
+		{
+		  for(q=0;q<ara1[p];q++)
+		  {
+			  if((ara[p][q]==ara2[k])&&ara2[k]!=0)
+			  {
+				  printf("%c %ld\n",p,ara2[k]);
+			  }
+		  }
+		}
+		ara2[k]=0;
+	  }
+		  if(num>y)
+		  {
+			  num=y;
+		  }
+	  for(p=0;p<x;p++)
+	  {
+		  for(q=0;q<=num;q++)
+		  {
+			  inp[p][q]=NULL;
+			  ara[p][q]=0;
+		  }
+	  }
+	  for(p=65;p<=90;p++)
+	  {
+		  ara1[p]=0;
+	  }
+	  mp.clear();
+	}
+	return 0;
+}

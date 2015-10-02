@@ -1,0 +1,90 @@
+#include<stdio.h>
+#include<algorithm>
+using namespace std;
+int ara[1000000],in[1000000],fn[1000000],din[1000000],dfn[1000000],dfr,fg[10000000];
+int main()
+{
+	int test,i,j,k,l,m,low,high,num,mid,res,q,n;
+	scanf("%d",&test);
+	for(i=0;i<test;i++)
+	{
+		dfr=0;
+		l=0,m=0;
+		scanf("%d%d%d",&n,&k,&q);
+		for(j=0;j<k;j++)
+		{
+			scanf("%d",&ara[j]);
+			fg[j+1]=ara[j];
+		}
+		sort(ara,ara+k);
+		if(ara[0]-1>0)
+		{
+			in[1]=0;
+			fn[1]=ara[0];
+			dfr+=ara[0]-1;
+			m++;
+			din[m]=1;
+			dfn[m]=dfr;
+			l++;
+			m++;
+		}
+		if(m==0)
+		{
+			dfn[m]=0;
+			m++;
+		}
+		for(j=0;j<k-1;j++)
+		{
+			if((ara[j+1]-ara[j])>1)
+			{
+				in[m]=ara[j];
+				fn[m]=ara[j+1];
+				dfr+=ara[j+1]-ara[j]-1;
+				din[m]=dfn[m-1]+1;
+				dfn[m]=dfr;
+				m++;
+			}
+		}
+		if(n-ara[k-1]>0)
+		{
+			in[m]=ara[k-1];
+			fn[m]=n;
+			dfr+=n-ara[k-1];
+			din[m]=dfn[m-1]+1;
+			dfn[m]=dfr;
+			l++;
+			m++;
+		}
+		printf("Case %d:\n",i+1);
+		for(j=0;j<q;j++)
+		{
+			scanf("%d",&num);
+				low=1;
+		    high=m-1;
+			if(num<=k)
+				printf("%d\n",fg[num]);
+			else
+			{
+				num-=k;
+		   while(1)
+		   {
+			mid=(low+high)/2;
+			if(num>=din[mid]&&num<=dfn[mid])
+			{
+				
+				res=num-(din[mid]-1)+in[mid];
+				printf("%d\n",res);
+				break;
+			}
+			else if(num<din[mid])
+			{
+				high=mid-1;
+			}
+			else
+				low=mid+1;
+		   }
+			}
+		}
+	}
+	return 0;
+}

@@ -1,0 +1,105 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<set>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define area(x1,y1,x2,y2,x3,y3) ( x1*(y2-y3) + x2*(y3-y1) + x3*(y1-y2) )
+#define distSqr(x1,y1,x2,y2) ( sqr(x1-x2) + sqr(y1-y2) )
+#define pi acos(-1.0)
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+#define eps 1e-14
+long ara[200],ara1[200],ara2[200];
+char ch[1000];
+/*long ara[0]=2,ara[1]=3,ara[2]=3,ara[3]=4,ara[4]=4,ara[5]=4;
+     ara[6]=5,ara[7]=5,ara[8]=6,ara[9]=5,ara[10]=5,ara[11]=6;
+	 ara[6]=5,ara[7]=5,ara[8]=6,ara[9]=5,ara[10]=5,ara[11]=6;
+	 ara[6]=5,ara[7]=5,ara[8]=6,ara[9]=5,ara[10]=5,ara[11]=6;
+	 ara[6]=5,ara[7]=5,ara[8]=6,ara[9]=5,ara[10]=5,ara[11]=6;
+	 ara[6]=5,ara[7]=5,ara[8]=6,ara[9]=5,ara[10]=5,ara[11]=6;*/
+//	freopen("input.txt", "r", stdin);
+//	freopen("output.txt", "w", stdout);
+int main()
+{
+	long i,j,k=0,l=0,test,sum=0,c,len;
+	for(i=1;i<=6;i++)
+	{
+		for(j=1;j<=6;j++)
+		{
+			ara[k]=i+j;
+			k++;
+		}
+	}
+	sort(ara,ara+k);
+	scanf("%ld",&test);
+	getchar();
+	while(test--)
+	{
+		//getchar();
+		sum=0;
+		k=0,l=0;
+		gets(ch);
+		len=strlen(ch);
+		for(i=0;i<len;i++)
+		{
+			if((ch[i]>='A'&&ch[i]<='Z'))
+			{
+				c=ch[i];
+				ara1[c]++;
+			}
+			else if(ch[i]>='0'&&ch[i]<='9')
+			{
+				c=ch[i];
+				ara1[c]++;
+			}
+		}
+		for(i=48;i<=100;i++)
+		{
+			if(ara1[i]>0)
+			{
+				ara2[l]=ara1[i];
+				l++;
+			}
+		}
+		sort(ara2,ara2+l);
+		for(i=0,k=l-1;i<l;i++,k--)
+		{
+			sum+=(ara2[k]*ara[i]);
+		}
+		//memset(ara,0,sizeof(ara));
+		memset(ara1,0,sizeof(ara1));
+		memset(ara2,0,sizeof(ara2));
+		printf("%ld\n",sum);
+
+	}
+	return 0;
+}

@@ -1,0 +1,135 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<set>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define srt(v) srt(v.begin(),v.end())
+#define area(x1,y1,x2,y2,x3,y3) ( x1*(y2-y3) + x2*(y3-y1) + x3*(y1-y2) )
+#define distSqr(x1,y1,x2,y2) ( sqr(x1-x2) + sqr(y1-y2) )
+#define pi acos(-1.0)
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+#define eps 1e-14
+#define pf printf
+#define sf scanf
+#define ll long long
+vector<long>result;
+long ara[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9}, sz, cn, l, permutations[7][1000002][8], perm[1][10000001][8], num_perm[10];
+char words[101][257], rules[1001][257];
+//void call()
+void call(long num_of_digits)
+{
+    long i, k;
+    if(result.size() == num_of_digits)
+    {
+        for(k = 0; k < num_of_digits; k++)
+        {
+          if(num_of_digits == 7) perm[0][cn][k] = result[k];
+          else
+          permutations[num_of_digits - 1][cn][k] = result[k];
+          l++;
+        }
+        cn++;
+        return;
+    }
+    for(i = 0; i < 10; i++)
+    {
+        result.push_back(ara[i]);
+        call(num_of_digits);
+        result.pop_back();
+    }
+}
+long digits(long ind)
+{
+    long i, len, num_of_zeroes = 0;
+    len = strlen(rules[ind]);
+    for(i = 0; i < len; i++)
+    {
+        if(rules[ind][i] == '0') num_of_zeroes++;
+    }
+    return num_of_zeroes;
+}
+int main()
+{
+    long n, i, j, k, num_of_rules, num_of_worlds, num_of_digits, total_perm, m, len;
+    for(i = 1; i <= 7; i++)
+    {
+     l =  cn = 0;
+     call(i);
+     //pf("%ld\n", cn);
+     num_perm[i] = cn;
+    }
+
+    while(sf("%ld",&num_of_worlds) != EOF)
+    {
+        for(i = 0; i < num_of_worlds; i++)
+        {
+         sf("%s",words[i]);
+        }
+        sf("%ld",&num_of_rules);
+        for(i = 0; i < num_of_rules; i++)
+        {
+           sf("%s",rules[i]);
+        }
+        pf("--\n");
+        for(i = 0; i < num_of_rules; i++)
+        {
+            len = strlen(rules[i]);
+            num_of_digits = digits(i);
+            total_perm = num_perm[num_of_digits];
+            for(j = 0; j < num_of_worlds; j++)
+            {
+                for(k = 0; k < total_perm; k++)
+                {
+                 n = 0;
+                 for(m = 0; m < len; m++)
+                 {
+                    if(rules[i][m] == '#') pf("%s",words[j]);
+                    else
+                    {
+                        if(num_of_digits <= 6)
+                        {
+                         pf("%ld", permutations[num_of_digits - 1][k][n]);
+                        }
+                        else pf("%ld", perm[0][k][n]);
+                            n++;
+                    }
+                 }
+                pf("\n");
+                }
+            }
+        }
+    }
+
+	return 0;
+}
+

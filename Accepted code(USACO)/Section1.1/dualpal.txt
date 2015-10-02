@@ -1,0 +1,58 @@
+/*ID: muntasi5
+PROG: dualpal
+LANG: JAVA
+*/
+import java.io.*;
+import java.util.*;
+
+public class dualpal {
+	public static int[] palindrome = new int[1000];
+	public static int length;
+	public static void main(String[] args) throws IOException{
+		int n, s, i, j, initbase, count, result = 0;
+		boolean flag = false;
+		BufferedReader f = new BufferedReader(new FileReader("dualpal.in"));
+		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("dualpal.out")));
+		StringTokenizer st = new StringTokenizer(f.readLine());
+		n  = Integer.parseInt(st.nextToken());
+		s  = Integer.parseInt(st.nextToken());
+		for(i = s + 1; result < n; i++)
+		{
+			initbase = 2; count = 0;
+			while(true)
+			{
+				if(count == 2 || initbase > 10) break;
+				Base(initbase, i);
+				flag = false;
+				for(j = 0; j < length / 2; j++)
+				{
+					if(palindrome[j] != palindrome[length - (j + 1)]) { flag = true; break;}
+				}
+				if(flag == false) count++;
+				initbase++;
+			}
+			if(count == 2)
+			{
+				out.println(i);
+				result++;
+			}
+		}
+	    out.close();                                 
+	    System.exit(0); 
+	}
+	public static void Base(int base, int num)
+	{
+		int mod;
+		length = 0;
+		while(true)
+		{
+			mod = num % base;
+			palindrome[length] = mod;
+			num /= base;
+			length++;
+			if(num == 0) break;
+		}
+			
+	}
+
+}

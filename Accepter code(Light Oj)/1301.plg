@@ -1,0 +1,28 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: 1301 - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\ZITULA~1\AppData\Local\Temp\RSP3694.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/1301.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\CSE\BIN\Zitu\Accepter code(Light Oj)\1301.cpp"
+]
+Creating command line "cl.exe @C:\Users\ZITULA~1\AppData\Local\Temp\RSP3694.tmp" 
+<h3>Output Window</h3>
+Compiling...
+1301.cpp
+D:\CSE\BIN\Zitu\Accepter code(Light Oj)\1301.cpp(43) : error C2059: syntax error : ']'
+D:\CSE\BIN\Zitu\Accepter code(Light Oj)\1301.cpp(45) : error C2143: syntax error : missing ';' before '{'
+Error executing cl.exe.
+
+
+
+<h3>Results</h3>
+1301.obj - 2 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

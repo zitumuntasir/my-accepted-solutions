@@ -1,0 +1,139 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<set>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+#define eps 1e-8
+long par[100010],ar[101000],ara[101000],rnk[101000],aaa[101000];
+struct ss{
+	double x,y;
+}sr[10050];
+void makepar(long n)
+{
+	par[n]=n;
+	rnk[n]=0;
+}
+long findpar(long r)
+{
+	if(par[r]==r) return r;
+	else
+	{
+		return par[r]=findpar(par[r]);
+	}
+}
+int main()
+{
+	long test,cnt,num,i,j,k,a1,b1,r,p,q,u,v,res,count;
+	double dis,a,b,c;
+	scanf("%ld",&test);
+	for(i=1;i<=test;i++)
+	{
+		cnt=count=0;
+		scanf("%ld%lf",&num,&dis);
+		dis*=100.00;
+		p=dis*dis;
+		for(j=0;j<num;j++)
+		{
+			scanf("%lf%lf",&sr[j].x,&sr[j].y);
+			sr[j].x*=100.00;
+			sr[j].y*=100.00;
+			for(k=0;k<j;k++)
+			{
+				c=((sr[k].x-sr[j].x)*(sr[k].x-sr[j].x))+((sr[k].y-sr[j].y)*(sr[k].y-sr[j].y));
+					if(ar[j]==0)
+					{
+						ar[j]=1;
+						makepar(j);
+					}
+					if(ar[k]==0)
+					{
+						ar[k]=1;
+						makepar(k);
+					}
+				if(c<=p)
+				{
+					aaa[j]=1;
+					aaa[k]=1;
+					u=findpar(j);
+					v=findpar(k);
+					if(u!=v)
+					{
+						
+			           if(rnk[u]>rnk[v])
+					   {
+				           if(rnk[u]!=0&&rnk[v]!=0)
+					         cnt--;
+				           par[v]=u;
+					   }
+			            else if(rnk[v]>rnk[u])
+						{
+				            if(rnk[u]!=0&&rnk[v]!=0)
+				              cnt--;
+				             par[u]=v;
+						}
+			            else
+						{
+				          if(rnk[u]==0&&rnk[v]==0)
+						  {
+					        cnt++;
+						  }
+				           else
+						   {
+					        cnt--;
+						   }
+			             	par[v]=u;
+				           rnk[u]++;
+						}
+					}
+				}
+				if(j==num-1&&aaa[k]==1)
+				{
+					count++;
+				}
+			}
+		}
+		if(aaa[num-1]==1)
+		{
+			count++;
+		}
+		res=num-count;
+			printf("Case %ld: %ld\n",i,cnt+res);
+			for(j=0;j<=num;j++)
+			{
+				par[j]=ar[j]=ara[j]=aaa[j]=rnk[j]=0;
+			}
+	}
+	return 0;
+}

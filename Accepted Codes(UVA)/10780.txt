@@ -1,0 +1,136 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+const double eps = 1e-9;
+long ara[10200],prime[10100],ara1[10200][10200],dv[10200][1000];
+void sieve()
+{
+	long num=10100,i,j,root,count=1;
+	prime[0]=2;
+	for(i=3;i<=num;i=i+2)
+	{
+		if(ara[i]==0)
+		{
+         prime[count]=i;
+         count++;
+         if(i<=100)
+         {
+			for(j=i*i;j<=num;j+=2*i)
+			ara[j]=1;
+         }
+		}
+    }
+}
+void pf()
+{
+	
+	long i,k,num;
+	k=0;
+	ara1[1][0]=0;
+	dv[1][0]=2;
+	for(i=2;i<=10000;i++)
+	{
+		num=i;
+		dv[i][k]=prime[k];
+		while(num/dv[i][k]!=0)
+		{
+			while(num/dv[i][k]!=0)
+			{
+				ara1[i][prime[k]]+=(num/dv[i][k]);
+				dv[i][k]*=prime[k];
+			}
+			k++;
+			dv[i][k]=prime[k];
+		}
+		k=0;
+	}
+}
+
+int main()
+{
+	sieve();
+	pf();
+	long i,j,k,a,b,cnt,res,root,test,min,f,r;
+	scanf("%ld",&test);
+	for(i=1;i<=test;i++)
+	{
+		min=1000000;
+		res=0;
+		scanf("%ld%ld",&a,&b);
+		if((ara[a]==0&&odd(a))||a==2)
+		{
+			res=ara1[b][a];
+			min=res;
+		}
+		else
+		{
+		root=sqrt(a);
+		for(j=0;prime[j]<=root;j++)
+		{
+			if(a%prime[j]==0)
+			{
+				r=1;
+				cnt=0;
+				while(a%prime[j]==0)
+				{
+					a/=prime[j];
+					cnt++;
+				}
+				f=ara1[b][prime[j]]/cnt;
+				if(f<min)
+				{
+					min=f;
+				}
+				if(ara1[b][prime[j]]<min)
+				{
+					min=ara1[b][prime[j]];
+				}
+			}
+		}
+		if(a>1)
+		{
+				if(ara1[b][a]<min)
+				{
+					min=ara1[b][a];
+				}
+		}
+		}
+		if(min==0)
+			printf("Case %ld:\nImpossible to divide\n",i);
+		else
+			printf("Case %ld:\n%ld\n",i,min);
+	}
+	return 0;
+}

@@ -1,0 +1,66 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<set>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+const double eps = 1e-9;
+struct ss{
+	long da,mon,yr;
+	char nam[100];
+}ara[1000];
+bool cmp(ss aa,ss bb)
+{
+	if(aa.yr!=bb.yr)
+		return aa.yr<bb.yr;
+	else if(aa.mon!=bb.mon)
+		return aa.mon<bb.mon;
+	else
+		return aa.da<=bb.da;
+}
+int main()
+{
+	long num,i;
+	while(scanf("%ld",&num)!=EOF)
+	{
+	 for(i=0;i<num;i++)
+	 {
+		scanf("%s%ld%ld%ld",&ara[i].nam,&ara[i].da,&ara[i].mon,&ara[i].yr);
+	 }
+	 sort(ara,ara+num,cmp);
+	 printf("%s\n",ara[num-1].nam);
+	 printf("%s\n",ara[0].nam);
+	}
+	return 0;
+}

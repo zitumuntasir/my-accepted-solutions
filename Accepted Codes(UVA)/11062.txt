@@ -1,0 +1,76 @@
+#include<iostream>
+#include<stdio.h>
+#include<string>
+#include<cstring>
+#include<algorithm>
+#include<map>
+using namespace std;
+char ch[10000],ch1[10000],ch2[100];
+map<string,long>mp;
+struct ss
+{
+	char st[10000];
+}
+sr[10000];
+bool cmp(ss a,ss b)
+{
+	if(strcmp(a.st,b.st)<=0)
+		return 1;
+	else
+		return 0;
+}
+int main()
+{
+	long len,l=0,i,k;
+	gets(ch1);
+	while(gets(ch))
+	{
+		if(strlen(ch)!=0)
+		{
+			if(ch1[strlen(ch1)-1]=='-')
+			{
+			 ch1[strlen(ch1)-1]=0;
+		     strcat(ch1,ch);
+			}
+			else
+			{
+				ch1[strlen(ch1)]=' ';
+				ch1[strlen(ch1)+1]=0;
+				strcat(ch1,ch);
+			}
+		}
+	}
+		len=strlen(ch1);
+		for(i=0;i<len;i++)
+		{
+			k=0;
+			while(((ch1[i]>='A'&&ch1[i]<='Z')||(ch1[i]>='a'&&ch1[i]<='z')||(ch1[i]=='-')==1)&&ch1[i]!='\0')
+			{
+					if((ch1[i]>='A'&&ch1[i]<='Z'))
+					{
+						ch2[k]=ch1[i]+32;
+						k++;
+					}
+					else
+					{
+						ch2[k]=ch1[i];
+						k++;
+					}
+				i++;
+			}
+			ch2[k]='\0';
+			if(mp[ch2]==0&&strlen(ch2)>0)
+			{
+			strcpy(sr[l].st,ch2);
+			mp[ch2]=1;
+			l++;
+			}
+		}
+	sort(sr,sr+l,cmp);
+	for(i=0;i<l;i++)
+	{
+		puts(sr[i].st);
+	}
+	mp.clear();
+	return 0;
+}

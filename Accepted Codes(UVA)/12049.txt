@@ -1,0 +1,77 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+const double eps = 1e-9;
+map<long,long>ara,ara1,ara2;
+int main()
+{
+	long test,res,i,j,k,l,num,n,m;
+	scanf("%ld",&test);
+	for(i=0;i<test;i++)
+	{
+		res=0;
+		k=-1;
+		scanf("%ld%ld",&n,&m);
+		for(j=0;j<n;j++)
+		{
+			scanf("%ld",&num);
+			ara[num]++;
+			if(ara[num]==1)
+			{
+				k++;
+				ara1[k]=num;
+			}
+		}
+		for(j=0;j<m;j++)
+		{
+			scanf("%ld",&num);
+			ara2[num]++;
+			if(ara2[num]==1&&ara[num]==0)
+			{
+				k++;
+				ara1[k]=num;
+			}
+		}
+		for(j=0;j<=k;j++)
+		{
+			if(ara[ara1[j]]!=ara2[ara1[j]])
+			res+=abs(ara[ara1[j]]-ara2[ara1[j]]);
+		}
+		printf("%ld\n",res);
+		ara.clear(),ara1.clear(),ara2.clear();
+	}
+
+	return 0;
+}

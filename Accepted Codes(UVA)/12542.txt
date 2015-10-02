@@ -1,0 +1,88 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<set>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+const double eps = 1e-9;
+long ara[100100];
+char ch[1000],ch1[1000];
+void sieve()
+{
+	long i,root,j;
+	root=sqrt(100100);
+	for(i=3;i<=root;i+=2)
+	{
+		if(ara[i]==0)
+		{
+			for(j=i*i;j<=100100;j+=(2*i))
+			{
+				ara[j]=1;
+			}
+		}
+	}
+}
+int main()
+{
+	long i,j,len,mx,num,k;
+	sieve();
+	while(gets(ch)&&(strcmp(ch,"0")!=0))
+	{
+		mx=0;
+		len=strlen(ch);
+		for(i=0;i<len;i++)
+		{
+			k=0;
+			for(j=i;j<i+6;j++)
+			{
+				ch1[k]=ch[j];
+				k++;
+				ch1[k]=NULL;
+				sscanf(ch1,"%ld",&num);
+				if(num<=100000)
+				{
+				if((ara[num]==0&&(odd(num)))||num==2)
+				{
+					if(num>=mx)
+					{
+						mx=num;
+					}
+				}
+				}
+			}
+		}
+		printf("%ld\n",mx);
+	}
+	return 0;
+}

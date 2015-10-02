@@ -1,0 +1,126 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<set>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+#define eps 1e-14
+long xa[100000],ya[100000],par[10000],rnk[10000];
+struct ss{
+	long in,fn;
+	double cst;
+}ara[10001];
+bool cmp(ss aa,ss bb)
+{
+	return aa.cst<bb.cst;
+}
+void makepair(long n)
+{
+	par[n]=n;
+	rnk[n]=0;
+}
+long findpar(long r)
+{
+	if(par[r]==r) return r;
+	else
+	  return par[r]=findpar(par[r]);
+}
+int main()
+{
+	double x,y,cost;
+	long i,j,k,p,q,test,l,dis,n,u,v,cnt;
+	scanf("%ld",&test);
+	for(i=0;i<test;i++)
+	{
+			if(i>0)
+			printf("\n");
+		cost=cnt=0;
+		scanf("%ld",&n);
+		for(j=0,l=0;j<n;j++)
+		{
+			scanf("%lf%lf",&x,&y);
+			xa[j]=(x*10);
+			ya[j]=(y*10);
+			makepair(j);
+			for(k=0;k<j;k++,l++)
+			{
+				dis=((xa[j]-xa[k])*(xa[j]-xa[k]))+((ya[j]-ya[k])*(ya[j]-ya[k]));
+				ara[l].in=j;
+				ara[l].fn=k;
+				ara[l].cst=dis;
+			}
+		}
+		sort(ara,ara+l,cmp);
+		for(j=0;j<l;j++)
+		{
+			u=findpar(ara[j].in);
+			v=findpar(ara[j].fn);
+			if(u!=v)
+			{
+				cnt++;
+			if(rnk[u]==0&&rnk[v]==0)
+			{
+				par[v]=u;
+				rnk[u]+=2;
+				cost+=sqrt(ara[j].cst)+.0000000000001;
+			}
+			else if(rnk[u]>=rnk[v])
+			{
+				par[v]=u;
+				if(rnk[v]==0)
+					rnk[u]++;
+				else
+				rnk[u]+=rnk[v];
+				cost+=sqrt(ara[j].cst)+.0000000000001;
+			}
+			else
+			{
+				par[u]=v;
+				if(rnk[u]==0)
+					rnk[v]++;
+				else
+				rnk[v]+=rnk[u];
+				cost+=sqrt(ara[j].cst)+.0000000000001;
+			}
+			if(cnt==n)
+			{
+				break;
+			}
+			}
+		}
+		printf("%.2lf\n",(cost/10));
+
+	}
+	return 0;
+}

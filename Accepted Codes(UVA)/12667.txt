@@ -1,0 +1,65 @@
+#include<stdio.h>
+#include<string.h>
+long ar[102];
+char st[100];
+struct ss{
+	long tm,id;
+	char c,ch[10];
+}ara[10000],ara1[10000];
+int main()
+{
+	long n,m,t,i,j,s,mx,y;
+	scanf("%ld%ld%ld",&n,&t,&m);
+	getchar();
+	for(i=0;i<m;i++)
+	{
+		scanf("%ld%ld",&ara[i].tm,&ara[i].id);
+		while(scanf("%s",st)&&strcmp(st," ")==0)
+		{
+
+		}
+		ara[i].c=st[0];
+		while(scanf("%s",st)&&strcmp(st," ")==0)
+		{
+
+		}
+		strcpy(ara[i].ch,st);
+	}
+	for(i=0,s=65;i<n;i++,s++)
+	{
+		y=0;
+		mx=-1;
+		for(j=0;j<m;j++)
+		{
+		 if(ara[j].tm>=mx&&ara[j].c==s&&strcmp(ara[j].ch,"Yes")==0&&ar[ara[j].id]==0)
+		 {
+			 ar[ara[j].id]=1;
+			 y=1;
+			 ara1[i].c=s;
+			 mx=ara[j].tm;
+			 ara1[i].tm=mx;
+			 ara1[i].id=ara[j].id;
+		 }
+		}
+		if(!y)
+		{
+			ara1[i].c=s;
+			ara1[i].tm=-1;
+			ara1[i].id=-1;
+		}
+		memset(ar,0,sizeof(ar));
+
+	}
+	for(i=0;i<n;i++)
+	{
+		if(ara1[i].tm==-1)
+		{
+			printf("%c - -\n",ara1[i].c);
+		}
+		else
+		{
+			printf("%c %ld %ld\n",ara1[i].c,ara1[i].tm,ara1[i].id);
+		}
+	}
+	return 0;
+}

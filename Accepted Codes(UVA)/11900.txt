@@ -1,0 +1,42 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+using namespace std;
+long ara[1000];
+int main()
+{
+	long test,i,j,n,p,q,count,sum;
+	scanf("%ld",&test);
+	for(i=1;i<=test;i++)
+	{
+		count=sum=0;
+		scanf("%ld%ld%ld",&n,&p,&q);
+		for(j=0;j<n;j++)
+		{
+			scanf("%ld",&ara[j]);
+		}
+		for(j=0;j<n;j++)
+		{
+			sum+=ara[j];
+			if(sum<=q&&j<=p-1)
+			{
+				count++;
+			}
+		}
+		printf("Case %ld: %ld\n",i,count);
+	
+	}
+	return 0;
+}

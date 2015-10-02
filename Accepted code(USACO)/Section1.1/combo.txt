@@ -1,0 +1,70 @@
+/*ID: muntasi5
+PROG: combo
+LANG: JAVA
+*/
+import java.io.*;
+import java.util.*;
+
+public class combo {
+	public static int[] comb = new int[5];
+	public static int a, b, c, x, y, z, ap, bp, cp, xp, yp, zp, cnt, result = 0, p, q, r, s, t, u;
+	public static void main(String[] args) throws IOException{
+		int n;
+		BufferedReader f = new BufferedReader(new FileReader("combo.in"));
+		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("combo.out")));
+		n = Integer.parseInt(f.readLine());
+		StringTokenizer st = new StringTokenizer(f.readLine());
+		a = Integer.parseInt(st.nextToken()); b = Integer.parseInt(st.nextToken()); c = Integer.parseInt(st.nextToken());
+		StringTokenizer st1 = new StringTokenizer(f.readLine());
+		x = Integer.parseInt(st1.nextToken()); y = Integer.parseInt(st1.nextToken()); z = Integer.parseInt(st1.nextToken());
+		solve(n, 0);
+		out.println(result);
+		out.close();
+		System.exit(0);
+	}
+	public static void solve(int n, int length)
+	{
+		int i;
+		if(length == 3)
+		{
+			cnt++;
+			
+			if(a >= comb[0]){ p = a - comb[0]; ap = comb[0] + (n - a); }
+			else { p = comb[0] - a; ap = a + (n - comb[0]); }
+			
+			if(b >= comb[1]){ q = b - comb[1]; bp = comb[1] + (n - b); }
+			else { q = comb[1] - b; bp = b + (n - comb[1]); }
+			
+			if(c >= comb[2]){ r = c - comb[2]; cp = comb[2] + (n - c); }
+			else { r = comb[2] - c; cp = c + (n - comb[2]); }
+			
+			
+			
+			if(x >= comb[0]){ s = x - comb[0]; xp = comb[0] + (n - x); }
+			else { s = comb[0] - x; xp = x + (n - comb[0]); }
+			
+			if(y >= comb[1]){ t = y - comb[1]; yp = comb[1] + (n - y); }
+			else { t = comb[1] - y; yp = y + (n - comb[1]); }
+			
+			if(z >= comb[2]){ u = z - comb[2]; zp = comb[2] + (n - z); }
+			else { u = comb[2] - z; zp = z + (n - comb[2]); }
+			
+			if((p <= 2 || ap <= 2) &&
+			   (q <= 2 || bp <= 2) &&
+			   (r <= 2 || cp <= 2)) result++;
+			else if((s <= 2 || xp <= 2) &&
+					(t <= 2 || yp <= 2) &&
+					(u <= 2 || zp <= 2)) result++;
+			return;
+		}
+		for(i = 1; i <= n; i++)
+		{
+			comb[length] = i;
+			length++;
+			solve(n, length);
+			length--;
+		}
+		return;
+	}
+
+}

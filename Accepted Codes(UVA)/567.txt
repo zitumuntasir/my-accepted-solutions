@@ -1,0 +1,84 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+using namespace std;
+vector<long>vc[110];
+queue<long>q;
+long cost[1000],visit[1000];
+void bfs(long node)
+{
+	long i,u,v;
+	q.push(node);
+	while(!q.empty())
+	{
+		v=q.front();
+		visit[v]=1;
+		for(i=0;i<vc[v].size();i++)
+		{
+			u=vc[v][i];
+			if(!visit[u])
+			{
+				q.push(u);
+				cost[u]=cost[v]+1;
+				visit[u]=1;
+			}
+		}
+		q.pop();
+	}
+}
+int main()
+{
+	long i,j,num,a,dest,source,test=0;
+	while(scanf("%ld",&num)!=EOF)
+	{
+		test++;
+		for(i=0;i<num;i++)
+		{
+			scanf("%ld",&a);
+			vc[1].push_back(a);
+			vc[a].push_back(1);
+		}
+		for(i=2;i<=19;i++)
+		{
+			scanf("%ld",&num);
+			for(j=0;j<num;j++)
+			{
+				scanf("%ld",&a);
+				vc[i].push_back(a);
+				vc[a].push_back(i);
+			}
+		}
+		printf("Test Set #%ld\n",test);
+		scanf("%ld",&num);
+		for(i=0;i<num;i++)
+		{
+			scanf("%ld%ld",&source,&dest);
+			cost[source]=0;
+			bfs(source);
+			printf("%2ld to%3ld:%2ld\n",source,dest,cost[dest]);
+			for(j=0;j<=20;j++)
+			{
+				visit[j]=cost[j]=0;
+			}
+		}
+		printf("\n");
+		for(i=0;i<=20;i++)
+		{
+			vc[i].clear();
+		}
+	}
+	return 0;
+}

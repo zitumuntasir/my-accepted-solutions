@@ -1,0 +1,70 @@
+#include<stdio.h>
+#include<algorithm>
+using namespace std;
+struct ss{
+	int x,y;
+}ara[100010],ar[100010];
+bool cmp(ss aa,ss bb)
+{
+	if(aa.x!=bb.x) return aa.x<bb.x;
+	else
+		return aa.y<bb.y;
+}
+int main()
+{
+	int test,i,j,m,p,mx,cnt,k,y,ind,l=0;
+	scanf("%d",&test);
+	while(test--)
+	{
+		if(l)
+		printf("\n");
+		cnt=0;
+		scanf("%d",&m);
+		i=0;
+		while(scanf("%d%d",&ara[i].x,&ara[i].y)&&(ara[i].x!=0||ara[i].y!=0))
+		{
+			i++;
+		}
+		sort(ara,ara+i,cmp);
+		p=0;
+		mx=-10000000;
+		for(j=0;j<i;j++)
+		{
+			y=0;
+			if(ara[j].x<=p)
+			{
+				y=1;
+				cnt++;
+				while(ara[j].x<=p&&j<i)
+				{
+					if(ara[j].y>=mx)
+					{
+						mx=ara[j].y;
+						ind=j;
+
+					}
+					j++;
+				}
+				p=mx;
+				ar[cnt-1].x=ara[ind].x;
+				ar[cnt-1].y=ara[ind].y;
+				if(mx>=m)
+				{
+					printf("%d\n",cnt);
+					for(k=0;k<cnt;k++)
+					{
+						printf("%d %d\n",ar[k].x,ar[k].y);
+					}
+					break;
+				}
+				j--;
+			}
+			if(!y)
+			{
+				printf("0\n");
+				break;
+			}
+		}
+	}
+	return 0;
+}

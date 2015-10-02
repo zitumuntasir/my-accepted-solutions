@@ -1,0 +1,33 @@
+#include<iostream>
+#include<cstring>
+#include<cstdio>
+#include<string>
+#include<algorithm>
+using namespace std;
+char ch[30],st[30];
+int main()
+{
+	long l,i,j,num,k,a,b;
+	scanf("%ld",&num);
+	for(i=1;i<=num;i++)
+	{
+		k=0;
+		scanf("%ld%ld",&a,&b);
+		for(l=65,j=0;l<65+a;l++,j++)
+		{
+			ch[j]=l;
+		}
+		ch[j]=0;
+		strcpy(st,ch);
+		printf("Case %ld:\n",i);
+		while(1)
+		{
+			k++;
+			puts(ch);
+			next_permutation(ch,ch+strlen(ch));
+			if(strcmp(ch,st)==0||k==b)
+				break;
+		}
+	}
+	return 0;
+}

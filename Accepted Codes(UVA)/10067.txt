@@ -1,0 +1,204 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<set>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define area(x1,y1,x2,y2,x3,y3) ( x1*(y2-y3) + x2*(y3-y1) + x3*(y1-y2) )
+#define distSqr(x1,y1,x2,y2) ( sqr(x1-x2) + sqr(y1-y2) )
+#define pi acos(-1.0)
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+#define eps 1e-14
+int s1,s2,s3,s4,d1,d2,d3,d4,m,n,o,p,res,pr;
+int visit[10005],cst[10005],inv[10005];
+struct ss{
+	int p,q,r,s;
+};
+queue<ss>qu;
+ss u,v;
+void bfs()
+{
+	while(!qu.empty())
+	{
+		v=qu.front();
+		qu.pop();
+	    m=v.p+1;n=v.q;o=v.r;p=v.s;
+		if(m==10) m=0;
+		res=(m*10*10*10)+(n*10*10)+(o*10)+p;
+		pr=(v.p*10*10*10)+(v.q*10*10)+(v.r*10)+v.s;
+		if(visit[res]==0)
+		{
+			visit[res]=1;
+			u.p=m,u.q=n,u.r=o,u.s=p;
+			if(inv[res]==0)
+			{
+			  cst[res]=cst[pr]+1;
+			  qu.push(u);
+			}
+		}
+		m=v.p-1;n=v.q;o=v.r;p=v.s;
+		if(m==-1) m=9;
+		res=(m*10*10*10)+(n*10*10)+(o*10)+p;
+		pr=(v.p*10*10*10)+(v.q*10*10)+(v.r*10)+v.s;
+		if(visit[res]==0)
+		{
+			visit[res]=1;
+			u.p=m,u.q=n,u.r=o,u.s=p;
+			if(inv[res]==0)
+			{
+			  cst[res]=cst[pr]+1;
+			  qu.push(u);
+			}
+		}
+		 
+		m=v.p;n=v.q+1;o=v.r;p=v.s;
+		 if(n==10) n=0;
+		 		res=(m*10*10*10)+(n*10*10)+(o*10)+p;
+		pr=(v.p*10*10*10)+(v.q*10*10)+(v.r*10)+v.s;
+		if(visit[res]==0)
+		{
+			visit[res]=1;
+			u.p=m,u.q=n,u.r=o,u.s=p;
+			if(inv[res]==0)
+			{
+			  cst[res]=cst[pr]+1;
+			  qu.push(u);
+			}
+		}
+		m=v.p;n=v.q-1;o=v.r;p=v.s;
+		if(n==-1) n=9;
+				res=(m*10*10*10)+(n*10*10)+(o*10)+p;
+		pr=(v.p*10*10*10)+(v.q*10*10)+(v.r*10)+v.s;
+		if(visit[res]==0)
+		{
+			visit[res]=1;
+			u.p=m,u.q=n,u.r=o,u.s=p;
+			if(inv[res]==0)
+			{
+				cst[res]=cst[pr]+1;
+			  qu.push(u);
+			}
+		}
+
+		 m=v.p;n=v.q;o=v.r+1;p=v.s;
+		if(o==10) o=0;
+				res=(m*10*10*10)+(n*10*10)+(o*10)+p;
+		pr=(v.p*10*10*10)+(v.q*10*10)+(v.r*10)+v.s;
+		if(visit[res]==0)
+		{
+			visit[res]=1;
+			u.p=m,u.q=n,u.r=o,u.s=p;
+			if(inv[res]==0)
+			{
+				cst[res]=cst[pr]+1;
+			  qu.push(u);
+			}
+		}
+		m=v.p;n=v.q;o=v.r-1;p=v.s;
+		if(o==-1) o=9;
+				res=(m*10*10*10)+(n*10*10)+(o*10)+p;
+		pr=(v.p*10*10*10)+(v.q*10*10)+(v.r*10)+v.s;
+		if(visit[res]==0)
+		{
+			visit[res]=1;
+			u.p=m,u.q=n,u.r=o,u.s=p;
+			if(inv[res]==0)
+			{
+				cst[res]=cst[pr]+1;
+			  qu.push(u);
+			}
+		}
+
+		 m=v.p;n=v.q;o=v.r;p=v.s+1;
+		if(p==10) p=0;
+				res=(m*10*10*10)+(n*10*10)+(o*10)+p;
+		pr=(v.p*10*10*10)+(v.q*10*10)+(v.r*10)+v.s;
+		if(visit[res]==0)
+		{
+			visit[res]=1;
+			u.p=m,u.q=n,u.r=o,u.s=p;
+			if(inv[res]==0)
+			{
+				cst[res]=cst[pr]+1;
+			  qu.push(u);
+			}
+		}
+		m=v.p;n=v.q;o=v.r;p=v.s-1;
+		if(p==-1) p=9;
+				res=(m*10*10*10)+(n*10*10)+(o*10)+p;
+		pr=(v.p*10*10*10)+(v.q*10*10)+(v.r*10)+v.s;
+		if(visit[res]==0)
+		{
+			visit[res]=1;
+			u.p=m,u.q=n,u.r=o,u.s=p;
+			if(inv[res]==0)
+			{
+				cst[res]=cst[pr]+1;
+			    qu.push(u);
+			}
+		}
+	}
+}
+int main()
+{
+	int test,i,j,num,a,b,c,d,dst,str;
+	scanf("%d",&test);
+	for(i=0;i<test;i++)
+	{
+		scanf("%d%d%d%d",&s1,&s2,&s3,&s4);
+		u.p=s1,u.q=s2,u.r=s3,u.s=s4;
+		qu.push(u);
+		res=(s1*10*10*10)+(s2*10*10)+(s3*10)+s4;
+		str=res;
+		visit[res]=1;
+		cst[res]=0;
+		scanf("%d%d%d%d",&d1,&d2,&d3,&d4);
+		dst=(d1*10*10*10)+(d2*10*10)+(d3*10)+d4;
+	    scanf("%d",&num);
+		for(j=0;j<num;j++)
+		{
+			scanf("%d%d%d%d",&a,&b,&c,&d);
+			res=(a*10*10*10)+(b*10*10)+(c*10)+d;
+			inv[res]=1;
+		}
+		bfs();
+		if(((!visit[dst]||inv[dst]==1)||inv[str]==1)&&str!=dst)
+			printf("-1\n");
+		else
+		printf("%d\n",cst[dst]);
+		for(j=0;j<=10000;j++)
+		{
+			cst[j]=visit[j]=inv[j]=0;
+		}
+	}
+	return 0;
+}

@@ -1,0 +1,107 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+const double eps = 1e-9;
+map<long,long>mp;
+void pr()
+{
+	mp[1]=1;
+	long res,i;
+	for(i=1;i<=31;i++)
+	{
+		res=pow(2,i);
+		mp[res]=i+1;
+	}
+}
+int main()
+{
+	pr();
+	long num,cnt,n;
+	while(scanf("%ld",&num)!=EOF)
+	{
+		cnt=0;
+		n=num;
+		while(num!=0)
+		{
+			if(odd(num))
+			{
+				if(num==1)
+				{
+					cnt++;
+					num/=2;
+				}
+				else if(mp[num-1]!=0)
+				{
+					cnt++;
+					cnt+=mp[num-1];
+					break;
+				}
+				else if(mp[num+1]!=0)
+				{
+					cnt++;
+					cnt+=mp[num+1];
+					break;
+				}
+				else if((even((num-1)/2)))
+				{
+					cnt+=2;
+					num--;
+					num/=2;
+				}
+				else
+				{
+					num++;
+					num/=2;
+					cnt+=2;
+				}
+			}
+			else
+			{
+				if(mp[num]!=0)
+				{
+					cnt+=mp[num];
+					break;
+				}
+				else
+				{
+					num/=2;
+					cnt++;
+				}
+			}
+		}
+		printf("%ld\n",cnt);
+	}
+	return 0;
+}

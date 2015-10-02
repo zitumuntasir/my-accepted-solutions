@@ -1,0 +1,38 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: 1066 - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating temporary file "C:\Users\ZITU\AppData\Local\Temp\RSP4F08.tmp" with contents
+[
+/nologo /MLd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_CONSOLE" /D "_MBCS" /Fp"Debug/1066.pch" /YX /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"D:\CSE\BIN\Zitu\Accepter code(Light Oj)\1066.cpp"
+]
+Creating command line "cl.exe @C:\Users\ZITU\AppData\Local\Temp\RSP4F08.tmp" 
+Creating temporary file "C:\Users\ZITU\AppData\Local\Temp\RSP4F18.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:console /incremental:yes /pdb:"Debug/1066.pdb" /debug /machine:I386 /out:"Debug/1066.exe" /pdbtype:sept 
+".\Debug\1066.obj"
+]
+Creating command line "link.exe @C:\Users\ZITU\AppData\Local\Temp\RSP4F18.tmp"
+<h3>Output Window</h3>
+Compiling...
+1066.cpp
+D:\CSE\BIN\Zitu\Accepter code(Light Oj)\1066.cpp(43) : warning C4786: 'std::reverse_bidirectional_iterator<std::_Tree<char,std::pair<char const ,long>,std::map<char,long,std::less<char>,std::allocator<long> >::_Kfn,std::less<char>,std::allocator<long> >::iterator,std::pair<char const ,long>,std::pair<char const ,long> &,std::pair<char const ,long> *,int>' : identifier was truncated to '255' characters in the debug information
+D:\CSE\BIN\Zitu\Accepter code(Light Oj)\1066.cpp(43) : warning C4786: 'std::reverse_bidirectional_iterator<std::_Tree<char,std::pair<char const ,long>,std::map<char,long,std::less<char>,std::allocator<long> >::_Kfn,std::less<char>,std::allocator<long> >::const_iterator,std::pair<char const ,long>,std::pair<char const ,long> const &,std::pair<char const ,long> const *,int>' : identifier was truncated to '255' characters in the debug information
+D:\CSE\BIN\Zitu\Accepter code(Light Oj)\1066.cpp(43) : warning C4786: 'std::pair<std::_Tree<char,std::pair<char const ,long>,std::map<char,long,std::less<char>,std::allocator<long> >::_Kfn,std::less<char>,std::allocator<long> >::iterator,std::_Tree<char,std::pair<char const ,long>,std::map<char,long,std::less<char>,std::allocator<long> >::_Kfn,std::less<char>,std::allocator<long> >::iterator>' : identifier was truncated to '255' characters in the debug information
+D:\CSE\BIN\Zitu\Accepter code(Light Oj)\1066.cpp(43) : warning C4786: 'std::pair<std::_Tree<char,std::pair<char const ,long>,std::map<char,long,std::less<char>,std::allocator<long> >::_Kfn,std::less<char>,std::allocator<long> >::const_iterator,std::_Tree<char,std::pair<char const ,long>,std::map<char,long,std::less<char>,std::allocator<long> >::_Kfn,std::less<char>,std::allocator<long> >::const_iterator>' : identifier was truncated to '255' characters in the debug information
+c:\program files\microsoft visual studio\vc98\include\xtree(182) : warning C4786: 'std::_Tree<char,std::pair<char const ,long>,std::map<char,long,std::less<char>,std::allocator<long> >::_Kfn,std::less<char>,std::allocator<long> >::~_Tree<char,std::pair<char const ,long>,std::map<char,long,std::less<char>,std::allocator<long> >::_Kfn,std::less<char>,std::allocator<long> >' : identifier was truncated to '255' characters in the debug information
+c:\program files\microsoft visual studio\vc98\include\xtree(162) : warning C4786: 'std::_Tree<char,std::pair<char const ,long>,std::map<char,long,std::less<char>,std::allocator<long> >::_Kfn,std::less<char>,std::allocator<long> >::_Tree<char,std::pair<char const ,long>,std::map<char,long,std::less<char>,std::allocator<long> >::_Kfn,std::less<char>,std::allocator<long> >' : identifier was truncated to '255' characters in the debug information
+Linking...
+
+
+
+<h3>Results</h3>
+1066.exe - 0 error(s), 6 warning(s)
+</pre>
+</body>
+</html>

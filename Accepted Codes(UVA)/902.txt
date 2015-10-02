@@ -1,0 +1,32 @@
+#include<iostream>
+#include<stdio.h>
+#include<map>
+#include<string>
+#include<string.h>
+using namespace std;
+char ch[50000000];
+map<string,long>mp;
+int main()
+{
+	string st,st1,st2;
+	long a,b,c,d,e,i,j,k,len,max,sum;
+	while(scanf("%ld",&a)!=EOF)
+	{
+		cin>>st;
+		max=0,sum=0;
+		len=st.length();
+		for(i=0;i<len-a+1;i++)
+		{
+			st1 = st.substr (i,a); 
+			sum=mp[st1]++;
+			if(sum>max)
+			{
+				max=sum;
+				st2=st1;
+			}
+		}
+		mp.clear();
+		cout<<st2<<endl;
+	}
+	return 0;
+}

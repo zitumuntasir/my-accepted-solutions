@@ -1,0 +1,109 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<set>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+const double eps = 1e-9;
+char ch[100][100];
+int main()
+{
+	long test,mn,mx1,mx2,i,k,j,l,m,n,c1,c2,r,c,sum,cn,t;
+	scanf("%ld",&test);
+	for(i=1;i<=test;i++)
+	{
+		mn=9999999;
+		cn=t=0;
+		scanf("%ld%ld",&r,&c);
+		for(j=0;j<r;j++)
+		{
+			scanf("%s",ch[j]);
+		}
+		for(j=0;j<r;j++)
+		{
+			cn=0;
+			for(k=0;k<c;k++)
+			{
+				if(ch[j][k]=='0')
+				{
+					cn=1;
+					sum=0;
+					for(l=0;l<r;l++)
+					{
+						if(l!=j)
+						{
+							mx1=1000,mx2=1000;
+							c1=0;
+							c2=1;
+							m=k;
+							n=k-1;
+							while(ch[l][m]!=NULL)
+							{
+								if(ch[l][m]=='0')
+								{
+									mx1=c1;
+									break;
+								}
+								m++;
+								c1++;
+							}
+							while(ch[l][n]!=NULL)
+							{
+								if(ch[l][n]=='0')
+								{
+									mx2=c2;
+									break;
+								}
+								n--;
+								c2++;
+							}
+							sum+=MIN(mx1,mx2);
+						}
+					}
+					if(sum<mn)
+					{
+						mn=sum;
+					}
+				}
+			}
+			if(cn==1)
+				t++;
+		}
+		if(t!=r)
+			printf("Case %ld: -1\n",i);
+		else
+		printf("Case %ld: %ld\n",i,mn);
+	}
+	return 0;
+}

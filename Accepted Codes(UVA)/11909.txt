@@ -1,0 +1,22 @@
+#include<stdio.h>
+#include<math.h>
+#include<stdlib.h>
+int main()
+{
+	double l,w,h,p,an,pera,tri,bn,ta;
+	while(scanf("%lf%lf%lf%lf",&l,&w,&h,&an)!=EOF)
+	{
+		bn=90-an;
+		ta=h*tan((3.1415926535897*bn)/180);
+		if(ta<l)
+			printf("%.3f mL\n",.5*ta*h*w);
+		else
+		{
+		p=tan((3.1415926535897*an)/180);
+		pera=l*w*h;
+		tri=.5*w*p*l*l;
+			printf("%.3lf mL\n",pera-tri);
+		}
+	}
+	return 0;
+}

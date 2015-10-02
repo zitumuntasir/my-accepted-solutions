@@ -1,0 +1,99 @@
+#include<stdio.h>
+#include<iostream>
+#include<math.h>
+#include<stdlib.h>
+#include<ctype.h>
+#include<algorithm>
+#include<stack>
+#include<string>
+#include<string.h>
+#include<map>
+using namespace std;
+map<char,long>mp;
+stack<char>mystk;
+char ch[10],ara[1000],ch1[100];
+int main()
+{
+	mp['+']=1,mp['-']=1,mp['*']=2,mp['/']=2;
+	long test,i,k,l;
+	scanf("%ld",&test);
+	gets(ch);
+	gets(ch);
+	for(i=0;i<test;i++)
+	{
+		if(i>0)
+			printf("\n");
+		k=0;
+		while(1)
+		{
+			gets(ch1);
+			if(strlen(ch1)==0||ch1[0]==EOF)
+			{
+				while(!mystk.empty())
+				{
+					if(mystk.top()!='(')
+					{
+					ara[k]=mystk.top();
+					k++;
+					}
+					mystk.pop();
+				}
+				break;
+			}
+			else
+			{
+				if(isalnum(ch1[0]))
+				{
+					ara[k]=ch1[0];
+					k++;
+				}
+				else
+				{
+					if(mystk.empty()||ch1[0]=='(')
+						mystk.push(ch1[0]);
+					else if(mp[mystk.top()]<mp[ch1[0]])
+						mystk.push(ch1[0]);
+					else
+					{
+						if(ch1[0]==')')
+						{
+							while(mystk.top()!='('&&!mystk.empty())
+							{
+								ara[k]=mystk.top();
+								k++;
+								mystk.pop();
+							}
+							if(!mystk.empty())
+							mystk.pop();
+						}
+						else
+						{
+							if(!mystk.empty())
+							{
+							ara[k]=mystk.top();
+							k++;
+							mystk.pop();
+							}
+							if(!mystk.empty())
+							{
+							while(!mystk.empty()&&mp[mystk.top()]>=mp[ch1[0]])
+							{
+								ara[k]=mystk.top();
+								k++;
+								mystk.pop();
+								if(mystk.empty())
+									break;
+							}
+							}
+							mystk.push(ch1[0]);
+						}
+					}
+				}
+			}
+			ch1[0]=0;
+		}
+		ara[k]=0;
+		puts(ara);
+	}
+	return 0;
+}

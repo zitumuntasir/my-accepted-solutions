@@ -1,0 +1,53 @@
+#include<iostream>
+#include<stdio.h>
+#include<string>
+#include<string.h>
+#include<map>
+using namespace std;
+char st[100000],str[50][10000],st1[10],str2[50][1000];
+long ara[1000];
+string ch,ch1,ch2,ch3;
+int main()
+{
+	map<string,string>mp;
+	
+	long i,length,num,len,found,len1;
+	while(scanf("%ld",&num)&&num!=0)
+	{
+	    gets(st1);
+		for(i=0;i<num;i++)
+		{
+		 getline(cin,ch);
+		 len=ch.length();
+		 length=ch.copy(st,len,0);
+		 st[length]='\0';
+		 strcpy(str[i],st);
+		 getline(cin,ch1);
+		 ara[i]=ch.length();
+		 len=ch1.length();
+		 length=ch1.copy(st,len,0);
+		 st[length]='\0';
+		 strcpy(str2[i],st);
+		}
+		getline(cin,ch2);
+		ch3=ch2;
+		for(i=0;i<num;i++)
+		{
+			while(1)
+			{
+				found=ch3.find(str[i]);
+				if (found==string::npos)
+					break;
+				else
+				{
+					ch2.replace(found,ara[i],str2[i]);
+				}
+				ch3=ch2;
+			}
+			ara[i]=0;
+		}
+		mp.clear();
+		cout<<ch3<<endl;
+	}
+	return 0;
+}

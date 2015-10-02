@@ -1,0 +1,82 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+char str[100][1000],st1[4][1000],ch[1000];
+map<string,long>mp;
+int main()
+{
+	long i,j,k,taka,n,t,len,l,test=0;
+	while(scanf("%ld%ld",&n,&t))
+	{
+		test++;
+		if(n==0&&t==0)
+			break;
+		else
+		{
+			getchar();
+			for(i=0;i<n;i++)
+			{
+				gets(str[i]);
+			}
+			for(i=0;i<t;i++)
+			{
+				gets(ch);
+				len=strlen(ch);
+				k=-1;
+				for(j=0;j<len;j++)
+				{
+					l=0;
+					if(ch[j]!=' ')
+					{
+						k++;
+						while(ch[j]!=' '&&j<len)
+						{
+							st1[k][l]=ch[j];
+							j++;
+							l++;
+						}
+						st1[k][l]=NULL;
+						if(k==2)
+						{
+							sscanf(st1[k],"%ld",&taka);
+							mp[st1[0]]-=taka;
+							mp[st1[1]]+=taka;
+						}
+					}
+				}	
+			}
+			printf("Case #%ld\n",test);
+			for(i=0;i<n;i++)
+			{
+				for(j=0;j<n;j++)
+				{
+					if((mp[str[i]]<0&&mp[str[j]]>0))
+					{
+						mp[str[i]]+=mp[str[j]];
+						printf("%s %s ",str[j],str[i]);
+						cout<<mp[str[j]]<<endl;
+						mp[str[j]]=0;
+					}
+				}
+			}
+			printf("\n");
+			st1[0][0]=st1[1][0]=st1[2][0]=NULL;	
+			mp.clear();
+		}
+	}
+	return 0;
+}

@@ -1,0 +1,28 @@
+#include<stdio.h>
+int ara[10010];
+int main()
+{
+	int n,r,i,j,cnt=0,y;
+	while(scanf("%ld%ld",&n,&r)!=EOF)
+	{
+		y=0;
+		cnt++;
+		for(i=0;i<r;i++)
+		{
+			scanf("%ld",&j);
+			ara[j]=cnt;
+		}
+		for(i=1;i<=n;i++)
+		{
+			if(ara[i]!=cnt)
+			{
+				y=1;
+				printf("%ld ",i);
+			}
+		}
+		if(!y) printf("*");
+		printf("\n");
+	}
+	return 0;
+
+}

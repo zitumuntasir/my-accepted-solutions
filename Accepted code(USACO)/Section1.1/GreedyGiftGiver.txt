@@ -1,0 +1,61 @@
+/*
+ID: muntasi5
+PROG: gift1
+LANG: JAVA
+*/
+import java.io.*;
+import java.util.*;
+
+public class gift1 {
+	
+	
+	public static String name[] = new String[11];
+	public static int ara[] = new int[11];
+	public static String giver, receiver;
+	public static int giving = 0, money = 0, perReceiver = 0, current = 0;
+	public static HashMap<String , Integer>net = new HashMap(); 
+	public static void main (String arg[]) throws IOException 
+	{
+	    BufferedReader f = new BufferedReader(new FileReader("gift1.in"));
+        PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("gift1.out")));
+		int numOfFriends, i, j, k;
+		StringTokenizer st = new StringTokenizer(f.readLine());
+		numOfFriends = Integer.parseInt(st.nextToken());
+		for(i = 0; i < numOfFriends; i++)
+		{
+			name[i] = f.readLine();
+		}
+		clear(numOfFriends);
+		for(i = 0; i < numOfFriends; i++)
+		{
+			giver = f.readLine();
+			StringTokenizer st1 = new StringTokenizer(f.readLine());
+			money = Integer.parseInt(st1.nextToken());
+			giving = Integer.parseInt(st1.nextToken());
+			if(giving !=0 )
+			perReceiver = money / giving;
+			net.put(giver, net.get(giver) - (perReceiver * giving));
+			for(j = 0; j < giving; j++)
+			{
+				receiver = f.readLine();
+				net.put(receiver, net.get(receiver) + perReceiver);
+			}
+		}
+		for(i = 0; i < numOfFriends; i++)
+		{
+			out.println(name[i] + " " + net.get(name[i]));
+		}
+	    out.close();                                 
+	    System.exit(0); 
+		
+	}
+	public static void clear(int n)
+	{
+		int i;
+		for(i = 0; i <= n; i++)
+		{
+			net.put(name[i], 0);
+		}
+	}
+}
+

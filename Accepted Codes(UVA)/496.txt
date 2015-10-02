@@ -1,0 +1,108 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+using namespace std;
+char ch[10000];
+long ara[10000000],ara1[10000000],ara2[10000000],ara3[10000000];
+int main()
+{
+	char *pch;
+	long i,k,l,count,p;
+	while(gets(ch))
+	{
+		k=l=count=i=l=k=p=0;
+		pch=strtok(ch," ");
+		while(pch!=NULL)
+		{
+			sscanf(pch,"%ld",&i);
+			if(ara[i]==0)
+			{
+			ara[i]=1;
+			ara1[k]=i;
+			k++;
+			}
+			pch = strtok (NULL, " ");
+		}
+		gets(ch);
+		pch=strtok(ch," ");
+		while(pch!=NULL)
+		{
+			sscanf(pch,"%ld",&i);
+			if(ara2[i]==0)
+			{
+			ara2[i]=1;
+			ara3[l]=i;
+			l++;
+			}
+			pch = strtok (NULL, " ");
+		}
+			if(k>=l)
+			{
+				p=k;
+			}
+			else
+				p=l;
+		if(l==0&&k!=0)
+		{
+			printf("B is a proper subset of A\n");
+		}
+		else if(l!=0&&k==0)
+		{
+			printf("A is a proper subset of B\n");
+		}
+		else if(l==k)
+		{
+			for(i=0;i<l;i++)
+			{
+				if((ara[ara1[i]]==ara2[ara1[i]])&&ara[ara1[i]]==1)
+					count++;
+			}
+			if(count==0)
+				printf("A and B are disjoint\n");
+			else if(count==l)
+				printf("A equals B\n");
+			else 
+				printf("I'm confused!\n");
+		}
+		else
+		{
+				for(i=0;i<p;i++)
+				{
+				if((ara[ara1[i]]==ara2[ara1[i]])&&ara[ara1[i]]==1)
+					count++;
+				}
+				if(count==0)
+				printf("A and B are disjoint\n");
+			    else if(count==l)
+				printf("B is a proper subset of A\n");
+				else if(count==k)
+				{
+					printf("A is a proper subset of B\n");
+				}
+			    else 
+				printf("I'm confused!\n");
+		}
+		for(i=0;i<=p;i++)
+		{
+			ara[ara1[i]]=ara2[ara3[i]]=0;
+		}
+		for(i=0;i<=p;i++)
+		{		
+		ara1[i]=ara3[i]=0;
+		}
+
+
+	}
+	return 0;
+}

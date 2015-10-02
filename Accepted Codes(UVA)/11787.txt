@@ -1,0 +1,121 @@
+#include<iostream>
+#include<stdio.h>
+#include<algorithm>
+#include<string>
+#include<string.h>
+#include<math.h>
+#include<map>
+using namespace std;
+long ara[100],ara1[100];
+char ch[10000],ch1[10000],ch2[10000],st[2];
+map<char,long>mp;
+map<char,long>mp1;
+int main()
+{
+	long t,a,b,test,c,q,d,count,max,y,max1,len,e,i,j,k,p,m,l,w;
+	mp['B']=1,mp['U']=10,mp['S']=100,mp['P']=1000,mp['F']=10000,mp['T']=100000,mp['M']=1000000;
+	mp1['B']=1,mp1['U']=2,mp1['S']=3,mp1['P']=4,mp1['F']=5,mp1['T']=6,mp1['M']=7;
+	cin>>test;
+	gets(st);
+	for(i=1;i<=test;i++)
+	{
+		p=0,q=0,count=0,m=0,y=0,max=0,max1=0;
+		gets(ch);
+		len=strlen(ch);
+		for(j=1,k=0;j<len;j++,k++)
+		{
+			if(mp[ch[j]]<mp[ch[j-1]])
+			{
+				p++;
+			}
+			if(mp[ch[k+1]]>mp[ch[k]])
+			{
+				q++;
+			}
+			if(mp[ch[j]]==mp[ch[j-1]])
+			{
+				count++;
+				ara1[mp1[ch[j]]]++;
+			}
+			if(max1<ara1[mp1[ch[j]]])
+			max1=ara1[mp1[ch[j]]];
+		}
+		if((len-1==p+count||len-1==q+count)&&max1<9)
+		{
+			if(len-1==p+count)
+			{
+				for(l=0;l<len;l++)
+				{
+					ara[mp1[ch[l]]]=1;
+					//ch1[m]=ch[l];
+					if(mp1[ch[l]]>max)
+					{
+						max=mp1[ch[l]];
+					}
+						while(ch[l+1]==ch[l])
+						{
+							ara[mp1[ch[l]]]++;
+							l++;
+							y=1;
+						}
+						m=l;
+				}
+				for(t=max;t>1;t--)
+				{
+					if(ara[t]==0)
+						printf("0");
+					else
+					printf("%ld",ara[t]);
+				}
+				if(ara[t]==0)
+						printf("0\n");
+					else
+				printf("%ld\n",ara[t]);
+			}
+			else
+			{
+				for(l=0;l<len;l++)
+				{
+					ara[mp1[ch[l]]]=1;
+					//ch1[m]=ch[l];
+					if(mp1[ch[l]]>max)
+					{
+						max=mp1[ch[l]];
+					}
+						while(ch[l+1]==ch[l])
+						{
+							ara[mp1[ch[l]]]++;
+							l++;
+							y=1;
+						}
+						m=l;
+				}
+
+					for(t=max;t>1;t--)
+				{
+						if(ara[t]==0)
+						printf("0");
+					else
+					printf("%ld",ara[t]);
+				}
+					if(ara[t]==0)
+						printf("0\n");
+					else
+				printf("%ld\n",ara[t]);
+
+			}
+		}
+		else
+		{
+			printf("error\n");
+		}
+		for(w=0;w<=10;w++)
+		{
+			ara[w]=0;
+			ara1[w]=0;
+		}
+	}
+	mp.clear();
+	mp1.clear();
+	return 0;
+}

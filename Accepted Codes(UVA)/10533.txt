@@ -1,0 +1,109 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<sstream>
+#include<queue>
+#include<cstring>
+#include<map>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define err 1e-9
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+long ara[1000100],prime[1000000],ara1[10000000],ara2[10000000];
+void sieve()
+{
+	long num=1000000,i,j,root,count=0;
+	prime[0]=2;
+	root=1000;
+	for(i=3;i<=num;i=i+2)
+	{
+		if(ara[i]==0)
+		{
+		count++;
+         prime[count]=i;
+         if(i<=root)
+         {
+			for(j=i*i;j<=num;j+=2*i)
+			ara[j]=1;
+         }
+		}
+    }
+}
+void dprime()
+{
+	
+	long i,num,s1,s2,sum,cnt=0,n;
+	sieve();
+	for(i=2;i<=1000000;i++)
+	{
+		sum=0;
+		if((i%2!=0&&ara[i]==0)||i==2)
+		{
+			num=i;
+		while(1)
+		{
+			if(num<10)
+			{
+				sum+=num;
+				if((sum%2!=0&&ara[sum]==0)||sum==2)
+				{
+					cnt++;
+					ara1[i]=cnt;
+					ara2[i]=1;
+				}
+				else
+				{
+					ara1[i]=cnt;
+				}
+				break;
+			}
+			else
+			{
+			s1=num/10;
+			s2=(10*s1);
+			sum+=(num%s2);
+			num/=10;
+			}
+
+		}
+		}
+		else
+		{
+			ara1[i]=cnt;
+		}
+	}
+}
+int main()
+{
+	long n,a,b,p,q,r;
+	dprime();
+	scanf("%ld",&n);
+	for(q=0;q<n;q++)
+	{
+		scanf("%ld %ld",&a,&b);
+		p=ara1[b]-ara1[a];
+		if(ara2[a]==1)
+			p++;
+		printf("%ld\n",p);
+	}
+	return 0;
+}

@@ -1,0 +1,44 @@
+#include<stdio.h>
+#include<iostream>
+#include<string.h>
+#include<algorithm>
+#include<map>
+#include<string>
+using namespace std;
+char ch[10000],st[10000];
+map<string,long>mp;
+int main()
+{
+	long y=0;
+	while(gets(ch)&&(strcmp(ch,"XXXXXX")!=0))
+	{
+		mp[ch]=1;
+	}
+	while(gets(ch)&&(strcmp(ch,"XXXXXX")!=0))
+	{
+		y=0;
+		sort(ch,ch+strlen(ch));
+		strcpy(st,ch);
+		if(mp[ch]==1)
+			{
+				puts(ch);
+				y=1;
+			}
+		while(next_permutation(ch,ch+strlen(ch)))
+		{
+				if(strcmp(ch,st)==0)
+					break;
+				else if(mp[ch]==1)
+				{
+					puts(ch);
+					y=1;
+				}
+		}
+		if(y==0)
+			puts("NOT A VALID WORD");
+		puts("******");
+			
+	}
+	mp.clear();
+	return 0;
+}

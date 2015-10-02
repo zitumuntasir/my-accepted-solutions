@@ -1,0 +1,46 @@
+#include<stdio.h>
+#include<math.h>
+double xa[1000],xb[1000],yb[1000];
+double ya[1000];
+char c[100];
+int main()
+{
+	double y,a,b,x,n;
+	long i,j,k;
+	i=k=0;
+	while(scanf("%c",c)&&c[0]!='*')
+	{
+		scanf("%lf%lf%lf%lf",&xa[i],&ya[i],&xb[i],&yb[i]);
+		i++;
+		getchar();
+	}
+	while(1)
+	{
+		k++;
+ 	 scanf("%lf%lf",&a,&b);
+	 {
+		 x=a-0.9;
+		 y=b-0.9;
+	 }
+	 if(x==9999&&y==9999)
+		 break;
+	 else
+	 {
+		 n=0;
+		 for(j=0;j<i;j++)
+		 {
+			 if(a>xa[j]&&a<xb[j]&&b<ya[j]&&b>yb[j])
+			 {
+				 n=1;
+				 printf("Point %ld is contained in figure %ld\n",k,j+1);
+			 }
+		 }
+		 if(n==0)
+		 {
+			 printf("Point %ld is not contained in any figure\n",k);
+		 }
+	 }
+	}
+	return 0;
+}
+

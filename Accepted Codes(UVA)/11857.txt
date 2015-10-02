@@ -1,0 +1,144 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<set>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+#define eps 1e-14
+long ar[1000010],rank[1000010],par[1000010];
+void makepair(long n)
+{
+	par[n]=n;
+}
+long findpar(long r)
+{
+	if(par[r]==r) return r;
+	else
+		return par[r]=findpar(par[r]);
+}
+struct ss{
+	long in,fn,cst;
+}ara[1000010];
+bool cmp(ss aa,ss bb)
+{
+	return aa.cst<bb.cst;
+}
+int main()
+{
+	long n,m,i,j,cnt,cost,mx,u,v;
+	while(scanf("%ld%ld",&n,&m)&&(n!=0||m!=0))
+	{
+		mx=cnt=0;
+	 for(i=0;i<m;i++)
+	 {
+		scanf("%ld%ld%ld",&ara[i].in,&ara[i].fn,&ara[i].cst);
+		if(ar[ara[i].in]==0)
+		{
+			ar[ara[i].in]=1;
+			makepair(ara[i].in);
+		}
+		if(ar[ara[i].fn]==0)
+		{
+			ar[ara[i].fn]=1;
+			makepair(ara[i].fn);
+		}
+	 }
+	 sort(ara,ara+m,cmp);
+	 for(i=0;i<m;i++)
+	 {
+		 u=findpar(ara[i].in);
+		 v=findpar(ara[i].fn);
+		 if(u!=v)
+		 {
+			 if(rank[u]==0&&rank[v]==0)
+			 {
+				 par[v]=u;
+				 rank[u]+=2;
+				 if(ara[i].cst>mx)
+				 {
+					 mx=ara[i].cst;
+				 }
+				 cnt+=2;
+			 }
+			 else if(rank[u]==rank[v])
+			 {
+				 par[v]=u;
+				 if(ara[i].cst>mx)
+				 {
+					 mx=ara[i].cst;
+				 }
+			 }
+			 else if(rank[u]>rank[v])
+			 {
+				 if(ara[i].cst>mx)
+				 {
+					 mx=ara[i].cst;
+				 }
+				 par[v]=u;
+				 if(rank[v]==0) 
+				 {
+					 cnt++;
+					 rank[u]++;
+				 }
+				 else rank[u]+=rank[v];
+			 }
+			 else if(rank[v]>rank[u])
+			 {
+				 if(ara[i].cst>mx)
+				 {
+					 mx=ara[i].cst;
+				 }
+				 par[u]=v;
+				 if(rank[u]==0)
+				 {
+					 cnt++;
+					 rank[v]++;
+				 }
+				 else rank[v]+=rank[u];
+			 }
+			 if(cnt==n) break;
+		 }
+	 }
+	 if(cnt==n)
+	 {
+		 printf("%ld\n",mx);
+	 }
+	 else printf("IMPOSSIBLE\n");
+	 for(i=0;i<=n;i++)
+	 {
+		 rank[i]=par[i]=ar[i]=0;
+	 }
+	}
+	return 0;
+}

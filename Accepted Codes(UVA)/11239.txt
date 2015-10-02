@@ -1,0 +1,99 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<set>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+#define eps 1e-14
+char ch[10000];
+map<string,long>mp1,mp2;
+map<long,string>mp;
+struct ss{
+	char ch[110];
+	long a;
+}sr[110];
+bool cmp(ss aa,ss bb)
+{
+	if(aa.a<bb.a)
+		return 0;
+	else if(aa.a==bb.a)
+		return (strcmp(aa.ch,bb.ch)<=0);
+	else
+		return 1;
+}
+int main()
+{
+	long k,i;
+	strcpy(sr[0].ch,"---");	
+	k=0;
+	while(gets(ch)&&strcmp(ch,"0")!=0)
+	{
+		if(strcmp(ch,"1")==0)
+		{
+			sort(sr+1,sr+k+1,cmp);
+			for(i=1;i<=k;i++)
+			{
+				printf("%s %ld\n",sr[i].ch,sr[i].a);
+				sr[i].a=0;
+			}
+			k=0;
+			mp.clear(),mp1.clear(),mp2.clear();
+			strcpy(sr[0].ch,"---");
+			sr[0].a=0;
+		}
+		else
+		{
+			if(isupper(ch[0]))
+			{
+					k++;
+				strcpy(sr[k].ch,ch);
+			}
+			else
+			{
+				mp2[ch]=k;
+				if(mp1[ch]!=0&&mp1[ch]!=-1&&(mp2[ch]!=mp1[ch]))
+				{
+					sr[mp1[ch]].a--;
+					mp1[ch]=-1;
+				}
+				else if(mp1[ch]==0)
+				{
+					mp1[ch]=k;
+					sr[k].a++;
+				}
+			}
+		}
+	}
+	return 0;
+}

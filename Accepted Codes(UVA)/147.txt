@@ -1,0 +1,40 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+using namespace std;
+long long ara[20]={5,10,20,50,100,200,500,1000,2000,5000,10000};
+long long res[60000];
+int main()
+{
+	double taka;
+	 long long i,j,tak;
+	res[0]=1;
+	while(scanf("%lf",&taka)&&taka!=0.00&&taka>=1e-5)
+	{
+		tak=taka*100+1e-5;
+	for(i=0;i<11;i++)
+	{
+		for(j=1;j<=tak;j++)
+		{
+			if(j>=ara[i])
+			res[j]=res[j]+res[j-ara[i]];
+		}
+	}
+	printf("%6.2lf%17lld\n",taka,res[tak]);
+	for(j=1;j<=tak;j++)
+	{
+		res[j]=0;
+	}
+	}
+	return 0;
+}

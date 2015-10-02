@@ -1,0 +1,76 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+using namespace std;
+long profit[600][30000];
+long values[30000],weight[30000],ara[1000];
+char ch[1000];
+int main()
+{
+	char *pch;
+	long k,sum;
+	long items,i,w,j,test,p,q;
+	long knapsack_weight;
+	scanf("%ld",&test);
+		getchar();
+	for(p=0;p<test;p++)
+	{
+		sum=0,items=1;
+		gets(ch);
+		pch=strtok(ch," ");
+		while(pch!=NULL)
+		{
+			sscanf(pch,"%ld",&ara[items]);
+			items++;
+			pch = strtok (NULL, " ");
+		}
+		for(q=1;q<items;q++)
+		{
+			weight[q]=ara[q];
+			values[q]=ara[q];
+			sum=sum+values[q];
+		}
+       knapsack_weight=sum/2;
+      for(i=1;i<=items;i++){
+            for(w=1;w<=knapsack_weight;w++){
+                  if(weight[i]>w){
+                        profit[i][w] = profit[i-1][w];
+                  }
+                  else{
+                        if(profit[i-1][w]>=profit[i-1][w-weight[i]]+values[i]){
+                              profit[i][w] = profit[i-1][w];
+                             
+                        }
+                        else{
+                              profit[i][w] = profit[i-1][w-weight[i]]+values[i];
+                        }
+                  }
+            }
+      }
+      i=profit[items][knapsack_weight];
+	  if(abs(i-(sum-i)==0))
+		  printf("YES\n");
+	  else
+		  printf("NO\n");
+	  for(i=1;i<=items;i++)
+		 {
+			 weight[i]=values[i]=ara[i]=0;
+            for(w=1;w<=knapsack_weight;w++)
+			{
+				profit[i][w]=0;
+			}
+		 }
+	}
+	  return 0;
+}

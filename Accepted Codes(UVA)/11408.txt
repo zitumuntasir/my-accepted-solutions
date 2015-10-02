@@ -1,0 +1,117 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<sstream>
+#include<queue>
+#include<cstring>
+#include<map>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define err 1e-9
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+long ara[5000000],prime[5000000],ara1[5000010],ara2[5000010],ara3[5000010];
+void sieve()
+{
+	long num,root,i,k=0,j;
+	num=5000000;
+	root=sqrt(5000000);
+	prime[0]=2;
+	for(i=3;i<=num;i+=2)
+	{
+		if(ara[i]==0)
+		{
+			k++;
+			prime[k]=i;
+			if(i<=root)
+			{
+		     for(j=i*i;j<=num;j+=(2*i))
+			 {
+				ara[j]=1;
+			 }
+			}
+		}
+	}
+}
+void deprime()
+{
+	sieve();
+	ara1[2]=1,ara1[3]=2,ara1[4]=3,ara1[5]=4;
+	ara2[2]=1,ara2[3]=1,ara2[4]=1,ara2[5]=1;
+	long i,j,p,num,sum,cnt=4,root,no;
+	for(p=6;p<=5000000;p++)
+	{
+		sum=no=0;
+		num=p;
+		if((ara[num]==0&&(num%2!=0))||num==2)
+		{
+			sum=num;
+		}
+		else
+		{
+		  root=sqrt(p);
+		for(i=0;prime[i]<=root;i++)
+		{
+			if(num%prime[i]==0)
+			{
+				sum+=prime[i];
+				while(num%prime[i]==0)
+				{
+					num/=prime[i];
+				}
+				if(ara3[num]!=0)
+				{
+					no=1;
+					sum+=ara3[num];
+					break;
+				}
+			}
+		}
+		  if(num>1&&no==0)
+		  {
+			sum+=num;
+		  }
+		}
+		ara3[p]=sum;
+		if((ara[sum]==0&&(sum%2!=0))||sum==2)
+		{
+			cnt++;
+			ara1[p]=cnt;
+			ara2[p]=1;
+		}
+		else
+			ara1[p]=cnt;
+	}
+}
+int main()
+{
+	deprime();
+	long a,b,s;
+	while(scanf("%ld",&a)&&a)
+	{
+		s=0;
+		scanf("%ld",&b);
+		if(ara2[a]==1)
+			s=1;
+		printf("%ld\n",ara1[b]-ara1[a]+s);
+	}
+	return 0;
+}

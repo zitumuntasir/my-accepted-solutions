@@ -1,0 +1,140 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<set>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+#define eps 1e-14
+int ar[101],par[101],rank[101];
+struct ss{
+	int in,fn,cst;
+}ara[10002];
+bool cmp(ss aa,ss bb)
+{
+	return aa.cst<bb.cst;
+}
+void makepair(int n)
+{
+	par[n]=n;
+}
+int findpar(int r)
+{
+	if(par[r]==r) return r;
+	else
+		return par[r]=findpar(par[r]);
+}
+int main()
+{
+	int test,i,j,k,n,m,u,v,mn,cnt;
+	scanf("%d",&test);
+	for(i=0;i<test;i++)
+	{
+		mn=9999999;
+		cnt=0;
+		scanf("%d%d",&n,&m);
+		for(j=0;j<m;j++)
+		{
+			scanf("%d%d%d",&ara[j].in,&ara[j].fn,&ara[j].cst);
+			if(ar[ara[j].in]==0)
+			{
+				makepair(ara[j].in);
+				ar[ara[j].in]=1;
+			}
+			if(ar[ara[j].fn]==0)
+			{
+				makepair(ara[j].fn);
+				ar[ara[j].fn]=1;
+			}
+		}
+		sort(ara,ara+m,cmp);
+		for(j=m-1;j>=0;j--)
+		{
+			u=findpar(ara[j].in);
+			v=findpar(ara[j].fn);
+			if(u!=v)
+			{
+				if(ara[j].cst<mn)
+				{
+					mn=ara[j].cst;
+				}
+				if(rank[u]==0&&rank[v]==0)
+				{
+					par[v]=u;
+					rank[u]+=2;
+					cnt+=2;
+				}
+				else if(rank[u]==rank[v])
+				{
+					par[v]=u;
+					rank[u]+=rank[v];
+				}
+				else if(rank[u]>rank[v])
+				{
+					par[v]=u;
+					if(rank[v]==0)
+					{
+						cnt++;
+						rank[u]++;
+					}
+					else
+					{
+						rank[u]+=rank[v];
+					}
+				}
+				else if(rank[v]>rank[u])
+				{
+					par[u]=v;
+					if(rank[u]==0)
+					{
+						cnt++;
+						rank[v]++;
+					}
+					else
+					{
+						rank[v]+=rank[u];
+					}
+				}
+			}
+		}
+			{
+				printf("Case #%d: %d\n",i+1,mn);
+			}
+		for(j=0;j<=n;j++)
+		{
+			rank[j]=par[j]=ar[j]=0;
+		}
+
+	}
+	return 0;
+}

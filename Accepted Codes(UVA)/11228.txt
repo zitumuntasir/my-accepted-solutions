@@ -1,0 +1,252 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<set>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+#define eps 1e-14
+long long xa[10000],ya[10000],par[10000],rank[10000],ar[10000],ar1[10000];
+double round(double d)
+{
+    return double(d+0.5);
+}
+void makepair(long long n)
+{
+	par[n]=n;
+}
+long long findpar(long long r)
+{
+	if(par[r]==r) return r;
+	else
+		return par[r]=findpar(par[r]);
+}
+struct ss{
+	long long in,fn;
+	double cst;
+}ara[1000011];
+bool cmp(ss aa,ss bb)
+{
+	return aa.cst<bb.cst;
+}
+struct st{
+	long long in1,fn1;
+	double cst1;
+}ara1[1000011];
+bool cm(st aa1,st bb1)
+{
+	return aa1.cst1<bb1.cst1;
+}
+int main()
+{
+	long long test,i,n,val,l,m,cval,dis,j,k,cnt,cnt1,u,v,nd,ct,node,cn;
+	double cost,cost1,tem,tem1;
+	scanf("%lld",&test);
+	for(i=0;i<test;i++)
+	{
+		cost=l=m=cnt=cnt1=nd=ct=cost1=cn=0;
+		scanf("%lld%lld",&n,&val);
+		cval=val*val;
+		for(j=0;j<n;j++)
+		{
+			makepair(j);
+			scanf("%lld%lld",&xa[j],&ya[j]);
+			for(k=0;k<j;k++)
+			{
+				dis=((xa[j]-xa[k])*(xa[j]-xa[k]))+((ya[j]-ya[k])*(ya[j]-ya[k]));
+				if(dis<=cval)
+				{
+					ara[l].in=j;
+					ara[l].fn=k;
+					ara[l].cst=dis;
+					l++;
+					if(ar[ara[l].in]==0)
+					{
+						ar[ara[l].in]=1;
+						cnt++;
+					}
+					if(ar[ara[l].fn]==0)
+					{
+						ar[ara[l].fn]=1;
+						cnt++;
+					}
+				}
+				else
+				{
+					ara1[m].in1=j;
+					ara1[m].fn1=k;
+					ara1[m].cst1=dis;
+					m++;
+				}
+			}
+		}
+		sort(ara,ara+l,cmp);
+		sort(ara1,ara1+m,cm);
+		for(j=0;j<l;j++)
+		{
+			u=findpar(ara[j].in);
+			v=findpar(ara[j].fn);
+			if(u!=v)
+			{
+				cost+=sqrt(ara[j].cst)+0.0000000000000001;
+				if(rank[u]==0&&rank[v]==0)
+				{
+					node+=2;
+					par[v]=u;
+					rank[u]+=2;
+					//nd++;
+					if(node==cnt)
+					{
+						break;
+					}
+				}
+				else if(rank[u]==rank[v])
+				{
+					par[v]=u;
+					rank[u]+=rank[v];
+					node+=(rank[u]);
+					nd--;
+					if(node==cnt)
+					{
+						break;
+					}
+				}
+				else if(rank[u]>rank[v])
+				{
+					par[v]=u;
+					if(rank[v]==0)
+					{
+						rank[u]++;
+					}
+					else
+					{
+						rank[u]+=rank[v];
+						nd--;
+					}
+					node+=rank[u];
+					if(node==cnt)
+					{
+						break;
+					}
+				}
+				else if(rank[v]>rank[u])
+				{
+					par[u]=v;
+					if(rank[u]==0)
+					{
+						rank[v]++;
+					}
+					else
+					{
+						rank[v]+=rank[u];
+						nd--;
+					}
+					node+=(rank[v]);
+					if(node==cnt)
+					{
+						break;
+					}
+				}
+			}
+		}
+		for(j=0;j<m;j++)
+		{
+			u=findpar(ara1[j].in1);
+			v=findpar(ara1[j].fn1);
+			if(u!=v)
+			{
+				cost1+=sqrt(ara1[j].cst1)+0.00000000000000001;
+				if(rank[u]>=rank[v])
+				{
+					par[v]=u;
+					if(rank[u]==0&&rank[v]==0)
+					{
+						rank[u]+=2;
+						cn++;
+					}
+					else if(rank[u]==rank[v])
+					{
+						rank[u]+=rank[v];
+						cn++;
+					}
+					else if(rank[v]==0)
+					{
+                         rank[u]++;
+                         cn++;
+                    }
+                    else if(rank[u]>rank[v])
+                    {
+                         rank[u]+=rank[v];
+                         cn++;     
+                    }
+					if(rank[u]==n)
+						break;
+				}
+
+				else
+				{
+					par[u]=v;
+					if(rank[u]==0)
+					{
+						cn++;
+						rank[v]++;
+					}
+					else
+					{
+						rank[v]+=rank[u];
+						cn++;
+					}
+					if(rank[v]==n)
+						break;
+				}
+			}
+		}
+		tem=(floor)(cost);
+		tem1=(floor)(cost1);
+		if(cost-(tem+0.500000000000)>=0.00000000000000000)
+			cost=(ceil)(cost);
+		else
+			cost=(floor)(cost);
+				if(cost1-(tem1+0.50000000000000)>=0.000000000000000000)
+			cost1=(ceil)(cost1);
+		else
+			cost1=(floor)(cost1);
+		printf("Case #%lld: %lld %.lf %.lf\n",i+1,cn+1,cost,cost1);
+		for(j=0;j<=n;j++)
+		{
+			rank[j]=ar[j]=par[j]=ar1[j]=0;
+		}
+
+	}
+	return 0;
+}

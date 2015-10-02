@@ -1,0 +1,46 @@
+#include<stdio.h>
+#include<string.h>
+char ch[3000000];
+int main()
+{
+	long test,k,i,j,min,q;
+	while(scanf("%ld",&test)&&test!=0)
+	{
+		min=99999999,q=0;
+		scanf("%s",ch);
+		for(i=0;i<test;i++)
+		{
+			if(ch[i]=='R'||ch[i]=='D'||ch[i]=='Z')
+			{
+				if(ch[i]=='Z')
+				{
+					printf("0\n");
+					q=1;
+					break;
+				}
+			    	else
+					{
+				j=i;
+				i++;
+				k=0;
+				while(ch[i]!='R'&&ch[i]!='D'&&ch[i]!=0&&ch[i]!='Z')
+				{
+				k++;
+				i++;
+				}
+				if(ch[j]!=ch[i]&&ch[i]!=0)
+				{
+					if(min>(i-j))
+						min=i-j;
+				}
+					}
+					i--;
+
+			}
+		}
+		if(q==0)
+		printf("%ld\n",min);
+	}
+
+return 0;
+}

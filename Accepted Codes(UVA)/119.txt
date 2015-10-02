@@ -1,0 +1,78 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+using namespace std;
+char ch[1000],ch1[1000][1000],st[100];
+map<string,long>mp;
+int main()
+{
+	long i,j,k,taka,num,m,l,t=0;
+	char *pch;
+	while(~scanf("%ld",&num))
+	{
+		if(t>0)
+			printf("\n");
+		t++;
+		i=0;
+		getchar();
+		gets(ch);
+		pch=strtok(ch," ");
+		while(pch!=NULL)
+		{
+			strcpy(ch1[i],pch);
+			i++;
+			pch=strtok(NULL," ");
+		}
+		for(j=0;j<num;j++)
+		{
+			k=0;
+			gets(ch);
+			pch=strtok(ch," ");
+			while(pch!=NULL)
+			{
+				if(k==0)
+					strcpy(st,pch);
+				if(k==1)
+				{
+					sscanf(pch,"%ld",&taka);
+					mp[st]-=taka;
+				}
+				if(k==2)
+				{
+					sscanf(pch,"%ld",&m);
+					if(m!=0)
+					{
+					taka/m;
+					mp[st]+=taka%m;
+					}
+					else
+					{
+						mp[st]+=taka;
+					}
+				}
+				if(k>2)
+					mp[pch]+=taka/m;
+				pch=strtok(NULL," ");
+				k++;
+			}
+		}
+		for(l=0;l<num;l++)
+		{
+			printf("%s %ld\n",ch1[l],mp[ch1[l]]);
+		}
+		mp.clear();
+	}
+	return 0;
+}

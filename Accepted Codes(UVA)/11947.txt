@@ -1,0 +1,142 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+map<long,long>mp;
+char ch[100000],year[1000],dat[100],mon[100];
+int main()
+{
+	long i,test,d,q,t,m,y,start,p;
+	mp[1]=31,mp[2]=28,mp[3]=31,mp[4]=30,mp[5]=31,mp[6]=30,mp[7]=31,
+    mp[8]=31,mp[9]=30,mp[10]=31,mp[11]=30,mp[12]=31;
+    scanf("%ld",&test);
+	getchar();
+	for(p=1;p<=test;p++)
+	{
+ 		gets(ch);
+		mon[0]=ch[0],mon[1]=ch[1],mon[2]=0,dat[0]=ch[2],dat[1]=ch[3],dat[2]=0;
+		q=4;t=0;
+		while(ch[q]!=NULL)
+		{
+		year[t]=ch[q];
+		q++;
+		t++;
+		}
+		year[t]=0;
+	sscanf(dat,"%ld",&d),sscanf(mon,"%ld",&m),sscanf(year,"%ld",&y);
+	if((y%4==0&&y%100!=0)||(y%400)==0)
+	{
+		mp[2]=29;
+	}
+	else mp[2]=28;
+	start=d;
+	for(i=start;i<start+280;i++)
+	{
+		while(d<=mp[m]&&i<start+280)
+		{
+			d++;
+			i++;
+		}
+		if(i<start+280)
+		{
+			d=1;
+			m++;
+			i--;
+		   if(m>12)
+		   {
+			m=1;
+			y++;
+		    if((y%4==0&&y%100!=0)||(y%400)==0)
+		    mp[2]=29;
+		     else mp[2]=28;
+		   }
+		}
+	}
+	printf("%ld ",p);
+	if(m<10)
+		printf("0");
+	printf("%ld/",m);
+	if(d<10)
+		printf("0");
+		printf("%ld/",d);
+	printf("%ld ",y);
+	if(m==1&&d>=21)
+		puts("aquarius");
+	else if(m==2&&d<=19)
+		puts("aquarius");
+
+	else if(m==2&&d>=20)
+		puts("pisces");
+	else if(m==3&&d<=20)
+		puts("pisces");
+
+	else if(m==3&&d>=21)
+		puts("aries");
+	else if(m==4&&d<=20)
+		puts("aries");
+
+	else if(m==4&&d>=21)
+		puts("taurus");
+	else if(m==5&&d<=21)
+		puts("taurus");
+
+	else if(m==5&&d>=22)
+		puts("gemini");
+	else if(m==6&&d<=21)
+		puts("gemini");
+
+	
+	else if(m==6&&d>=22)
+		puts("cancer");
+	else if(m==7&&d<=22)
+		puts("cancer");
+
+	
+	else if(m==7&&d>=23)
+		puts("leo");
+	else if(m==8&&d<=21)
+		puts("leo");
+
+	
+	else if(m==8&&d>=22)
+		puts("virgo");
+	else if(m==9&&d<=23)
+		puts("virgo");
+
+	
+	else if(m==9&&d>=24)
+		puts("libra");
+	else if(m==10&&d<=23)
+		puts("libra");
+
+		else if(m==10&&d>=24)
+		puts("scorpio");
+	  else if(m==11&&d<=22)
+		puts("scorpio");
+
+		else if(m==11&&d>=23)
+		puts("sagittarius");
+	else if(m==12&&d<=22)
+		puts("sagittarius");
+
+		else if(m==12&&d>=23)
+		puts("capricorn");
+	   else if(m==1&&d<=20)
+		puts("capricorn");
+
+	}
+	return 0;
+}

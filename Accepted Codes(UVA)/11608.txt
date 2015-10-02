@@ -1,0 +1,46 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+using namespace std;
+long ara[10000],ara1[10000];
+int main()
+{
+	long test,i,j,t=1,sum;
+	while(scanf("%ld",&test)&&test>=0)
+	{
+		sum=test;
+		for(i=1;i<=12;i++)
+		{
+			scanf("%ld",&ara[i]);
+		}
+		 for(i=1;i<=12;i++)
+		{
+			scanf("%ld",&ara1[i]);
+		}
+		printf("Case %ld:\n",t);
+		for(i=1;i<=12;i++)
+		{
+			if(sum<ara1[i])
+				printf("No problem. :(\n");
+			else
+			{
+				printf("No problem! :D\n");
+			   sum-=ara1[i];
+			}
+			sum+=ara[i];
+
+		}
+		t++;
+	}
+	return 0;
+}

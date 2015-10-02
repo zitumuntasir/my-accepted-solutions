@@ -1,0 +1,27 @@
+#include<iostream>
+#include<algorithm>
+#include<cstring>
+using namespace std;
+char ch[100000];
+int main()
+{
+	long test,i,j,len;
+	cin>>test;
+	for(i=0;i<test;i++)
+	{
+		cin>>ch;
+		len=strlen(ch);
+		 sort (ch,ch+len);
+		do{
+			for(j=0;j<len-1;j++)
+			{
+				cout<<ch[j];
+			}
+			cout<<ch[j]<<endl;
+		}
+		while(next_permutation (ch,ch+len));
+		cout<<endl;
+	}
+
+	return 0;
+}

@@ -1,0 +1,77 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+using namespace std;
+vector<long>vc[1000000];
+queue<long>qu;
+long ara[10000000],ara1[10000000];
+int main()
+{
+	long i,a,b,m,n,count,c,j,p;
+	while(scanf("%ld%ld",&a,&b))
+	{
+		count=0;
+		if(a==0&&b==0)
+			break;
+		else
+		{
+			for(i=1;i<=b;i++)
+			{
+				scanf("%ld%ld",&m,&n);
+				vc[m].push_back(n);
+				ara[n]++;
+			}
+			for(i=1;i<=a;i++)
+			{
+				if(ara[i]==0)
+				{
+					ara1[count]=i;
+					count++;
+					qu.push(i);
+				}
+			}
+			while(!qu.empty())
+			{
+				c=qu.front();
+				for(j=0;j<vc[c].size();j++)
+				{
+					p=vc[c][j];
+					ara[p]--;
+					if(ara[p]==0)
+					{
+						ara1[count]=p;
+						count++;
+						qu.push(p);
+					}
+				}
+				qu.pop();
+			}
+			if(count!=a)
+				printf("IMPOSSIBLE\n");
+			else
+			{
+				for(i=0;i<a;i++)
+					printf("%ld\n",ara1[i]);
+			}
+		}
+		for(i=0;i<=a;i++)
+		{
+			ara[i]=ara1[i]=0;
+			vc[i].clear();
+		}
+	}
+	return 0;
+}

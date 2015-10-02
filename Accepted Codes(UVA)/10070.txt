@@ -1,0 +1,96 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+char dividend[1000000];
+char quotient[1000000];
+long divisor[10];
+int main()
+{
+
+   divisor[0]=400,divisor[1]=100,divisor[2]=55,divisor[3]=15,divisor[4]=4;
+	long a,b,c,d,e,i,j,k,reminder,mod,len,w,x,y,z,p,test=0,s,u,v;
+	while(gets(dividend))
+	{
+		if(test>0)
+			printf("\n");
+		test++;
+		w=x=y=z=s=u=v=0;
+		for(p=0;p<=4;p++)
+		{
+		mod=0,k=0;
+		len=strlen(dividend)-1;
+		 for(i=0;i<=len;i++)
+		 {
+			a=dividend[i]-48;
+			b=(mod*10)+a;
+			c=b/divisor[p];
+			mod=b%divisor[p];
+			if(c>0)
+			{
+			quotient[k]=c+48;
+			k++;
+			}
+			else if(k!=0)
+			{
+			quotient[k]=c+48;
+			k++;
+			}
+		 }
+		 if(divisor[p]==400&&mod==0)
+		 {
+			 w=1;
+		 }
+		 else if(divisor[p]==100&&mod==0)
+		 {
+			 x=1;
+		 }
+		 
+		 else if(divisor[p]==55&&mod==0)
+		 {
+			 y=1;
+		 }
+		 
+		 else if(divisor[p]==15&&mod==0)
+		 {
+			 z=1;
+		 }
+		 else if(divisor[p]==4&&mod==0)
+		 {
+			 s=1;
+		 }
+		}
+		if((s==1&&x==0)||w==1)
+		{
+			u=1;
+			printf("This is leap year.\n");
+			v=1;
+		}
+		if(z==1)
+		{
+			v=1;
+			printf("This is huluculu festival year.\n");
+		}
+		if(u==1&&y==1)
+		{
+				printf("This is bulukulu festival year.\n");
+		}
+		if(v==0)
+			printf("This is an ordinary year.\n");
+
+	}
+	return 0;
+}

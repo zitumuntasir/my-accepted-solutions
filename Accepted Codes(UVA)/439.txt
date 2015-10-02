@@ -1,0 +1,123 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+const double eps = 1e-9;
+queue<long>qu;
+map<string,long>mp1;
+map<long,string>mp2;
+long ara[20][20],x,y,dest,ara1[20][20],cst[100];
+char ch[10],ch1[10];
+long xmyarr[]={2,2,-2,-2,1,-1,1,-1};
+long ymyarr[]={1,-1,1,-1,2,2,-2,-2};
+void bfs(long node)
+{
+	long u,i,v,l,x,y,p,q;
+	qu.push(node);
+	while(!qu.empty())
+	{
+		v=qu.front();
+		x=(v/8)+1;
+		y=(v%8);
+		if(y==0)
+		{
+			x=v/8;
+			y=8;
+		}
+		ara1[x][y]=1;
+		for(i=0;i<8;i++)
+		{
+			p=x+xmyarr[i];
+			q=y+ymyarr[i];
+			if(ara1[p][q]!=1&&p>=1&&q>=1&&p<=8&&q<=8)
+			{
+				qu.push(ara[p][q]);
+				cst[ara[p][q]]=cst[ara[x][y]]+1;
+				ara1[p][q]=1;
+			}
+		}
+		qu.pop();
+	}
+}
+void mp()
+{
+	long i,j,k,p,q;
+	for(p=1,j=97,k=1;j<=104;j++,p++)
+	{
+	 for(q=1,i=1;i<=8;i++,q++)
+	 {
+		 ch[0]=j,ch[1]=i+48,ch[2]=NULL;
+		 mp1[ch]=k;
+		 mp2[k]=ch;
+		 ara[p][q]=k;
+		 k++;
+	 }
+	}
+	mp1["h8"]=64;
+	mp2[64]="h8";
+	ara[8][8]=64;
+}
+int main()
+{
+	mp();
+	long source,m,n,i,j,k;
+	while(scanf("%s",ch)!=EOF)
+	{
+		source=mp1[ch];
+		scanf("%s",ch1);
+		dest=mp1[ch1];
+		bfs(source);
+		m=(dest/8)+1;
+		//if(m==9)
+		//	m=8;
+		n=(dest%8);
+		if(n==0)
+		{
+			n=8;
+			m=(dest/8);
+		}
+		printf("To get from %s to %s takes %ld knight moves.\n",ch,ch1,cst[ara[m][n]]);
+		for(i=k=0;i<=8;i++)
+		{
+			
+			for(j=0;j<=8;j++)
+			{
+				cst[k]=0;
+				ara1[i][j]=0;
+				k++;
+			}
+		}
+	}
+	return 0;
+}

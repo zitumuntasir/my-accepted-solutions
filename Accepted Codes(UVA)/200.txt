@@ -1,0 +1,60 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+using namespace std;
+queue<char>qu;
+char ch[100],st[10000][50];
+map<char,long>mp;
+int main()
+{
+	char c;
+	long i,len,j,k,max;
+	while(gets(ch))
+	{
+		strcpy(st[0],ch);
+		i=1;
+		while(gets(ch)&&strcmp(ch,"#")!=0)
+		{
+			strcpy(st[i],ch);
+			len=strlen(ch);
+			if(len>=max)
+			{
+				max=len;
+			}
+			i++;
+		}
+		for(j=0;j<len;j++)
+		{
+			for(k=0;k<i;k++)
+			{
+				if(mp[st[k][j]]==0&&st[k][j]!=NULL)
+				{
+					qu.push(st[k][j]);
+					mp[st[k][j]]=1;
+				}
+			}
+		}
+		while(!qu.empty())
+		{
+
+		   cout<<qu.front();
+		   qu.pop();
+		}
+		printf("\n");
+		mp.clear();
+	}
+	return 0;
+}

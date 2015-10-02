@@ -1,0 +1,162 @@
+#include<stdio.h>
+#include<string.h>
+char ch[10000],ch1[10000],ch2[10000],ch3[100];
+int main()
+{
+	long a,b,c,d,e,i,r=0,p=0,j,k,num,len,l;
+	scanf("%ld",&num);
+	gets(ch3);
+	for(i=1;i<=num;)
+	{	
+		gets(ch);
+		k=0,l=0;
+		len=strlen(ch);
+		for(j=0;j<len;j++)
+		{
+			k=0;
+			while(ch[j]!=' '&&j<len)
+			{
+				p=1;
+				ch1[k]=ch[j];
+				r=1;
+				k++;
+				j++;
+			}
+			ch1[k]='\0';
+			 if(strcmp(ch1,".-")==0)
+				ch2[l]='A';
+			else if(strcmp(ch1,"-...")==0)
+				ch2[l]='B';
+			else if(strcmp(ch1,"-.-.")==0)
+				ch2[l]='C';
+			else if(strcmp(ch1,"-..")==0)
+				ch2[l]='D';
+			else if(strcmp(ch1,".")==0)
+				ch2[l]='E';
+			else if(strcmp(ch1,"..-.")==0)
+				ch2[l]='F';
+			else if(strcmp(ch1,"--.")==0)
+				ch2[l]='G';
+			else if(strcmp(ch1,"....")==0)
+				ch2[l]='H';
+			else if(strcmp(ch1,"..")==0)
+				ch2[l]='I';
+			else if(strcmp(ch1,".---")==0)
+				ch2[l]='J';
+			else if(strcmp(ch1,"-.-")==0)
+				ch2[l]='K';
+			else if(strcmp(ch1,".-..")==0)
+				ch2[l]='L';
+			else if(strcmp(ch1,"--")==0)
+				ch2[l]='M';
+			else if(strcmp(ch1,"-.")==0)
+				ch2[l]='N';
+			else if(strcmp(ch1,"---")==0)
+				ch2[l]='O';
+			else if(strcmp(ch1,".--.")==0)
+				ch2[l]='P';
+			else if(strcmp(ch1,"--.-")==0)
+				ch2[l]='Q';
+			else if(strcmp(ch1,".-.")==0)
+				ch2[l]='R';
+			else if(strcmp(ch1,"...")==0)
+				ch2[l]='S';
+			else if(strcmp(ch1,"-")==0)
+				ch2[l]='T';
+			else if(strcmp(ch1,"..-")==0)
+				ch2[l]='U';
+			else if(strcmp(ch1,"...-")==0)
+				ch2[l]='V';
+			else if(strcmp(ch1,".--")==0)
+				ch2[l]='W';
+			else if(strcmp(ch1,"-..-")==0)
+				ch2[l]='X';
+			else if(strcmp(ch1,"-.--")==0)
+				ch2[l]='Y';
+			else if(strcmp(ch1,"--..")==0)
+				ch2[l]='Z';
+			else if(strcmp(ch1,".----")==0)
+				ch2[l]='1';
+			else if(strcmp(ch1,"..---")==0)
+				ch2[l]='2';
+			else if(strcmp(ch1,"...--")==0)
+				ch2[l]='3';
+			else if(strcmp(ch1,"....-")==0)
+				ch2[l]='4';
+			else if(strcmp(ch1,".....")==0)
+				ch2[l]='5';
+			else if(strcmp(ch1,"-....")==0)
+				ch2[l]='6';
+			else if(strcmp(ch1,"--...")==0)
+				ch2[l]='7';
+			else if(strcmp(ch1,"---..")==0)
+				ch2[l]='8';
+			else if(strcmp(ch1,"----.")==0)
+				ch2[l]='9';
+			else if(strcmp(ch1,"-----")==0)
+				ch2[l]='0';
+			else if(strcmp(ch1,".-.-.-")==0)
+				ch2[l]='.';
+			else if(strcmp(ch1,"--..--")==0)
+				ch2[l]=',';
+			else if(strcmp(ch1,"..--..")==0)
+				ch2[l]='?';
+			else if(strcmp(ch1,".----.")==0)
+				ch2[l]='\'';
+			else if(strcmp(ch1,"-.-.--")==0)
+				ch2[l]='!';
+			else if(strcmp(ch1,"-..-.")==0)
+				ch2[l]='/';
+			else if(strcmp(ch1,"-.--.")==0)
+				ch2[l]='(';
+			else if(strcmp(ch1,"-.--.-")==0)
+				ch2[l]=')';
+			else if(strcmp(ch1,".-...")==0)
+				ch2[l]='&';
+			else if(strcmp(ch1,"---...")==0)
+				ch2[l]=':';
+			else if(strcmp(ch1,"-.-.-.")==0)
+				ch2[l]=';';
+			else if(strcmp(ch1,"-...-")==0)
+				ch2[l]='=';
+			else if(strcmp(ch1,".-.-.")==0)
+				ch2[l]='+';
+			else if(strcmp(ch1,"-....-")==0)
+				ch2[l]='-';
+			else if(strcmp(ch1,"..--.-")==0)
+				ch2[l]='_';
+			else if(strcmp(ch1,".-..-.")==0)
+				ch2[l]='"';
+			else if(strcmp(ch1,".--.-.")==0)
+				ch2[l]='@';
+
+				if(r==1)
+			{
+				r=0;
+				l++;
+			}
+			 if((ch[j]==' '&&ch[j+1]==' ')&&p!=0)
+			{
+					ch2[l]=' ';
+					l++;
+					while(ch[j+2]==' ')
+			 {
+				 j++;
+			 }
+			}
+			 
+		}	
+		ch2[l]='\0';
+		if(len!=0)
+		{
+		printf("Message #%ld\n",i);
+		p=0;
+		puts(ch2);
+		if(i!=num)
+			printf("\n");
+		p=0;
+		i++;
+		}
+	}
+	return 0;
+}

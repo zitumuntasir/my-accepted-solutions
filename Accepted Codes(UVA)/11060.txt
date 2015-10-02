@@ -1,0 +1,78 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+using namespace std;
+vector<long>vc[10000];
+char ch[1000],ch1[1000];
+map<string,long>mp;
+map<long,long>mp1;
+map<long,string>mp2;
+char str[1000][500];
+long ara[1000],visit[1000];
+int main()
+{
+	long i,test,num,k,l,r,t=0,j;
+	while(scanf("%ld",&num)!=EOF)
+	{
+		t++;
+		r=0;
+		getchar();
+		for(i=1;i<=num;i++)
+		{
+			gets(ch);
+			mp[ch]=i;
+			mp2[i]=ch;
+			strcpy(str[i],ch);
+		}
+		scanf("%ld",&test);
+		for(i=1;i<=test;i++)
+		{
+			scanf("%s%s",ch,ch1);
+			vc[mp[ch]].push_back(mp[ch1]);
+			mp1[mp[ch1]]++;
+
+		}
+		printf("Case #%ld: Dilbert should drink beverages in this order: ",t);
+		for(i=1;i<=num;i++)
+		{
+			for(j=1,l=1;j<=num;j++)
+			{
+				if(mp1[mp[str[j]]]==0&&visit[mp[str[j]]]==0)
+				{
+					r++;
+					cout<<mp2[j];
+					visit[mp[str[j]]]=1;
+					if(r==num)
+						printf(".\n\n");
+					else
+						printf(" ");
+					for(k=0;k<vc[mp[str[j]]].size();k++)
+					{
+					  mp1[vc[mp[str[j]]][k]]--;
+					}
+					j=0;
+				}
+			}
+		}
+		mp.clear(),mp1.clear(),mp2.clear();
+		for(k=0;k<=num;k++)
+		{
+			visit[k]=ara[k]=0;
+			vc[k].clear();
+		}
+	}
+	return 0;
+}

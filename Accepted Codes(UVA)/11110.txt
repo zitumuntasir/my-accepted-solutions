@@ -1,0 +1,155 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+const double eps = 1e-9;
+char line[1000],ch[500][500];
+long ara[200][200],visit[200][200],ara1[200][200];
+long xaray[]={0,0,1,-1};
+long yaray[]={1,-1,0,0};
+struct node
+{
+	long x,y;
+};
+node p,q,r;
+queue<node>qu,qu1;
+long n,cnt,ya;
+void bfs(node p,long s)
+{
+	long i;
+	cnt++;
+	qu.push(p);
+	while(!qu.empty())
+	{
+		p=qu.front();
+		qu.pop();
+		ara[p.x][p.y]=-1;
+		for(i=0;i<4;i++)
+		{
+			r.x=p.x+xaray[i],r.y=p.y+yaray[i];
+			if(r.x>=1&&r.x<=n&&r.y>=1&&r.y<=n)
+			{
+				if(s==n)
+				{
+					if(ara[r.x][r.y]==0)
+					{
+						cnt++;
+						ara[r.x][r.y]=-1;
+						qu.push(r);
+					}
+				}
+				else if(ara[r.x][r.y]==s)
+				{
+				ara[r.x][r.y]=-1;
+				cnt++;
+				qu.push(r);
+				}
+				else if(ara1[r.x][r.y]==0&&ya==0)
+				{
+					qu1.push(r);
+					ya++;
+				}
+			}
+		}
+	}
+}
+int main()
+{
+	long num,a,b,k,i,s,no,j,br;
+	while(scanf("%ld",&n)&&n)
+	{
+		ya=no=k=br=0;
+		getchar();
+		for(i=0;i<n-1;i++)
+		{
+			k=br=0;
+			gets(line);
+			if(strlen(line)==0)
+			{
+				br=1;
+			}
+			stringstream ss(line);
+			while(1)
+			{
+				if(!(ss>>num))
+					break;
+				else
+				a=num;
+			    if(!(ss>>num))
+					break;
+				else
+					b=num;
+			   p.x=a,p.y=b;
+			if(ara1[a][b]==0&&k<n)
+			{
+				ara[a][b]=i+1;
+				ara1[a][b]=i+1;
+			    k++;
+			}
+			if(k==1)
+			{
+				qu1.push(p);
+			}
+			}
+		}
+		s=no=ya=0;
+		while(!qu1.empty())
+		{
+			cnt=0;
+			s++;
+			r=qu1.front();
+			qu1.pop();
+			bfs(r,s);
+			if(cnt!=n)
+			{
+				no=1;
+			}
+		}
+		if((no==0&&br==0)||n==1)
+		printf("good\n");
+		else
+			printf("wrong\n");
+		for(i=0;i<=n;i++)
+		{
+			for(j=0;j<=n;j++)
+			{
+				ara[i][j]=0;
+				ara1[i][j]=0;
+			}
+		}
+	}
+	return 0;
+}
+

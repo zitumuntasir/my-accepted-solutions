@@ -1,0 +1,75 @@
+#include<cstdio>
+#include<iostream>
+#include<queue>
+#include<vector>
+#define inf 1000000
+using namespace std;
+int xara[]={0,0,1,-1};
+int yara[]={1,-1,0,0};
+int ara[1001][1001],visit[1001][1001],dst[1001][1001],m,n,r,c,cst;
+void clr()
+{
+	for(m=0;m<=r;m++)
+	{
+		for(n=0;n<=c;n++)
+		{
+			ara[m][n]=0;
+			dst[m][n]=inf;
+		}
+	}
+}
+struct data{
+	int x,y,dist;
+	bool operator<(const data&p)const{
+        return dist>p.dist;
+	}
+};
+data u,v;
+priority_queue<data>qu;
+void dij()
+{
+	int i;
+	while(!qu.empty())
+	{
+		u=qu.top();
+		for(i=0;i<4;i++)
+		{
+			v.x=u.x+xara[i];
+			v.y=u.y+yara[i];
+			if(v.x>=0&&v.x<r&&v.y>=0&&v.y<c)
+			{
+			   cst=u.dist+ara[v.x][v.y];
+			   if(cst<dst[v.x][v.y])
+			   {
+				dst[v.x][v.y]=cst;
+				v.dist=cst;
+				qu.push(v);
+			   }
+			}
+		}
+		qu.pop();
+	}
+}
+int main()
+{
+	int i,j,k,test;
+	scanf("%d",&test);
+	for(i=0;i<test;i++)
+	{
+		scanf("%d%d",&r,&c);
+		clr();
+		for(j=0;j<r;j++)
+		{
+			for(k=0;k<c;k++)
+			{
+				scanf("%d",&ara[j][k]);
+			}
+		}
+	u.x=0,u.y=0,u.dist=ara[0][0];
+	dst[0][0]=ara[0][0];
+	qu.push(u);
+	dij();
+	printf("%d\n",dst[r-1][c-1]);
+	}
+	return 0;
+}

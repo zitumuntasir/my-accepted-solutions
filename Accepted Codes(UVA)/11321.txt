@@ -1,0 +1,75 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+long long M,p,q;
+struct ss
+{
+	long long value;
+}ara[10010];
+bool cmp(ss aa,ss bb)
+{
+	p=aa.value%M;
+	q=bb.value%M;
+	if(p!=q)
+	{
+		return p<q;
+	}
+	else if(abs(aa.value)%2==0&&abs(bb.value)%2!=0)
+	{
+	 return  false;
+	}
+	else if (abs(aa.value)%2!=0&&abs(bb.value)%2==0)
+	{
+		return true;
+	}
+	else if(abs(aa.value)%2!=0&&abs(bb.value)%2!=0)
+	{
+		
+		 return bb.value<aa.value;
+	}
+	else if(abs(aa.value)%2==0&&abs(bb.value)%2==0)
+	{
+		return aa.value<bb.value;
+	}
+}
+int main()
+{
+	long long num,i;
+     while(scanf("%lld%lld",&num,&M))
+	{
+		if(num==0&&M==0)
+		{
+			printf("0 0\n");
+			break;
+		}
+		else
+		{
+			for(i=0;i<num;i++)
+			{
+				scanf("%lld",&ara[i].value);
+			}
+		}
+		sort(ara,ara+num,cmp);
+		printf("%lld %lld\n",num,M);
+		for(i=0;i<num;i++)
+		{
+			printf("%lld\n",ara[i].value);
+		}
+	}
+	return 0;
+}
+

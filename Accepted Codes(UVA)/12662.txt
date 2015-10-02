@@ -1,0 +1,125 @@
+#include<stdio.h>
+#include<string.h>
+char ch[100000],st[110][10];
+int main()
+{
+	long n,len,i,l,k,q,lf,nf,lr,nr,rr,rh,p,j,x;
+	scanf("%ld",&n);
+	getchar();
+	gets(ch);
+	len=strlen(ch);
+	l=0;
+	for(i=0;i<len;i++)
+	{
+		k=0;
+		if((ch[i]>='A'&&ch[i]<='Z')||(ch[i]>='a'&&ch[i]<='z'))
+		{
+			k=0;
+			while((ch[i]>='A'&&ch[i]<='Z')||(ch[i]>='a'&&ch[i]<='z')&&i<len)
+			{
+				st[l][k]=ch[i];
+				k++;
+				i++;
+			}
+			st[l][k]=NULL;
+			//i--;
+			l++;
+		}
+		else if(ch[i]=='?')
+		{
+			st[l][0]='?';
+			st[l][1]=NULL;
+			i++;
+			l++;
+		}
+	}
+	scanf("%ld",&q);
+	for(i=0;i<q;i++)
+	{
+		scanf("%ld",&p);
+		p--;
+		lf=nf=lr=nr=rr=rh=0;
+		if(strcmp(st[p],"?")!=0)
+		{
+			printf("%s\n",st[p]);
+		}
+		else
+		{
+		for(j=p-1;j>=0;j--)
+		{
+			while((strcmp(st[j],"?")==0)&&j>=0)
+			{
+				lf++;
+				j--;
+			}
+			break;
+		}
+		    if(j==-1)
+			{
+				nf=1;
+			}
+			else
+			{
+				lr=j;
+			}
+
+		 for(j=p+1;j<l;j++)
+		 {
+			while((strcmp(st[j],"?")==0)&&j<l)
+			{
+				rh++;
+				j++;
+			}
+			break;
+		 }
+		     if(j==l)
+			{
+				nr=1;
+			}
+			else
+			{
+				rr=j;
+			}
+		 if(nf==1)
+		 {
+			 for(x=0;x<rh+1;x++)
+			 {
+				 printf("left of ");
+			 }
+			 printf("%s\n",st[rr]);
+		 }
+		 else if(nr==1)
+		 {
+			 for(x=0;x<lf+1;x++)
+			 {
+				 printf("right of ");
+			 }
+			 printf("%s\n",st[lr]);
+		 }
+		 else
+		 {
+			 if(lf==rh)
+			 {
+				 printf("middle of %s and %s\n",st[lr],st[rr]);
+			 }
+			 else if(lf>rh)
+			 {
+				 for(x=0;x<rh+1;x++)
+				 {
+					 printf("left of ");
+				 }
+				 printf("%s\n",st[rr]);
+			 }
+			 else
+			 {
+				 for(x=0;x<lf+1;x++)
+				 {
+					 printf("right of ");
+				 }
+				 printf("%s\n",st[lr]);
+			 }
+		 }
+		}
+	}
+	return 0;
+}

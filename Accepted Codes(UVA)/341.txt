@@ -1,0 +1,113 @@
+#include<cstdio>
+#include<algorithm>
+#include<iostream>
+#include<queue>
+#include<vector>
+#define inf 10000000
+#define MAX(a,b)(a<b?b:a)
+#define MIN(a,b)(a<b?a:b)
+#define even(a)((a)%2==0)
+#define odd(a)((a)%2!=0)
+using namespace std;
+vector<int>vc[110],cst[110];
+int d[110],pcost,k,sz,fn,par[110],ans[110];
+struct data{
+	int city,dist;
+	bool operator<(const data&p)const{
+        return dist>p.dist;
+	}
+};
+data x,y;
+priority_queue<data>qu;
+void dis(int n)
+{
+	int i;
+	for(i=1;i<=n;i++)
+	{
+		d[i]=inf;
+	}
+}
+void djkstra(int src)
+{
+	d[src]=0;
+	x.city=src;
+	x.dist=0;
+	qu.push(x);
+	while(!qu.empty())
+	{
+		x=qu.top();
+		qu.pop();
+		pcost=d[x.city];
+		sz=vc[x.city].size();
+		for(k=0;k<sz;k++)
+		{
+			y.city=vc[x.city][k];
+			y.dist=pcost+cst[x.city][k];
+			if(d[y.city]>y.dist)
+			{
+				par[y.city]=x.city;
+				d[y.city]=y.dist;
+				qu.push(y);
+				//if(y.city==fn)
+					//break;
+			}
+		}
+	}
+}
+int main()
+{
+	int i,n,j,a,b,num,in,pt,test=0,res;
+	while(scanf("%d",&n)&&n)
+	{
+		test++;
+		dis(n);
+		for(i=1;i<=n;i++)
+		{
+			scanf("%d",&num);
+			for(j=0;j<num;j++)
+			{
+				scanf("%d%d",&a,&b);
+				vc[i].push_back(a);
+				cst[i].push_back(b);
+			}
+		}
+		scanf("%d%d",&in,&fn);
+		djkstra(in);
+		res=d[fn];
+		k=1;
+		ans[0]=fn;
+		if(in==fn)
+			printf("Case %d: Path = %d %d; 0 second delay\n",test,fn,in);
+		else
+		{
+		while(1)
+		{	
+			pt=par[fn];
+			ans[k]=pt;
+			k++;
+			if(par[fn]==in)
+			{
+			 break;
+			}
+			fn=pt;
+		}
+		printf("Case %d: Path =",test);
+		for(j=k-1;j>=0;j--)
+		{
+			printf(" %d",ans[j]);
+		}
+		printf("; %d second delay\n",res);
+		}
+		for(i=0;i<=n;i++)
+		{
+			vc[i].clear();
+			cst[i].clear();
+			par[i]=ans[i]=0;
+		}
+		while(!qu.empty())
+		{
+			qu.pop();
+		}
+	}
+	return 0;
+}

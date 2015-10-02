@@ -1,0 +1,64 @@
+/*ID: muntasi5
+PROG: milk
+LANG: JAVA
+*/
+import java.io.*;
+import java.util.*;
+public class milk {
+
+	public static void main(String[] args) throws IOException{
+		int i = 0, n, m, result = 0, total = 0 , need = 0;
+		long max = 0l, ppu, totalUnit, forCompare;
+		BufferedReader f = new BufferedReader(new FileReader("milk.in"));
+		PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("milk.out")));
+		StringTokenizer st = new StringTokenizer(f.readLine());
+		n = Integer.parseInt(st.nextToken()); m = Integer.parseInt(st.nextToken());
+		need = n;
+		Farmer[] farmers =  new Farmer[m];		
+		for(i = 0; i < m; i++)
+		{
+			StringTokenizer st1 = new StringTokenizer(f.readLine());
+			ppu = Long.parseLong(st1.nextToken());
+			totalUnit = Long.parseLong(st1.nextToken());
+			farmers[i] = new Farmer(ppu, totalUnit);
+			max = Math.max(max, farmers[i].totalUnit);
+		}
+		for(i = 0; i < m; i++)			
+		{
+			farmers[i].forCompare = max * farmers[i].ppu;
+		}
+		
+		Arrays.sort(farmers, new Comparator<Farmer>() {
+			public int compare(Farmer f1, Farmer f2)
+			{
+			 if(f1.forCompare > f2.forCompare) return 1;
+			 else return -1;
+			}
+		});
+		for(i = 0; i < m; i++)
+		{
+			if(need == 0) break;
+			if(need >= farmers[i].totalUnit)
+			{
+				result += (farmers[i].ppu * farmers[i].totalUnit);
+				need -= farmers[i].totalUnit;
+			}
+			else {
+				result += (need * farmers[i].ppu);
+				need = 0;
+			}
+		}
+		out.println(result);
+		out.close();
+		System.exit(0);
+	}
+	public static class Farmer{
+		public long ppu, totalUnit, forCompare;
+		public Farmer(long ppu, long totalUnit)
+		{
+			this.ppu = ppu;
+			this.totalUnit = totalUnit;
+		}
+	}
+
+}

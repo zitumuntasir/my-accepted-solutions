@@ -1,0 +1,135 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<functional>
+#include<numeric>
+#include<cfloat>
+#include<sstream>
+#include<complex>
+#include<queue>
+#include<cstring>
+#include<stdexcept>
+#include<utility>
+#include<map>
+#include<fstream>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+const double eps = 1e-9;
+using namespace std;
+vector<long>vc[100002],ivc[100002];
+long clr[100005];
+long k,ara[100005],cnt,cm[100005];
+long ind[100005];
+void dfs1(long nod,long g,long w)
+ {
+	 long j,v;
+	 clr[nod]=g;
+	 for(j=0;j<ivc[nod].size();j++)
+	 {
+		 v=ivc[nod][j];
+		 if(clr[v]==w)
+		 {
+			 cm[v]=cnt;
+			 ind[v]=cnt;
+			 dfs1(v,0,1);
+		 }
+	 }
+
+ }
+void dfs(long node,long G,long W)
+{
+	long i,u;
+	clr[node]=G;
+	for(i=0;i<vc[node].size();i++)
+	{
+		u=vc[node][i];
+		if(clr[u]==W)
+		{
+			dfs(u,1,0);
+		}
+	}
+	ara[k]=node;
+	k++;
+}
+int main()
+{
+	long test,num,line,u,v,i,j,l,size,count,cse=0;
+	scanf("%ld",&test);
+	for(i=0;i<test;i++)
+	{
+		cse++;
+		cnt=k=count=0;
+		scanf("%ld%ld",&num,&line);
+		for(j=0;j<line;j++)
+		{
+			scanf("%ld%ld",&u,&v);
+			vc[u].push_back(v);
+			ivc[v].push_back(u);
+		}
+		for(j=1;j<=num;j++)
+		{
+			if(clr[j]==0)
+			{
+				dfs(j,1,0);
+			}
+		}
+	     for(j=k-1;j>=0;j--)
+		{
+			 if(clr[ara[j]]==1)
+			 {
+				 cnt++;
+				 cm[ara[j]]=cnt;
+				 ind[ara[j]]=1;
+				 dfs1(ara[j],0,1);
+			 }
+		}
+		 for(j=1;j<=num;j++)
+		 {
+			 for(l=0;l<vc[j].size();l++)
+			 {
+				 u=vc[j][l];
+				if((cm[u]!=cm[j]))
+				{
+					ind[cm[u]]=0;
+				}
+
+			 }
+		 }
+		 count=0;
+		 for(j=1;j<=cnt;j++)
+		 {
+			 if(ind[j]!=0)
+			 {
+				 count++;
+			 }
+		 }
+		 printf("%ld\n",count);
+		 for(j=0;j<=num;j++)
+		 {
+			 clr[j]=cm[j]=0;
+			 vc[j].clear();
+			 ivc[j].clear();
+			 ara[j]=ind[j]=0;
+		 }
+	}
+	return 0;
+}

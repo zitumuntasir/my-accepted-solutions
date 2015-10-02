@@ -1,0 +1,52 @@
+#include<iostream>
+#include<cstdio>
+#include<cstring>
+#include<algorithm>
+#include<vector>
+#include<limits>
+#include<cmath>
+#include<map>
+using namespace std;
+long i;
+char inp[103][103];
+long M,N,cnt,ans,j;
+long xmyarr[]={-1, 0, 1,1,1,0,-1,-1};
+long ymyarr[]={-1,-1,-1,0,1,1, 1, 0};
+void fill(long x,long y)
+{
+	long p;
+    if(inp[x][y]!='@'||inp[x][y]==NULL) return;
+    //if(x<0 ||x>=M || y<0 || y>=N || inp[x][y]!='@') return;
+    cnt++;
+    inp[x][y]='*';
+    for(p=0;p<8;p++)
+    fill(x+xmyarr[p],y+ymyarr[p]);
+}
+int main()
+{
+	long p,q;
+    while(scanf("%ld%ld",&M,&N)!=EOF && (M || N))
+    {
+		getchar();
+        for(i=0;i<M;i++)
+        gets(inp[i]);
+        ans=0;
+        for(p=0;p<M;p++)
+        for(q=0;q<N;q++)
+        {
+            cnt=0;
+            if(inp[p][q]=='@')
+            fill(p,q);
+            if(cnt) ans++;
+        }
+        printf("%ld\n",ans);
+		for(p=0;p<M;p++)
+		{
+			for(q=0;q<N;q++)
+			{
+				inp[p][q]=NULL;
+			}
+		}
+    }
+return 0;
+}

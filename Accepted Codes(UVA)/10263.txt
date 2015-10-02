@@ -1,0 +1,85 @@
+#include<stdio.h>
+#include<math.h>
+#include<iostream>
+using namespace std;
+struct ss{
+	double x,y;
+}ara[1000000];
+double DP2D(double xa,double ya,double xb,double yb) {return xa*xb+ya*yb;}
+double DIST(double xa,double ya,double xb,double yb){double d1,d2;d1=xa-xb;d2=ya-yb;return sqrt(d1*d1+d2*d2);}
+double DP(double xa,double ya,double xb,double yb,double xc,double yc)
+{
+	//Angle creates in xa,ya
+	double ABX,ABY,ACX,ACY;
+	ABX=xa-xb,ABY=ya-yb;
+	ACX=xa-xc,ACY=ya-yc;
+	return (ABX*ACX+ABY*ACY);
+}
+double CP(double xa,double ya,double xb,double yb,double xc,double yc)
+{
+	//Angle creates in xa,ya
+	double ABX,ABY,ACX,ACY;
+	ABX=xa-xb,ABY=ya-yb;
+	ACX=xa-xc,ACY=ya-yc;
+	return (ABX*ACY-ABY*ACX);
+}
+int main()
+{
+	double sx,sy,xa,ya,xb,yb,xc,yc,bx,by,cx,cy;
+	double dist,dx,dy,l,p,q,u,v,d;
+	long n,i;
+	
+	while(scanf("%lf%lf%ld",&sx,&sy,&n)!=EOF)
+	{
+		double mn=1000000000.00;
+	 n++;
+	 for(i=0;i<n;i++)
+	 {
+		 scanf("%lf%lf",&ara[i].x,&ara[i].y);
+		 if(i)
+		 {
+			 xa=ara[i-1].x, ya=ara[i-1].y;
+			 xb=ara[i].x,   yb=ara[i].y;
+			 xc=sx,         yc=sy;
+			 if(DP(xa,ya,xb,yb,xc,yc)<=0)
+			 {
+				 dist=DIST(xa,ya,xc,yc);
+				 if(dist<mn)
+				 {
+					 mn=dist;
+					 dx=xa,dy=ya;
+				 }
+			 }
+			 else if(DP(xb,yb,xa,ya,xc,yc)<=0)
+			 {
+				 dist=DIST(xb,yb,xc,yc);
+				 if(dist<mn)
+				 {
+					 mn=dist;
+					 dx=xb,dy=yb;
+				 }
+			 }
+			 else
+			 {
+				 bx=xb-xa,by=yb-ya;
+				 cx=xc-xa,cy=yc-ya;
+				 d=sqrt(bx*bx+by*by);
+				 p=bx/d;
+				 q=by/d;
+				 l=fabs((bx*cx+by*cy)/DIST(xa,ya,xb,yb));
+				 dist=fabs(CP(xa,ya,xc,yc,xb,yb)/DIST(xa,ya,xb,yb));
+				 if(dist<mn)
+				 {
+					 mn=dist;
+					 dx=p*l;
+					 dx=dx+xa;
+					 dy=q*l;
+					 dy=dy+ya;
+				 }
+			 }
+		 }
+	 }
+	 printf("%.4lf\n%.4lf\n",dx,dy);
+	}
+	return 0;
+}

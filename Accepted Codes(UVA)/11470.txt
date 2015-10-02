@@ -1,0 +1,83 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<limits>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<bitset>
+#include<ctime>
+#include<sstream>
+#include<queue>
+#include<cstring>
+#include<map>
+#include<iomanip>
+#include<cassert>
+#define MAX(a,b) (a<b?b:a)
+#define MIN(a,b) (a<b?a:b)
+#define inf (1<<30)-1
+#define SIZE 100000001
+#define pi 3.14159265358979323846
+#define err 1e-9
+#define even(a) ((a)%2==0)
+#define odd(a) ((a)%2==1)
+const double E = 2.7182818284590452353602874713527;
+using namespace std;
+long inp[1000][1000],ara[1000];
+long GCD(long a,long b)
+{
+	while(b) b ^= a ^= b ^= a %= b;
+	return a;
+}
+int main()
+{
+	char c;
+	long i,j,k,sum1,sum2,l,test=0;
+	double num,lim;
+	while(scanf("%lf",&num)&&num)
+	{
+		test++;
+		lim=(ceil)(num/2);
+		for(i=0;i<num;i++)
+		{
+		  for(j=0;j<num;j++)
+		  {
+			  scanf("%ld",&inp[i][j]);
+		  }
+		}
+		sum1=0;
+		sum2=num-1;
+		for(l=0;l<lim;l++)
+		{
+		 for(i=0;i<num;i++)
+		 {
+			for(j=0;j<num;j++)
+			{
+				if((i==sum1||i==sum2||j==sum1||j==sum2)&&inp[i][j]!=-1)
+				{
+					ara[l]+=inp[i][j];
+				    inp[i][j]=-1;
+				}
+
+			}
+		 }
+		 sum1++;
+		 sum2--;
+		}
+		printf("Case %ld: ",test);
+		for(i=0;i<lim-1;i++)
+		{
+			printf("%ld ",ara[i]);
+			ara[i]=0;
+		}
+		printf("%ld\n",ara[i]);
+		ara[i]=0;
+
+	}
+	return 0;
+}

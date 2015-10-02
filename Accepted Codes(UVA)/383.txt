@@ -1,0 +1,88 @@
+#include<cstdio>
+#include<iostream>
+#include<cmath>
+#include<cstdlib>
+#include<cctype>
+#include<algorithm>
+#include<vector>
+#include<stack>
+#include<string>
+#include<deque>
+#include<list>
+#include<queue>
+#include<cstring>
+#include<map>
+#define max(a,b) (a>b?a:b)
+#define min(a,b) !(b<a)?a:b;
+using namespace std;
+char ch[10],ch1[10];
+vector<long>vc[100];
+map<string,long>mp;
+long cost[1000],visit[1000];
+queue<long>q;
+void bfs(long node)
+{
+	long i,u,v;
+	q.push(node);
+	while(!q.empty())
+	{
+		v=q.front();
+		visit[v]=1;
+		for(i=0;i<vc[v].size();i++)
+		{
+			u=vc[v][i];
+			if(!visit[u])
+			{
+			q.push(u);
+			cost[u]=cost[v]+1;
+			visit[u]=1;
+			}
+		}
+		q.pop();
+	}
+}
+int main()
+{
+	long M,N,P,i,j,test,k,sz,l,a;
+	printf("SHIPPING ROUTES OUTPUT\n\n");
+	scanf("%ld",&test);
+	for(i=1;i<=test;i++)
+	{
+		k=0;
+		scanf("%ld%ld%ld",&M,&N,&P);
+		for(j=0;j<M;j++)
+		{
+			scanf("%s",ch);
+			mp[ch]=k;
+			k++;
+		}
+		for(j=0;j<N;j++)
+		{
+			scanf("%s%s",ch,ch1);
+			vc[mp[ch]].push_back(mp[ch1]);
+			vc[mp[ch1]].push_back(mp[ch]);
+		}
+		printf("DATA SET  %ld\n\n",i);
+		for(j=0;j<P;j++)
+		{
+			scanf("%ld%s%s",&sz,ch,ch1);
+			cost[mp[ch]]=0;
+			bfs(mp[ch]);
+			if(cost[mp[ch1]]==0)
+				printf("NO SHIPMENT POSSIBLE\n");
+			else
+			    printf("$%ld\n",cost[mp[ch1]]*100*sz);
+			for(l=0;l<k;l++)
+			{
+				visit[l]=cost[l]=0;
+			}
+		}
+		printf("\n");
+		for(j=0;j<M;j++)
+		{
+			vc[j].clear();
+		}
+	}
+	printf("END OF OUTPUT\n");
+	return 0;
+}
